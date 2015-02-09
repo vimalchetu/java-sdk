@@ -28,7 +28,7 @@ The method is responsible for the invocation of verify operation on the Velocity
 <h2>2. VelocityResponse </h2><br/>
 
 This class implements the responses coming from the Velocity server for a payment transaction request. <br/>
-It has the following attributes with name and datatype.
+It has the following attributes with name and datatype.<br/>
      1.  statusCode - String <br/>
      2.  message - String <br/>
      3.  bankcardTransactionResponse - com.velocity.models.response.BankcardTransactionResponsePro  <br/>
