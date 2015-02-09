@@ -43,7 +43,13 @@ AuthorizeAndCaptureTransaction <br/>
 @returnType  <b>VelocityResponse</b>  <br/>  
 
 
+<h2>1.4 invokeCaptureRequest(...) </h2><br/>
+The method is responsible for the invocation of capture operation on the Velocity REST server.<br/>
+<b>                                                                                                                      public VelocityResponse invokeCaptureRequest(com.velocity.models.request.capture.ChangeTransaction captureTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
 
+@parameter <b>captureTransaction </b> - holds the values for the capture request ChangeTransaction <br/>
+
+@returnType  <b>VelocityResponse</b>  <br/> 
 
 
 <h2>2. VelocityResponse </h2><br/>
