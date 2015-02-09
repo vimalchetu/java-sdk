@@ -19,7 +19,7 @@ We have the following main classes with respect to responses coming from the Vel
      2.  com.velocity.models.response.BankcardCaptureResponse    <br/>
      3.  com.velocity.models.response.ErrorResponse    <br/><br/>
 
-<h2>BankcardTransactionResponsePro</h2><br/>
+<h2>1. BankcardTransactionResponsePro</h2><br/>
 
 This class has the following main attributes with its name and datatype. <br/>
      1.   status - String     <br/>
@@ -34,6 +34,56 @@ This class has the following main attributes with its name and datatype. <br/>
      10.  transactionState - String     <br/>
      11.  acknowledged - boolean   <br/>
      12.  prepaidCard - String     <br/>
-     13. reference - String     <br/>
-     14. amount - String     <br/>
-     15. cardType - String     <br/>
+     13.  reference - String     <br/>
+     14.  amount - String     <br/>
+     15.  cardType - String     <br/>
+     16.  feeAmount - String    <br/>
+     17.  approvalCode - String     <br/>
+     18.  avsResult - AVSResult     <br/>
+     19.  batchId - String    <br/>
+     20.  cVResult - String   <br/>
+     21.  cardLevel - String   <br/>
+     22.  downgradeCode - String  <br/>
+     23.  maskedPAN - String    <br/>
+     24.  paymentAccountDataToken - String    <br/>
+     25.  retrievalReferenceNumber - String      <br/>
+     26.  resubmit - String    <br/>
+     27.  settlementDate - String   <br/>
+     28.  finalBalance - String     <br/>
+     29.  orderId - String       <br/>
+     30.  cashBackAmount - String    <br/>
+     31.  adviceResponse - String     <br/>
+     32.  commercialCardResponse -  String     <br/>
+     33.  returnedACI - String       <br/><br/>
+     
+<h2>2. BankcardCaptureResponse </h2><br/>     
+   
+This class has the following main attributes with its name and datatype. <br/>     
+     1.   status - String     <br/>
+     2.   statusCode - String     <br/>
+     3.   statusMessage - String     <br/>
+     4.   transactionId - String     <br/>
+     5.   originatorTransactionId - String     <br/>
+     6.   serviceTransactionId - String     <br/>
+     7.   serviceTransactionDateTime - ServiceTransactionDateTime   <br/>
+     8.   date - String   <br/>
+     9.   time - String   <br/>
+     10.  timezone - String     <br/>
+     11.  addendum - Addendum   <br/>
+     12.  captureState - String    <br/>
+     13.  transactionState - String    <br/>
+     14.  acknowledged - String   <br/>
+     15.  reference - String       <br/>
+     16.  batchId - String       <br/> 
+     17.  industryType - String     <br/>
+     18.  transactionSummaryData - TransactionSummaryData     <br/>
+     19.  prepaidCard - String      <br/>
+     
+ <h2>3. ErrorResponse </h2><br/>     
+ 
+This class has the following main attributes with its name and datatype. <br/>     
+   1.  errorId - String   <br/>
+   2.  helpUrl - String   <br/>
+   3.  operation - String    <br/>
+   4.  reason - String   <br/>
+   5.  validationErrors - ValidationErrors    <br/>
