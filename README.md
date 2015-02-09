@@ -4,6 +4,8 @@ It has the implemtation of all the transaction payment solution methods for a me
 At the centre of this SDK, there is the class <b>com.velocity.transaction.processor.velocity.VelocityProcessor</b>. <br/>
 The signature of the constructor of this class is as below: <br/>
 <b>public VelocityProcessor(String identityToken, String appProfileId, String merchantProfileId, String workFlowId, boolean isTestAccount) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b> <br/>
+
+ <h2>1. VelocityProcessor </h2><br/>
 This class provides the implementation of the following methods: <br/>
      1. invokeVerifyRequest   <br/>
      2. invokeAuthorizeRequest  <br/>
@@ -14,12 +16,12 @@ This class provides the implementation of the following methods: <br/>
      7. invokeReturnByIdRequest    <br/>
      8. invokeReturnUnlinkedRequest     <br/><br/>
 
-We have the following main classes with respect to responses coming from the Velocity server for a payemnt transaction request. <br/>
+We have the following main classes with respect to responses coming from the Velocity server for a payment transaction request. <br/>
      1.  com.velocity.models.response.BankcardTransactionResponsePro  <br/>
      2.  com.velocity.models.response.BankcardCaptureResponse    <br/>
      3.  com.velocity.models.response.ErrorResponse    <br/><br/>
 
-<h2>1. BankcardTransactionResponsePro</h2><br/>
+<h2>2. BankcardTransactionResponsePro</h2><br/>
 
 This class has the following main attributes with its name and datatype. <br/>
      1.   status - String     <br/>
@@ -56,7 +58,7 @@ This class has the following main attributes with its name and datatype. <br/>
      32.  commercialCardResponse -  String     <br/>
      33.  returnedACI - String       <br/><br/>
      
-<h2>2. BankcardCaptureResponse </h2><br/>     
+<h2>3. BankcardCaptureResponse </h2><br/>     
    
 This class has the following main attributes with its name and datatype. <br/>     
      1.   status - String     <br/>
@@ -79,7 +81,7 @@ This class has the following main attributes with its name and datatype. <br/>
      18.  transactionSummaryData - TransactionSummaryData     <br/>
      19.  prepaidCard - String      <br/>
      
- <h2>3. ErrorResponse </h2><br/>     
+ <h2>4. ErrorResponse </h2><br/>     
  
 This class has the following main attributes with its name and datatype. <br/>     
    1.  errorId - String   <br/>
