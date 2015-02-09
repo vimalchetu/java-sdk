@@ -35,9 +35,10 @@ The method is responsible for the invocation of authorize operation on the Veloc
 
 <h2>1.3 invokeAuthorizeAndCaptureRequest(...) </h2><br/>
 The method is responsible for the invocation of authorizeAndCapture operation on the Velocity REST server.<br/>
-<b>public VelocityResponse invokeAuthorizeAndCaptureRequest(com.velocity.models.request.authorizeAndCapture.AuthorizeAndCaptureTransaction authorizeAndCaptureTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
+ <b>                                                                                                                       public VelocityResponse invokeAuthorizeAndCaptureRequest(com.velocity.models.request.authorizeAndCapture.AuthorizeAndCaptureTransaction authorizeAndCaptureTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
 
-@parameter <b>authorizeAndCaptureTransaction </b> - holds the values for the authorizeAndCapture request AuthorizeAndCaptureTransaction <br/>
+@parameter <b>authorizeAndCaptureTransaction </b> - holds the values for the authorizeAndCapture request 
+AuthorizeAndCaptureTransaction <br/>
 
 @returnType  <b>VelocityResponse</b>  <br/>  
 
