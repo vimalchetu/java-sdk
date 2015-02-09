@@ -21,11 +21,19 @@ We have the following main classes with respect to responses coming from the Vel
 
 <h2>BankcardTransactionResponsePro</h2><br/>
 
-This class has the following main attributes with its name and datatype.
+This class has the following main attributes with its name and datatype. <br/>
      1.   status - String     <br/>
      2.   statusCode - String     <br/>
      3.   statusMessage - String     <br/>
      4.   transactionId - String     <br/>
      5.   originatorTransactionId - String     <br/>
      6.   serviceTransactionId - String     <br/>
-     7.   serviceTransactionDateTime - ServiceTransactionDateTime
+     7.   serviceTransactionDateTime - ServiceTransactionDateTime   <br/>
+     8.   addendum - Addendum    <br/>
+     9.   captureState - String     <br/>
+     10.  transactionState - String     <br/>
+     11.  acknowledged - boolean   <br/>
+     12.  prepaidCard - String     <br/>
+     13. reference - String     <br/>
+     14. amount - String     <br/>
+     15. cardType - String     <br/>
