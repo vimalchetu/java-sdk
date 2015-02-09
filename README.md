@@ -24,11 +24,11 @@ This class provides the implementation of the following methods: <br/>
 <h2>1.1 invokeVerifyRequest(..) </h2><br/>
 The method is responsible for the invocation of verify operation on the Velocity REST server.<br/>
 The signature for this method is defined below : <br/>
-<b> public VelocityResponse invokeVerifyRequest(AuthorizeTransaction authorizeTransaction) throws VelocityGenericException, VelocityIllegalArgument, VelocityNotFound, VelocityRestInvokeException</b><br/>
+<b> public VelocityResponse invokeVerifyRequest(AuthorizeTransaction authorizeTransaction) throws VelocityGenericException, VelocityIllegalArgument, VelocityNotFound, VelocityRestInvokeException</b><br/><br/>
 
-<b>authorizeTrsansaction -<b> Stores the argument values for the type AuthorizeTransaction <br/>
+<b>authorizeTrsansaction -</b> Stores the argument values for the type AuthorizeTransaction <br/>
 
-<b>ReturnType -<b> VelocityResponse <br/>
+<b>ReturnType -</b> VelocityResponse <br/>
 
 
 
