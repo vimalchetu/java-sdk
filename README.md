@@ -12,4 +12,9 @@ This class provides the implementation of the following methods: <br/>
      5. invokeUndoRequest     <br/>
      6. invokeAdjustRequest   <br/>
      7. invokeReturnByIdRequest    <br/>
-     8. invokeReturnUnlinkedRequest     <br/>
+     8. invokeReturnUnlinkedRequest     <br/><br/>
+
+We have the following main classes with respect to responses coming from the Velocity server for a payemnt transaction request. <br/>
+     1.  com.velocity.models.response.BankcardTransactionResponsePro
+     2.  com.velocity.models.response.BankcardCaptureResponse
+     3.  com.velocity.models.response.ErrorResponse
