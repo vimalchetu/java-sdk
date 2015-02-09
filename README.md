@@ -1,6 +1,6 @@
 # java-sdk
 This is the velocity java SDK implementation. <br/>
-It has the implemtation of all the transaction payment solution methods for a merchant application who wants to access the Velocity payment gateway. <br/><br/>
+It has the implementation of all the transaction payment solution methods for a merchant application who wants to access the Velocity payment gateway. <br/><br/>
 At the centre of this SDK, there is the class <b>com.velocity.transaction.processor.velocity.VelocityProcessor</b>. <br/>
 The signature of the constructor of this class is as below: <br/>
 <b>public VelocityProcessor(String identityToken, String appProfileId, String merchantProfileId, String workFlowId, boolean isTestAccount) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b> <br/>
@@ -21,8 +21,10 @@ This class provides the implementation of the following methods: <br/>
      7. invokeReturnByIdRequest    <br/>
      8. invokeReturnUnlinkedRequest     <br/><br/>
 
-<h2>1.1 invokeVerifyRequest </h2><br/>
-
+<h2>1.1 invokeVerifyRequest(..) </h2><br/>
+The method is responsible for the invocation of verify operation on the REST server.<br/>
+The Signature for this method is defined below : <br/>
+<b> public VelocityResponse invokeVerifyRequest(AuthorizeTransaction authorizeTransaction) throws VelocityGenericException, VelocityIllegalArgument, VelocityNotFound, VelocityRestInvokeException</b>
 
 
 
