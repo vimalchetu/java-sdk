@@ -52,6 +52,38 @@ The method is responsible for the invocation of capture operation on the Velocit
 @returnType  <b>VelocityResponse</b>  <br/> 
 
 
+<h2>1.5 invokeUndoRequest(...) </h2><br/>
+The method is responsible for the invocation of undo operation on the Velocity REST server.<br/>
+<b>                                                                                                                      public VelocityResponse invokeUndoRequest(com.velocity.models.request.undo.Undo undoTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
+
+@parameter <b>undoTransaction </b> - holds the values for the undo request Undo <br/>
+
+@returnType  <b>VelocityResponse</b>  <br/> 
+
+<h2>1.6 invokeAdjustRequest(...) </h2><br/>
+The method is responsible for the invocation of adjust operation on the Velocity REST server.<br/>
+<b>                                                                                                                      public VelocityResponse invokeAdjustRequest(com.velocity.models.request.adjust.Adjust adjustTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
+
+@parameter <b>adjustTransaction </b> - holds the values for the adjust request Adjust <br/>
+
+@returnType  <b>VelocityResponse</b>  <br/> 
+
+<h2>1.7 invokeReturnByIdRequest(...) </h2><br/>
+The method is responsible for the invocation of returnById operation on the Velocity REST server.<br/>
+<b>                                                                                                                      public VelocityResponse invokeReturnByIdRequest(com.velocity.models.request.returnById.ReturnById returnByIdTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
+
+@parameter <b>returnByIdTransaction </b> - holds the values for the returnById request ReturnById <br/>
+
+@returnType  <b>VelocityResponse</b>  <br/> 
+
+<h2>1.8 invokeReturnUnlinkedRequest(...) </h2><br/>
+The method is responsible for the invocation of returnUnLinked operation on the Velocity REST server.<br/>
+<b>                                                                                                                      public VelocityResponse invokeReturnUnlinkedRequest(com.velocity.models.request.returnUnLinked.ReturnTransaction returnUnlinkedTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
+
+@parameter <b>returnUnlinkedTransaction </b> - holds the values for the returnUnlinked request ReturnTransaction<br/>
+
+@returnType  <b>VelocityResponse</b>  <br/> 
+
 <h2>2. VelocityResponse </h2><br/>
 
 This class implements the responses coming from the Velocity server for a payment transaction request. <br/>
