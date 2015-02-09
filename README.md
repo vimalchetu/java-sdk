@@ -25,13 +25,25 @@ The method is responsible for the invocation of verify operation on the Velocity
 
 @returnType  <b>VelocityResponse</b>  <br/>  
 
-<h2>1.1 invokeAuthorizeRequest(...) </h2><br/>
+<h2>1.2 invokeAuthorizeRequest(...) </h2><br/>
 The method is responsible for the invocation of authorize operation on the Velocity REST server.<br/>
 <b>public VelocityResponse invokeAuthorizeRequest(com.velocity.models.request.authorize.AuthorizeTransaction authorizeTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityRestInvokeException, VelocityNotFound</b><br/>
 
 @parameter <b>authorizeTrsansaction </b> - holds the values for the authorize request AuthorizeTransaction <br/>
 
 @returnType  <b>VelocityResponse</b>  <br/>  
+
+<h2>1.3 invokeAuthorizeAndCaptureRequest(...) </h2><br/>
+The method is responsible for the invocation of authorizeAndCapture operation on the Velocity REST server.<br/>
+<b>public VelocityResponse invokeAuthorizeAndCaptureRequest(com.velocity.models.request.authorizeAndCapture.AuthorizeAndCaptureTransaction authorizeAndCaptureTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
+
+@parameter <b>authorizeAndCaptureTransaction </b> - holds the values for the authorizeAndCapture request AuthorizeAndCaptureTransaction <br/>
+
+@returnType  <b>VelocityResponse</b>  <br/>  
+
+
+
+
 
 <h2>2. VelocityResponse </h2><br/>
 
