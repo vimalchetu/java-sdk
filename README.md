@@ -21,6 +21,12 @@ This class provides the implementation of the following methods: <br/>
      7. invokeReturnByIdRequest    <br/>
      8. invokeReturnUnlinkedRequest     <br/><br/>
 
+<h2>1.1 invokeVerifyRequest </h2><br/>
+
+
+
+
+
 <h2>2. BankcardTransactionResponsePro</h2><br/>
 
 This class has the following main attributes with its name and datatype. <br/>
