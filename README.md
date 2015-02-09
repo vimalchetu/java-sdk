@@ -25,6 +25,14 @@ The method is responsible for the invocation of verify operation on the Velocity
 
 @returnType  <b>VelocityResponse</b>  <br/>  
 
+<h2>1.1 invokeAuthorizeRequest(...) </h2><br/>
+The method is responsible for the invocation of authorize operation on the Velocity REST server.<br/>
+<b>public VelocityResponse invokeAuthorizeRequest(com.velocity.models.request.authorize.AuthorizeTransaction authorizeTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityRestInvokeException, VelocityNotFound</b><br/>
+
+@parameter <b>authorizeTrsansaction </b> - holds the values for the authorize request AuthorizeTransaction <br/>
+
+@returnType  <b>VelocityResponse</b>  <br/>  
+
 <h2>2. VelocityResponse </h2><br/>
 
 This class implements the responses coming from the Velocity server for a payment transaction request. <br/>
