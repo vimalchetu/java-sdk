@@ -5,11 +5,6 @@ At the centre of this SDK, there is the class <b>com.velocity.transaction.proces
 The signature of the constructor of this class is as below: <br/>
 <b>public VelocityProcessor(String identityToken, String appProfileId, String merchantProfileId, String workFlowId, boolean isTestAccount) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b> <br/>
 
-We have the following main classes with respect to responses coming from the Velocity server for a payment transaction request. <br/>
-     1.  com.velocity.models.response.BankcardTransactionResponsePro  <br/>
-     2.  com.velocity.models.response.BankcardCaptureResponse    <br/>
-     3.  com.velocity.models.response.ErrorResponse    <br/><br/>
-
  <h2>1. VelocityProcessor </h2><br/>
 This class provides the implementation of the following methods: <br/>
      1. invokeVerifyRequest   <br/>
@@ -21,18 +16,26 @@ This class provides the implementation of the following methods: <br/>
      7. invokeReturnByIdRequest    <br/>
      8. invokeReturnUnlinkedRequest     <br/><br/>
 
-<h2>1.1 invokeVerifyRequest(..) </h2><br/>
+<h2>1.1 invokeVerifyRequest(...) </h2><br/>
 The method is responsible for the invocation of verify operation on the Velocity REST server.<br/>
-The signature for this method is defined below : <br/>
+
 <b> public VelocityResponse invokeVerifyRequest(AuthorizeTransaction authorizeTransaction) throws VelocityGenericException, VelocityIllegalArgument, VelocityNotFound, VelocityRestInvokeException</b><br/><br/>
 
-<b>authorizeTrsansaction -</b> Stores the argument values for the type AuthorizeTransaction <br/>
+@parameter <b>authorizeTrsansaction </b> - holds the values for the verify request AuthorizeTransaction <br/>
 
-<b>ReturnType -</b> VelocityResponse <br/>
+@returnType  <b>VelocityResponse</b>  <br/>  
 
+<h2>2. VelocityResponse </h2><br/>
 
+This class implements the responses coming from the Velocity server for a payment transaction request. <br/>
+It has the following attributes with name and datatype.
+     1.  statusCode - String <br/>
+     2.  message - String <br/>
+     3.  bankcardTransactionResponse - com.velocity.models.response.BankcardTransactionResponsePro  <br/>
+     4.  bankcardCaptureResponse - com.velocity.models.response.BankcardCaptureResponse    <br/>
+     5.  errorResponse - com.velocity.models.response.ErrorResponse    <br/><br/>
 
-<h2>2. BankcardTransactionResponsePro</h2><br/>
+<h2>2.1 BankcardTransactionResponsePro</h2><br/>
 
 This class has the following main attributes with its name and datatype. <br/>
      1.   status - String     <br/>
@@ -69,7 +72,7 @@ This class has the following main attributes with its name and datatype. <br/>
      32.  commercialCardResponse -  String     <br/>
      33.  returnedACI - String       <br/><br/>
      
-<h2>3. BankcardCaptureResponse </h2><br/>     
+<h2>2.2 BankcardCaptureResponse </h2><br/>     
    
 This class has the following main attributes with its name and datatype. <br/>     
      1.   status - String     <br/>
@@ -92,7 +95,7 @@ This class has the following main attributes with its name and datatype. <br/>
      18.  transactionSummaryData - TransactionSummaryData     <br/>
      19.  prepaidCard - String      <br/>
      
- <h2>4. ErrorResponse </h2><br/>     
+ <h2>2.3 ErrorResponse </h2><br/>     
  
 This class has the following main attributes with its name and datatype. <br/>     
    1.  errorId - String   <br/>
