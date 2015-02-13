@@ -162,3 +162,59 @@ This class has the following main attributes with its name and datatype. <br/>
    3.  operation - String    <br/>
    4.  reason - String   <br/>
    5.  validationErrors - ValidationErrors    <br/>
+   
+<h2>3. Certificate Installation </h2><br/>
+
+Import certificate to the cacerts store into server Java Home.  <br/>
+To do it, execute the following commands from the locations: <br/>
+
+1.	Java\jre7\lib\security  <br/>
+2.	Java\jdk1.7.0_07\jre\lib\security  <br/>
+    
+Command :<b> keytool -import -alias nab -file nab.cer -keystore cacerts </b> <br/>
+
+password: changeit  (Default) <br/>
+
+<b>Reference:  </b>  <br/>
+
+<b> http://azure.microsoft.com/en-in/documentation/articles/java-add-certificate-ca-store/ </b> <br/>
+
+
+<h2>4. Apache Maven Installation  </h2><br/>
+
+The project is developed as maven project so it must be pre-installed to the system for succesful execution.<br/>
+
+1) Download maven from the link mentioned below : <br/>
+
+  <b>http://maven.apache.org/download.cgi</b>
+
+2) Unzip and place Maven folder as for example :
+
+<b> C:\apache-maven-3.0.5 </b>
+
+3) Now add to the PATH of Operating system environment variable as :
+
+<b>  PATH=%PATH%;C:\apache-maven-3.0.5\bin; </b>
+
+
+<h2>5. Deployment Instructions for Java-SDK and Velocity Test Web Application </h2><br/>
+
+<b>5.1 Java SDK</b> <br/>
+
+The maven commands needs to be excuted to build the project as for example : <br/>
+
+<b> java-sdk\velocity-sdk> mvn clean install </b> <br/>
+
+This will ensure the compilation of both velocity-services as well as Velocity Test Web Application. <br/>
+ 
+ 
+ <b>5.2 Velocity Test WebApplication</b> <br/>
+ 
+ 1. Find the Test Web client application named <b>northamericanbancard.war </b> inside the folder  velocity_sdk/northamericanbancard-web/target <br/>
+
+ 2. Deploy <b> northamericanbancard.war </b> file into some web server like Tomcat. <br/>
+ 3. When the web server starts up, the open the below URL onto a Browser as: <br/>
+ 
+ <b>http://localhost:8080/northamericanbancard/index.jsp</b> <br/>
+
+
