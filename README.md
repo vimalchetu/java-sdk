@@ -210,7 +210,7 @@ This will ensure the compilation of both velocity-services as well as Velocity T
  
  <b>5.2 Velocity Test WebApplication</b> <br/>
  
- 1. Find the Test Web client application named <b>northamericanbancard.war </b> inside the folder  velocity_sdk/northamericanbancard-web/target <br/>
+ 1. Find the Test Web client application executable named <b>northamericanbancard.war </b> inside the folder  velocity-sdk/northamericanbancard-web/target <br/>
 
  2. Deploy <b> northamericanbancard.war </b> file into some web server like Tomcat. <br/>
  3. When the web server starts up, the open the below URL onto a Browser as: <br/>
