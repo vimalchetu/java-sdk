@@ -1,0 +1,8 @@
+keytool -import -alias nab2 -file nab.cer -keystore cacerts
+
+password: changeit (Default)
+
+
+
+
+
