@@ -207,7 +207,10 @@ The maven commands needs to be excuted to build the project as for example : <br
 <b> java-sdk\velocity-sdk> mvn clean install </b> <br/>
 
 This will ensure the compilation of both <b>velocity-services</b> as well as <b>northamericanbancard-web</b> projects.<br/>
- 
+
+Now Finally we have generated java Velocity SDK as <b>velocity-services-1.0.jar</b>. This can be obtained as below: <br/>
+
+<b>java-sdk\velocity-sdk\velocity-services\target\velocity-services-1.0.jar</b> <br/>
  
  <b>5.2 Velocity Test WebApplication</b> <br/>
  
