@@ -179,6 +179,7 @@ password: changeit  (Default) <br/>
 
 <b> http://azure.microsoft.com/en-in/documentation/articles/java-add-certificate-ca-store/ </b> <br/>
 
+<b>Note:</b> Certificates for this release can be found from the location <b> java-sdk\velocity-sdk\certs</b>. 
 
 <h2>4. Apache Maven Installation  </h2><br/>
 
