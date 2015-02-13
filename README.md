@@ -218,8 +218,8 @@ This will ensure the compilation of both velocity-services as well as Velocity T
  
  <b>http://localhost:8080/northamericanbancard/index.jsp</b> <br/>
  4. We can also run Test web application into in-built Jetty web server configured into Maven POM config of   
-    <b>northamericanbancard-web</b> project by using following command: <br/>
-    <b>java-sdk\velocity-sdk\northamericanbancard-web> mvn jetty:run</b> <br/>
+    <b>northamericanbancard-web</b> project by using following command: <br/><br/>
+    <b>java-sdk\velocity-sdk\northamericanbancard-web> mvn jetty:run</b> <br/><br/>
     Now Once the Jetty server started, then open below URL into the browser:<br/>
     <b>http://localhost:8080/index.jsp</b>
 
