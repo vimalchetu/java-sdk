@@ -200,18 +200,18 @@ The project is developed as maven project so it must be pre-installed to the sys
 
 <h2>5. Deployment Instructions for Java-SDK and Velocity Test Web Application </h2><br/>
 
-<b>5.1 Java SDK</b> <br/>
+<b>5.1 Velocity SDK</b> <br/>
 
 The maven commands needs to be excuted to build the project as for example : <br/>
 
 <b> java-sdk\velocity-sdk> mvn clean install </b> <br/>
 
-This will ensure the compilation of both velocity-services as well as Velocity Test Web Application. <br/>
+This will ensure the compilation of both <b>velocity-services</b> as well as <b>northamericanbancard-web</b> projects.<br/>
  
  
  <b>5.2 Velocity Test WebApplication</b> <br/>
  
- 1. Find the Test Web client application executable named <b>northamericanbancard.war </b> inside the folder  velocity-sdk/northamericanbancard-web/target <br/>
+ 1. Find the Test Web client application executable named <b>northamericanbancard.war</b> inside the folder  java-sdk\velocity-sdk\northamericanbancard-web\target <br/>
 
  2. Deploy <b> northamericanbancard.war </b> file into some web server like Tomcat. <br/>
  3. When the web server starts up, the open the below URL onto a Browser as: <br/>
