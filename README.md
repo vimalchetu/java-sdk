@@ -50,7 +50,7 @@ The method is responsible for the invocation of authorize operation on the Veloc
 
 <b>Sample Code:</b>
 
-    public VelocityResponse invokeAuthorizeRequest(com.velocity.models.request.authorize.AuthorizeTransaction authorizeTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityRestInvokeException, VelocityNotFound
+    VelocityResponse invokeAuthorizeRequest(AuthorizeTransaction authorizeTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityRestInvokeException, VelocityNotFound
 	{
 		AppLogger.logDebug(getClass(), "invokeAuthorizeRequest", "Entering...");
 			
@@ -75,7 +75,7 @@ AuthorizeAndCaptureTransaction <br/>
 
  <b>Sample Code:</b>
   
-    public VelocityResponse invokeAuthorizeAndCaptureRequest(com.velocity.models.request.authorizeAndCapture.AuthorizeAndCaptureTransaction authorizeAndCaptureTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException
+        VelocityResponse invokeAuthorizeAndCaptureRequest(AuthorizeAndCaptureTransaction authorizeAndCaptureTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException
 	{
 		AppLogger.logDebug(getClass(), "invokeAuthorizeAndCaptureRequest", "Entering...");
 			
