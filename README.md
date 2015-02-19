@@ -25,6 +25,21 @@ The method is responsible for the invocation of verify operation on the Velocity
 
 @returnType  <b>VelocityResponse</b>  <br/>  
 
+<b>Sample Code:</b>
+
+
+    public VelocityResponse invokeVerifyRequest(AuthorizeTransaction authorizeTransaction) throws VelocityGenericException, VelocityIllegalArgument, VelocityNotFound, VelocityRestInvokeException
+	{
+		VelocityResponse velocityResponse = null;
+
+		if(authorizeTransaction == null)
+		{
+			throw new VelocityIllegalArgument("AuthorizeTransaction can not be null or empty.");
+		}
+
+	    /* Generating verify XML input request. */
+		String verifyTxnRequestXML =  generateVerifyRequestXMLInput(authorizeTransaction);
+
 <h2>1.2 invokeAuthorizeRequest(...) </h2><br/>
 The method is responsible for the invocation of authorize operation on the Velocity REST server.<br/>
 <b>public VelocityResponse invokeAuthorizeRequest(com.velocity.models.request.authorize.AuthorizeTransaction authorizeTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityRestInvokeException, VelocityNotFound</b><br/>
@@ -32,6 +47,22 @@ The method is responsible for the invocation of authorize operation on the Veloc
 @parameter <b>authorizeTrsansaction </b> - holds the values for the authorize request AuthorizeTransaction <br/>
 
 @returnType  <b>VelocityResponse</b>  <br/>  
+
+<b>Sample Code:</b>
+
+    public VelocityResponse invokeAuthorizeRequest(com.velocity.models.request.authorize.AuthorizeTransaction authorizeTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityRestInvokeException, VelocityNotFound
+	{
+		AppLogger.logDebug(getClass(), "invokeAuthorizeRequest", "Entering...");
+			
+			if(sessionToken == null || sessionToken.isEmpty())
+			{
+				setVelocitySessionToken();
+			}
+			
+			/* Creating Http client for authorize request. */
+			CloseableHttpClient httpClient = HttpClients.createDefault();
+			/* Generating authorize XML input request. */
+			String authorizeTxnRequestXML =  generateAuthorizeRequestXMLInput(authorizeTransaction);
 
 <h2>1.3 invokeAuthorizeAndCaptureRequest(...) </h2><br/>
 The method is responsible for the invocation of authorizeAndCapture operation on the Velocity REST server.<br/>
@@ -42,6 +73,19 @@ AuthorizeAndCaptureTransaction <br/>
 
 @returnType  <b>VelocityResponse</b>  <br/>  
 
+ <b>Sample Code:</b>
+  
+    public VelocityResponse invokeAuthorizeAndCaptureRequest(com.velocity.models.request.authorizeAndCapture.AuthorizeAndCaptureTransaction authorizeAndCaptureTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException
+	{
+		AppLogger.logDebug(getClass(), "invokeAuthorizeAndCaptureRequest", "Entering...");
+			
+			if(sessionToken == null || sessionToken.isEmpty())
+			{
+				setVelocitySessionToken();
+			}
+			
+			/* Generating authorizeAndCapture XML input request. */
+			String authorizeAndCaptureTxnRequestXML =  generateAuthorizeAndCaptureRequestXMLInput(authorizeAndCaptureTransaction);
 
 <h2>1.4 invokeCaptureRequest(...) </h2><br/>
 The method is responsible for the invocation of capture operation on the Velocity REST server.<br/>
@@ -51,6 +95,12 @@ The method is responsible for the invocation of capture operation on the Velocit
 
 @returnType  <b>VelocityResponse</b>  <br/> 
 
+<b>Sample Code:</b>          
+ 
+			/* Generating Capture XML input request. */
+			String captureTxnRequestXML =  generateCaptureRequestXMLInput(captureTransaction);
+			AppLogger.logDebug(getClass(), "invokeCaptureRequest", "Capture XML input == "+captureTxnRequestXML);          
+            
 
 <h2>1.5 invokeUndoRequest(...) </h2><br/>
 The method is responsible for the invocation of undo operation on the Velocity REST server.<br/>
@@ -60,6 +110,22 @@ The method is responsible for the invocation of undo operation on the Velocity R
 
 @returnType  <b>VelocityResponse</b>  <br/> 
 
+<b>Sample Code:</b>  
+   
+   
+   
+    if(undoTransaction == null)
+			{
+				throw new VelocityIllegalArgument("Undo param can not be null or empty.");
+			}
+			
+			/* Generating Undo XML input request. */
+			String undoTxnRequestXML =  generateUndoRequestXMLInput(undoTransaction);
+			AppLogger.logDebug(getClass(), "invokeUndoRequest", "Undo XML input == "+undoTxnRequestXML);
+			/*Invoking URL for the XML input request*/
+			String invokeURL = serverURL + "/Txn/"+ workFlowId + "/" + undoTransaction.getTransactionId();
+			
+
 <h2>1.6 invokeAdjustRequest(...) </h2><br/>
 The method is responsible for the invocation of adjust operation on the Velocity REST server.<br/>
 <b>                                                                                                                      public VelocityResponse invokeAdjustRequest(com.velocity.models.request.adjust.Adjust adjustTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
@@ -67,6 +133,16 @@ The method is responsible for the invocation of adjust operation on the Velocity
 @parameter <b>adjustTransaction </b> - holds the values for the adjust request Adjust <br/>
 
 @returnType  <b>VelocityResponse</b>  <br/> 
+
+ <b>Sample Code:</b>     
+
+ 			/* Generating Adjust XML input request. */
+			String adjustTxnRequestXML =  generateAdjustRequestXMLInput(adjustTransaction);
+			AppLogger.logDebug(getClass(), "invokeAdjustRequest", "Adjust XML input == "+adjustTxnRequestXML);
+			/*Invoking URL for the XML input request*/
+			String invokeURL = serverURL + "/Txn/"+ workFlowId + "/" + adjustTransaction.getDifferenceData().getTransactionId();
+
+
 
 <h2>1.7 invokeReturnByIdRequest(...) </h2><br/>
 The method is responsible for the invocation of returnById operation on the Velocity REST server.<br/>
@@ -76,6 +152,14 @@ The method is responsible for the invocation of returnById operation on the Velo
 
 @returnType  <b>VelocityResponse</b>  <br/> 
 
+<b>Sample Code:</b>
+
+    String returnByIdTxnRequestXML =  generateReturnByIdRequestXMLInput(returnByIdTransaction);
+			AppLogger.logDebug(getClass(), "invokeReturnByIdRequest", "ReturnById XML input == "+returnByIdTxnRequestXML);
+			/*Invoking URL for the XML input request*/
+			String invokeURL = serverURL + "/Txn/"+ workFlowId;
+			AppLogger.logDebug(getClass(), "invokeReturnByIdRequest", "ReturnByIdRequest request invokeURL == "+invokeURL);
+
 <h2>1.8 invokeReturnUnlinkedRequest(...) </h2><br/>
 The method is responsible for the invocation of returnUnLinked operation on the Velocity REST server.<br/>
 <b>                                                                                                                      public VelocityResponse invokeReturnUnlinkedRequest(com.velocity.models.request.returnUnLinked.ReturnTransaction returnUnlinkedTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
@@ -83,6 +167,21 @@ The method is responsible for the invocation of returnUnLinked operation on the 
 @parameter <b>returnUnlinkedTransaction </b> - holds the values for the returnUnlinked request ReturnTransaction<br/>
 
 @returnType  <b>VelocityResponse</b>  <br/> 
+
+ <b>Sample Code:</b>
+   
+   
+    if(returnUnlinkedTransaction == null)
+			{
+				throw new VelocityIllegalArgument("ReturnUnlinked param can not be null.");
+			}
+			
+			/* Generating ReturnUnlinked XML input request. */
+			String returnUnlinkedTxnRequestXML =  generateReturnUnlinkedRequestXMLInput(returnUnlinkedTransaction);
+			AppLogger.logDebug(getClass(), "invokeReturnUnlinkedRequest", "ReturnUnlinked XML input == "+returnUnlinkedTxnRequestXML);
+			/*Invoking URL for the XML input request*/
+			String invokeURL = serverURL + "/Txn/"+ workFlowId;
+			AppLogger.logDebug(getClass(), "invokeReturnUnlinkedRequest", "ReturnUnlinkedRequest request invokeURL == "+invokeURL);
 
 <h2>2. VelocityResponse </h2><br/>
 
