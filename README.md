@@ -163,7 +163,33 @@ This class has the following main attributes with its name and datatype. <br/>
    4.  reason - String   <br/>
    5.  validationErrors - ValidationErrors    <br/>
    
-<h2>3. Certificate Installation </h2><br/>
+<h2>3. Velocity Test Web Application </h2><br/>
+
+
+The velocity Test Application is responsible for putting the Velocity Java-SDK for test purpose.  <br/>
+It intends to perform the testing of transaction methods available on the Velocity payment gateway for a merchant. <br/>
+
+When a transaction method needs to invoke from Velocity server then it sends the transaction request data and receives the response depending on the type of transaction performed on the velocity server.  <br/>
+The request data is send through the User Interface form which includes the fields required for a transaction.  <br/>
+
+The Velocity Test Web Application is able to test the following transaction methods through its user interface.  <br/>
+
+1.<b> Verify </b>- The Verify operation is used to verify information about a payment account, such as address verification data (AVSData) on a credit card account, without reserving any funds.  <br/>
+2. <b>Authorize </b>- The Authorize operation is used to authorize transactions by performing a check on card-holder's funds and reserves the authorization amount if sufficient funds are available. <br/>
+3. <b>Authorize W/O token </b>- This method proceeds with the card details when payment account data token is not available. <br/>
+4. <b>AuthorizeAndCapture </b>- The AuthorizeAndCapture operation is used to authorize transactions by performing a check on card-holder's funds and reserves the authorization amount if sufficient funds are available, and flags the transaction for capture (settlement) in a single invocation.  <br/>
+5. <b>AuthorizeAndCapture W/O token </b> - This method proceeds with the card details and performs the capture operation in single invocation when the payment account data token is not available. <br/>
+6. <b>Capture </b>- The Capture operation is used to capture a single transaction for settlement after it has been successfully authorized by the Authorize operation. <br/>
+7. <b>Void(Undo) </b>- The Undo operation is used to release card-holder funds by performing a void (Credit Card) or reversal (PIN Debit) on a previously authorized transaction that has not been captured (flagged) for settlement.  <br/>
+8. <b>Adjust </b>- The Adjust operation is used to make adjustments to a previously authorized amount (incremental or reversal) prior to capture and settlement. <br/>
+9. <b>ReturnById </b>- The ReturnById operation is used to perform a linked credit to a card-holder’s account from the merchant’s account based on a previously authorized and settled(Captured) transaction.  <br/>
+10. <b>ReturnUnlinked </b>- The ReturnUnlinked operation is used to perform an "unlinked", or standalone, credit to a card-holder’s account from the merchant’s account. <br/>
+11. <b>ReturnUnlinked W/O token </b>- This method proceeds with the card details when payment account data token is not available.<br/>
+
+Depending upon the type of transaction performed with request input data, response is generated from the velocity server which can be viewed on the Result page. <br/>
+In this test Application View log feature has been provided where one can view the Logs for a transaction request made. <br/>
+   
+<h2>4. Certificate Installation </h2><br/>
 
 Import certificate to the cacerts store into server Java Home.  <br/>
 To do it, execute the following commands from the locations: <br/>
@@ -181,7 +207,7 @@ password: changeit  (Default) <br/>
 
 <b>Note:</b> Certificates for this release can be found from the location <b> java-sdk\velocity-sdk\certs</b>. 
 
-<h2>4. Apache Maven Installation  </h2><br/>
+<h2>5. Apache Maven Installation  </h2><br/>
 
 The project is developed as maven project so it must be pre-installed to the system for succesful execution.<br/>
 
@@ -198,9 +224,9 @@ The project is developed as maven project so it must be pre-installed to the sys
 <b>  PATH=%PATH%;C:\apache-maven-3.0.5\bin; </b>
 
 
-<h2>5. Deployment Instructions for Java-SDK and Velocity Test Web Application </h2><br/>
+<h2>6. Deployment Instructions for Java-SDK and Velocity Test Web Application </h2><br/>
 
-<b>5.1 Velocity SDK</b> <br/>
+<b>6.1 Velocity SDK</b> <br/>
 
 The maven commands needs to be excuted to build the project as for example : <br/>
 
@@ -212,7 +238,7 @@ Now Finally we have generated java Velocity SDK as <b>velocity-services-1.0.jar<
 
 <b>java-sdk\velocity-sdk\velocity-services\target\velocity-services-1.0.jar</b> <br/>
  
- <b>5.2 Velocity Test WebApplication</b> <br/>
+ <b>6.2 Velocity Test WebApplication</b> <br/>
  
  1. Find the Test Web client application executable named <b>northamericanbancard.war</b> inside the folder  java-sdk\velocity-sdk\northamericanbancard-web\target <br/>
 
@@ -226,3 +252,8 @@ Now Finally we have generated java Velocity SDK as <b>velocity-services-1.0.jar<
     Now Once the Jetty server started, then open below URL into the browser:<br/>
     <b>http://localhost:8080/index.jsp</b>
 
+<h2>7. Sample Codes  </h2><br/>
+
+Please go through the reference mentioned below for sample codes of each Velocity transaction.
+
+<b> java-sdk/velocity-sdk/velocity-services/src/test/java/com/velocity/services/TestVelocityProcessor.java </b>
