@@ -254,6 +254,6 @@ Now Finally we have generated java Velocity SDK as <b>velocity-services-1.0.jar<
 
 <h2>7. Sample Codes  </h2><br/>
 
-Please go through the reference mentioned below for sample codes of each Velocity transaction.
+Sample codes for how to use Velocity transaction methods can be viewed into below file.
 
 <b> java-sdk/velocity-sdk/velocity-services/src/test/java/com/velocity/services/TestVelocityProcessor.java </b>
