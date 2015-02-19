@@ -252,7 +252,30 @@ Now Finally we have generated java Velocity SDK as <b>velocity-services-1.0.jar<
     Now Once the Jetty server started, then open below URL into the browser:<br/>
     <b>http://localhost:8080/index.jsp</b>
 
-<h2>7. Sample Codes  </h2><br/>
+<h2>7. Logging Instructions  </h2><br/>
+
+Update log4j.xml file kept under <b> java-sdk\velocity-sdk\{project-name}\src\main\resources\log4j.xml </b>as below to see the application Logs.
+
+      <appender name="DEFAULT-LOG" class="org.apache.log4j.RollingFileAppender"> 
+        <param name="File" value="log/myLogs.log"/>
+        <param name="Threshold" value="DEBUG" /> 
+        <param name="MaxFileSize" value="100MB"/> 
+        <param name="MaxBackupIndex" value="10"/> 
+        <param name="Append" value="true"/> 
+        
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{MM/dd/yyyy HH:mm:ss,SSS} [%t] %p %c - %m%n"/>
+        </layout>
+    </appender> 
+
+    <root> 
+     <priority value="DEBUG"/> 
+     <appender-ref ref="DEFAULT-LOG"/> 
+    </root>
+ 
+ Here the project log file will be generated as <b> java-sdk\velocity-sdk\{project-name}\log\myLogs.log </b>.
+
+<h2>8. Sample Codes  </h2><br/>
 
 Sample codes for how to use Velocity transaction methods can be viewed into below file.
 
