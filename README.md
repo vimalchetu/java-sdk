@@ -27,7 +27,7 @@ The method is responsible for the invocation of verify operation on the Velocity
 
 <b>Sample Code:</b>
 
-  /*Invokes the Verify transaction from the VelocityTestApp*/
+    /*Invokes the Verify transaction from the VelocityTestApp*/
 			if(txnName != null && txnName.equalsIgnoreCase(NABConstants.VERIFY))
 			{
 				velocityResponse = velocityProcessor.invokeVerifyRequest(getVerifyRequestAuthorizeTransactionInstance(req));
@@ -47,7 +47,7 @@ The method is responsible for the invocation of authorize operation on the Veloc
 
 <b>Sample Code:</b>
 
-   else if(txnName != null && txnName.equalsIgnoreCase(NABConstants.AUTHORIZE))
+    else if(txnName != null && txnName.equalsIgnoreCase(NABConstants.AUTHORIZE))
 			{
 				velocityResponse = velocityProcessor.invokeAuthorizeRequest(getAuthorizeRequestAuthorizeTransactionInstance(req));
 				if(velocityResponse.getBankcardTransactionResponse() != null)
