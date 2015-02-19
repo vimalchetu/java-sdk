@@ -6,7 +6,7 @@
 
     <appender name="DEFAULT-LOG"
         class="org.apache.log4j.RollingFileAppender">
-        <param name="File" value="log/nabcard.log"/>
+        <param name="File" value="log/velocity-services.log"/>
         <param name="Threshold" value="DEBUG" />
         <param name="MaxFileSize" value="100MB"/>
         <param name="MaxBackupIndex" value="10"/>
