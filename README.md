@@ -27,18 +27,15 @@ The method is responsible for the invocation of verify operation on the Velocity
 
 <b>Sample Code:</b>
 
-
-    public VelocityResponse invokeVerifyRequest(AuthorizeTransaction authorizeTransaction) throws VelocityGenericException, VelocityIllegalArgument, VelocityNotFound, VelocityRestInvokeException
-	{
-		VelocityResponse velocityResponse = null;
-
-		if(authorizeTransaction == null)
-		{
-			throw new VelocityIllegalArgument("AuthorizeTransaction can not be null or empty.");
-		}
-
-	    /* Generating verify XML input request. */
-		String verifyTxnRequestXML =  generateVerifyRequestXMLInput(authorizeTransaction);
+  /*Invokes the Verify transaction from the VelocityTestApp*/
+			if(txnName != null && txnName.equalsIgnoreCase(NABConstants.VERIFY))
+			{
+				velocityResponse = velocityProcessor.invokeVerifyRequest(getVerifyRequestAuthorizeTransactionInstance(req));
+				if(velocityResponse != null && velocityResponse.getBankcardTransactionResponse() != null)
+				{
+					paymentAccountDataToken = velocityResponse.getBankcardTransactionResponse().getPaymentAccountDataToken();
+					session.setAttribute("paymentAccountDataToken", paymentAccountDataToken);
+				}
 
 <h2>1.2 invokeAuthorizeRequest(...) </h2><br/>
 The method is responsible for the invocation of authorize operation on the Velocity REST server.<br/>
@@ -50,19 +47,16 @@ The method is responsible for the invocation of authorize operation on the Veloc
 
 <b>Sample Code:</b>
 
-    VelocityResponse invokeAuthorizeRequest(AuthorizeTransaction authorizeTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityRestInvokeException, VelocityNotFound
-	{
-		AppLogger.logDebug(getClass(), "invokeAuthorizeRequest", "Entering...");
-			
-			if(sessionToken == null || sessionToken.isEmpty())
+   else if(txnName != null && txnName.equalsIgnoreCase(NABConstants.AUTHORIZE))
 			{
-				setVelocitySessionToken();
-			}
-			
-			/* Creating Http client for authorize request. */
-			CloseableHttpClient httpClient = HttpClients.createDefault();
-			/* Generating authorize XML input request. */
-			String authorizeTxnRequestXML =  generateAuthorizeRequestXMLInput(authorizeTransaction);
+				velocityResponse = velocityProcessor.invokeAuthorizeRequest(getAuthorizeRequestAuthorizeTransactionInstance(req));
+				if(velocityResponse.getBankcardTransactionResponse() != null)
+				{
+					session.setAttribute("transactionId", velocityResponse.getBankcardTransactionResponse().getTransactionId());
+				}
+				session.setAttribute("txnName", "Authorize");
+				AppLogger.logDebug(this.getClass(), "Authorize", "VelocityResponse >>>>>>>>>> "+ velocityResponse);
+            
 
 <h2>1.3 invokeAuthorizeAndCaptureRequest(...) </h2><br/>
 The method is responsible for the invocation of authorizeAndCapture operation on the Velocity REST server.<br/>
@@ -75,17 +69,12 @@ AuthorizeAndCaptureTransaction <br/>
 
  <b>Sample Code:</b>
   
-        VelocityResponse invokeAuthorizeAndCaptureRequest(AuthorizeAndCaptureTransaction authorizeAndCaptureTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException
-	{
-		AppLogger.logDebug(getClass(), "invokeAuthorizeAndCaptureRequest", "Entering...");
-			
-			if(sessionToken == null || sessionToken.isEmpty())
-			{
-				setVelocitySessionToken();
+       else if(txnName != null && txnName.equalsIgnoreCase(NABConstants.AUTHORIZEANDCAPTURE))
+			{	
+				velocityResponse = velocityProcessor.invokeAuthorizeAndCaptureRequest(getAuthorizeAndCaptureTransactionInstance(req));
+				session.setAttribute("txnName", "AuthorizeAndCapture");
+				AppLogger.logDebug(this.getClass(), "AuthAndCapture", "VelocityResponse >>>>>>>>>> "+ velocityResponse);
 			}
-			
-			/* Generating authorizeAndCapture XML input request. */
-			String authorizeAndCaptureTxnRequestXML =  generateAuthorizeAndCaptureRequestXMLInput(authorizeAndCaptureTransaction);
 
 <h2>1.4 invokeCaptureRequest(...) </h2><br/>
 The method is responsible for the invocation of capture operation on the Velocity REST server.<br/>
@@ -97,9 +86,18 @@ The method is responsible for the invocation of capture operation on the Velocit
 
 <b>Sample Code:</b>          
  
-			/* Generating Capture XML input request. */
-			String captureTxnRequestXML =  generateCaptureRequestXMLInput(captureTransaction);
-			AppLogger.logDebug(getClass(), "invokeCaptureRequest", "Capture XML input == "+captureTxnRequestXML);          
+			else if(txnName != null && txnName.equalsIgnoreCase(NABConstants.CAPTURE))
+			{	
+				ChangeTransaction objChangeTransaction = getCaptureTransactionInstance(req);
+				objChangeTransaction.getDifferenceData().setTransactionId((String)session.getAttribute("transactionId"));
+				velocityResponse = velocityProcessor.invokeCaptureRequest(objChangeTransaction);
+				if(velocityResponse.getBankcardCaptureResponse() != null)
+				{
+					session.setAttribute("transactionId", velocityResponse.getBankcardCaptureResponse().getTransactionId());
+				}
+				session.setAttribute("txnName", "Capture");
+				AppLogger.logDebug(this.getClass(), "invokeCaptureRequest", "VelocityResponse >>>>>>>>>> "+ velocityResponse);
+			}          
             
 
 <h2>1.5 invokeUndoRequest(...) </h2><br/>
@@ -114,17 +112,14 @@ The method is responsible for the invocation of undo operation on the Velocity R
    
    
    
-    if(undoTransaction == null)
-			{
-				throw new VelocityIllegalArgument("Undo param can not be null or empty.");
+    else if(txnName != null && txnName.equalsIgnoreCase(NABConstants.UNDO))
+			{	
+				Undo objUndo  = getUndoTransactionInstance(req);
+				objUndo.setTransactionId((String)session.getAttribute("transactionId"));
+				velocityResponse = velocityProcessor.invokeUndoRequest(objUndo);
+				AppLogger.logDebug(this.getClass(), "invokeUndoRequest", "VelocityResponse >>>>>>>>>> "+ velocityResponse);
+				session.setAttribute("txnName", "Undo");
 			}
-			
-			/* Generating Undo XML input request. */
-			String undoTxnRequestXML =  generateUndoRequestXMLInput(undoTransaction);
-			AppLogger.logDebug(getClass(), "invokeUndoRequest", "Undo XML input == "+undoTxnRequestXML);
-			/*Invoking URL for the XML input request*/
-			String invokeURL = serverURL + "/Txn/"+ workFlowId + "/" + undoTransaction.getTransactionId();
-			
 
 <h2>1.6 invokeAdjustRequest(...) </h2><br/>
 The method is responsible for the invocation of adjust operation on the Velocity REST server.<br/>
@@ -136,11 +131,15 @@ The method is responsible for the invocation of adjust operation on the Velocity
 
  <b>Sample Code:</b>     
 
- 			/* Generating Adjust XML input request. */
-			String adjustTxnRequestXML =  generateAdjustRequestXMLInput(adjustTransaction);
-			AppLogger.logDebug(getClass(), "invokeAdjustRequest", "Adjust XML input == "+adjustTxnRequestXML);
-			/*Invoking URL for the XML input request*/
-			String invokeURL = serverURL + "/Txn/"+ workFlowId + "/" + adjustTransaction.getDifferenceData().getTransactionId();
+ 		 /* Invokes the Adjust transaction from the VelocityTestApp */
+			else if(txnName != null && txnName.equalsIgnoreCase(NABConstants.ADJUST))
+			{	
+				Adjust objAdjust  = getAdjustTransactionInstance(req);
+				objAdjust.getDifferenceData().setTransactionId((String)session.getAttribute("transactionId"));
+				velocityResponse = velocityProcessor.invokeAdjustRequest(objAdjust);
+				AppLogger.logDebug(this.getClass(), "invokeAdjustRequest", "VelocityResponse >>>>>>>>>> "+ velocityResponse);
+				session.setAttribute("txnName", "Adjust");
+			}
 
 
 
@@ -154,11 +153,17 @@ The method is responsible for the invocation of returnById operation on the Velo
 
 <b>Sample Code:</b>
 
-    String returnByIdTxnRequestXML =  generateReturnByIdRequestXMLInput(returnByIdTransaction);
-			AppLogger.logDebug(getClass(), "invokeReturnByIdRequest", "ReturnById XML input == "+returnByIdTxnRequestXML);
-			/*Invoking URL for the XML input request*/
-			String invokeURL = serverURL + "/Txn/"+ workFlowId;
-			AppLogger.logDebug(getClass(), "invokeReturnByIdRequest", "ReturnByIdRequest request invokeURL == "+invokeURL);
+   
+    /* Invokes the ReturnById transaction from the VelocityTestApp */
+			else if(txnName != null && txnName.equalsIgnoreCase(NABConstants.RETURNBYID))
+			{	
+				ReturnById objReturnById  = getReturnByIdTransactionInstance(req);
+				objReturnById.getDifferenceData().setTransactionId((String)session.getAttribute("transactionId"));
+				velocityResponse = velocityProcessor.invokeReturnByIdRequest(objReturnById);
+				AppLogger.logDebug(this.getClass(), "invokeReturnByIdRequest", "VelocityResponse >>>>>>>>>> "+ velocityResponse);
+				session.setAttribute("txnName", "ReturnById");
+			}
+
 
 <h2>1.8 invokeReturnUnlinkedRequest(...) </h2><br/>
 The method is responsible for the invocation of returnUnLinked operation on the Velocity REST server.<br/>
@@ -171,17 +176,18 @@ The method is responsible for the invocation of returnUnLinked operation on the 
  <b>Sample Code:</b>
    
    
-    if(returnUnlinkedTransaction == null)
+    else if(txnName != null && txnName.equalsIgnoreCase(NABConstants.RETURNUNLINKED))
 			{
-				throw new VelocityIllegalArgument("ReturnUnlinked param can not be null.");
+				velocityResponse = velocityProcessor.invokeReturnUnlinkedRequest(getReturnTransactionInstance(req));
+				if(velocityResponse.getBankcardTransactionResponse() != null)
+				{
+					session.setAttribute("transactionId", velocityResponse.getBankcardTransactionResponse().getTransactionId());
+				}
+				session.setAttribute("txnName", "ReturnUnlinked");
+				AppLogger.logDebug(this.getClass(), "ReturnUnlinkedRequest", "VelocityResponse >>>>>>>>>> "+ velocityResponse);
 			}
-			
-			/* Generating ReturnUnlinked XML input request. */
-			String returnUnlinkedTxnRequestXML =  generateReturnUnlinkedRequestXMLInput(returnUnlinkedTransaction);
-			AppLogger.logDebug(getClass(), "invokeReturnUnlinkedRequest", "ReturnUnlinked XML input == "+returnUnlinkedTxnRequestXML);
-			/*Invoking URL for the XML input request*/
-			String invokeURL = serverURL + "/Txn/"+ workFlowId;
-			AppLogger.logDebug(getClass(), "invokeReturnUnlinkedRequest", "ReturnUnlinkedRequest request invokeURL == "+invokeURL);
+			}
+    
 
 <h2>2. VelocityResponse </h2><br/>
 
