@@ -27,15 +27,33 @@ The method is responsible for the invocation of verify operation on the Velocity
 
 <b>Sample Code:</b>
 
-    /*Invokes the Verify transaction from the VelocityTestApp*/
-			if(txnName != null && txnName.equalsIgnoreCase(NABConstants.VERIFY))
+    /**
+	 * This method test's the verify request through the Velocity REST server.
+	 * The AuthorizeTransaction instance is responsible for invoking the verifyRequest method 
+       and reads the the data for XML generation through VelocityProcessor class.
+	 */
+
+	@Test
+	public void testInvokeVerifyRequest()
+	{
+		try {
+			AuthorizeTransaction objAuthorizeTransaction = getVerifyRequestAuthorizeTransactionInstance();
+
+			VelocityResponse objVelocityResponse = velocityProcessor.invokeVerifyRequest(objAuthorizeTransaction);
+
+			if(objVelocityResponse.getBankcardTransactionResponse() != null)
 			{
-				velocityResponse = velocityProcessor.invokeVerifyRequest(getVerifyRequestAuthorizeTransactionInstance(req));
-				if(velocityResponse != null && velocityResponse.getBankcardTransactionResponse() != null)
-				{
-					paymentAccountDataToken = velocityResponse.getBankcardTransactionResponse().getPaymentAccountDataToken();
-					session.setAttribute("paymentAccountDataToken", paymentAccountDataToken);
-				}
+				AppLogger.logDebug(getClass(), "testInvokeVerifyRequest", "Status >>>>>>>>>> "+objVelocityResponse.getBankcardTransactionResponse().getStatus());
+			}
+			else if(objVelocityResponse.getErrorResponse() != null)
+			{
+				AppLogger.logDebug(getClass(), "testInvokeVerifyRequest", "Message >>>>>>>>>> "+objVelocityResponse.getErrorResponse().getReason() + " " + objVelocityResponse.getErrorResponse().getValidationErrors().getValidationErrorList().get(0).getRuleMessage());
+			}
+		} catch (Exception e) {
+			
+			AppLogger.logError(this.getClass()," testInvokeVerifyRequest", e);
+		}
+	}
 
 <h2>1.2 invokeAuthorizeRequest(...) </h2><br/>
 The method is responsible for the invocation of authorize operation on the Velocity REST server.<br/>
@@ -47,15 +65,35 @@ The method is responsible for the invocation of authorize operation on the Veloc
 
 <b>Sample Code:</b>
 
-    else if(txnName != null && txnName.equalsIgnoreCase(NABConstants.AUTHORIZE))
+    /**
+	 * This method test's the Authorize request through the Velocity REST server.
+	 * The VelocityResponse object reads the data for AuthorizeTransaction and prepares 
+       for the response.
+	 */
+	  @Test
+	 public void testInvokeAuthorizeRequest()
+	 {
+		try {
+			com.velocity.models.request.authorize.AuthorizeTransaction objAuthorizeTransaction = getAuthorizeRequestAuthorizeTransactionInstance();
+			VelocityResponse objVelocityResponse = velocityProcessor.invokeAuthorizeRequest(objAuthorizeTransaction);
+			if(objVelocityResponse.getBankcardTransactionResponse() != null)
 			{
-				velocityResponse = velocityProcessor.invokeAuthorizeRequest(getAuthorizeRequestAuthorizeTransactionInstance(req));
-				if(velocityResponse.getBankcardTransactionResponse() != null)
+				AppLogger.logDebug(getClass(), "testInvokeAuthorizeRequest", "Status >>>>>>>>>> "+objVelocityResponse.getBankcardTransactionResponse().getStatus());
+			}
+			else if(objVelocityResponse.getErrorResponse() != null)
+			{
+				AppLogger.logDebug(getClass(), "testInvokeAuthorizeRequest", "Error >>>>>>>>>> "+objVelocityResponse.getErrorResponse().getReason());
+				if(objVelocityResponse.getErrorResponse().getValidationErrors() != null)
 				{
-					session.setAttribute("transactionId", velocityResponse.getBankcardTransactionResponse().getTransactionId());
+					AppLogger.logDebug(getClass(), "testInvokeAuthorizeRequest", "Error >>>>>>>>>> "+objVelocityResponse.getErrorResponse().getValidationErrors().getValidationErrorList().get(0).getRuleKey());
 				}
-				session.setAttribute("txnName", "Authorize");
-				AppLogger.logDebug(this.getClass(), "Authorize", "VelocityResponse >>>>>>>>>> "+ velocityResponse);
+			}
+			
+		} catch(Exception ex)
+		{
+			AppLogger.logError(this.getClass(),"testInvokeAuthorizeRequest", ex);
+		}
+ 	}
             
 
 <h2>1.3 invokeAuthorizeAndCaptureRequest(...) </h2><br/>
@@ -69,12 +107,23 @@ AuthorizeAndCaptureTransaction <br/>
 
  <b>Sample Code:</b>
   
-       else if(txnName != null && txnName.equalsIgnoreCase(NABConstants.AUTHORIZEANDCAPTURE))
-			{	
-				velocityResponse = velocityProcessor.invokeAuthorizeAndCaptureRequest(getAuthorizeAndCaptureTransactionInstance(req));
-				session.setAttribute("txnName", "AuthorizeAndCapture");
-				AppLogger.logDebug(this.getClass(), "AuthAndCapture", "VelocityResponse >>>>>>>>>> "+ velocityResponse);
-			}
+     /**
+	 * This method test's the AuthorizeAndCapture request through the Velocity REST server.
+	 * The VelocityResponse object reads the data for AuthorizeAndCaptureTransaction 
+       and prepares for the response.
+	 */
+	@Test
+	public void testInvokeAuthorizeAndCaptureRequest()
+	{
+		try {
+			AuthorizeAndCaptureTransaction objAuthorizeAndCaptureTransaction = getAuthorizeAndCaptureTransactionInstance();
+			VelocityResponse objVelocityResponse = velocityProcessor.invokeAuthorizeAndCaptureRequest(objAuthorizeAndCaptureTransaction);
+			AppLogger.logDebug(getClass(), "invokeAuthorizeAndCaptureRequest", "Status >>>>>>>>>> "+objVelocityResponse.getBankcardTransactionResponse().getStatus());
+		} catch(Exception ex)
+		{
+			AppLogger.logError(this.getClass(),"testInvokeAuthorizeAndCaptureRequest", ex);
+		}
+	}
 
 <h2>1.4 invokeCaptureRequest(...) </h2><br/>
 The method is responsible for the invocation of capture operation on the Velocity REST server.<br/>
@@ -86,18 +135,40 @@ The method is responsible for the invocation of capture operation on the Velocit
 
 <b>Sample Code:</b>          
  
-			else if(txnName != null && txnName.equalsIgnoreCase(NABConstants.CAPTURE))
-			{	
-				ChangeTransaction objChangeTransaction = getCaptureTransactionInstance(req);
-				objChangeTransaction.getDifferenceData().setTransactionId((String)session.getAttribute("transactionId"));
-				velocityResponse = velocityProcessor.invokeCaptureRequest(objChangeTransaction);
-				if(velocityResponse.getBankcardCaptureResponse() != null)
-				{
-					session.setAttribute("transactionId", velocityResponse.getBankcardCaptureResponse().getTransactionId());
-				}
-				session.setAttribute("txnName", "Capture");
-				AppLogger.logDebug(this.getClass(), "invokeCaptureRequest", "VelocityResponse >>>>>>>>>> "+ velocityResponse);
-			}          
+	/**
+	 * This method tests the Capture request through the Velocity Velocity REST server.
+	 * The method performs the Authorize operations before the invoking the 
+       capture transaction in order to obtain the Transaction Id.
+	 */
+	@Test
+	public void testinvokeCaptureRequest()
+	{
+		try {
+
+			com.velocity.models.request.authorize.AuthorizeTransaction objAuthorizeTransaction = getAuthorizeRequestAuthorizeTransactionInstance();
+			VelocityResponse objVelocityResponse = velocityProcessor.invokeAuthorizeRequest(objAuthorizeTransaction);
+
+			ChangeTransaction objChangeTransaction = getCaptureTransactionInstance();
+
+		    objChangeTransaction.getDifferenceData().setTransactionId(objVelocityResponse.getBankcardTransactionResponse().getTransactionId());
+
+			VelocityResponse captureVelocityResponse = velocityProcessor.invokeCaptureRequest(objChangeTransaction);
+			
+			if(captureVelocityResponse.getBankcardCaptureResponse() != null)
+			{
+				AppLogger.logDebug(this.getClass(), "invokeCaptureRequest", "Status >>>>>>>>>> "+ captureVelocityResponse.getBankcardCaptureResponse().getCaptureState());
+			}
+			else if(captureVelocityResponse.getErrorResponse() != null)
+			{
+				AppLogger.logDebug(this.getClass(), "invokeCaptureRequest", "Status >>>>>>>>>> "+ captureVelocityResponse.getErrorResponse().getErrorId());
+			}
+		} catch(Exception ex)
+		{
+
+			AppLogger.logError(this.getClass(),"testinvokeCaptureRequest", ex);
+
+		}
+	}          
             
 
 <h2>1.5 invokeUndoRequest(...) </h2><br/>
@@ -112,14 +183,33 @@ The method is responsible for the invocation of undo operation on the Velocity R
    
    
    
-    else if(txnName != null && txnName.equalsIgnoreCase(NABConstants.UNDO))
-			{	
-				Undo objUndo  = getUndoTransactionInstance(req);
-				objUndo.setTransactionId((String)session.getAttribute("transactionId"));
-				velocityResponse = velocityProcessor.invokeUndoRequest(objUndo);
-				AppLogger.logDebug(this.getClass(), "invokeUndoRequest", "VelocityResponse >>>>>>>>>> "+ velocityResponse);
-				session.setAttribute("txnName", "Undo");
-			}
+    /**
+	 * This method tests the Undo request through the Velocity REST server.
+     * The method performs the Authorize operations before the invoking the Undo 
+       transaction and obtains the transactionId.
+	 */
+	@Test
+	public void testinvokeUndoRequest()  
+	{
+		try {
+
+			com.velocity.models.request.authorize.AuthorizeTransaction objAuthorizeTransaction = getAuthorizeRequestAuthorizeTransactionInstance();
+			VelocityResponse objVelocityResponse = velocityProcessor.invokeAuthorizeRequest(objAuthorizeTransaction);
+
+			com.velocity.models.request.undo.Undo objUndo  = getUndoTransactionInstance();
+			Undo objUndo1 = getUndoTransactionInstance();
+
+			objUndo1.setTransactionId(objVelocityResponse.getBankcardTransactionResponse().getTransactionId());
+
+			VelocityResponse objVelocityResponse2 = velocityProcessor.invokeUndoRequest(objUndo1);
+			AppLogger.logDebug(getClass(), "testinvokeUndoRequest", "Status >>>>>>>>>> "+ objVelocityResponse2.getBankcardTransactionResponse().getStatus());
+		} catch(Exception ex)
+		{
+
+			AppLogger.logError(this.getClass(),"testinvokeUndoRequest", ex);
+
+		}
+	}
 
 <h2>1.6 invokeAdjustRequest(...) </h2><br/>
 The method is responsible for the invocation of adjust operation on the Velocity REST server.<br/>
@@ -131,15 +221,51 @@ The method is responsible for the invocation of adjust operation on the Velocity
 
  <b>Sample Code:</b>     
 
- 		 /* Invokes the Adjust transaction from the VelocityTestApp */
-			else if(txnName != null && txnName.equalsIgnoreCase(NABConstants.ADJUST))
-			{	
-				Adjust objAdjust  = getAdjustTransactionInstance(req);
-				objAdjust.getDifferenceData().setTransactionId((String)session.getAttribute("transactionId"));
-				velocityResponse = velocityProcessor.invokeAdjustRequest(objAdjust);
-				AppLogger.logDebug(this.getClass(), "invokeAdjustRequest", "VelocityResponse >>>>>>>>>> "+ velocityResponse);
-				session.setAttribute("txnName", "Adjust");
+ 	 /**
+	 * This method tests the Adjust request through the Velocity REST server.
+	 * The method performs the Authorize operations before the invoking the Adjust 
+       transaction and obtains the transactionId.
+	 */
+
+	@Test
+	public void testinvokeAdjustRequest()  
+	{
+		try {
+
+			com.velocity.models.request.authorize.AuthorizeTransaction objAuthorizeTransaction = getAuthorizeRequestAuthorizeTransactionInstance();
+			VelocityResponse objVelocityResponse = velocityProcessor.invokeAuthorizeRequest(objAuthorizeTransaction);
+
+			if(objVelocityResponse.getBankcardTransactionResponse() != null)
+			{
+				AppLogger.logDebug(getClass(), "testinvokeAdjustRequest", "Authorize Status >>>>>>>>>> "+ objVelocityResponse.getBankcardTransactionResponse().getStatus());
+
+				ChangeTransaction objChangeTransaction = getCaptureTransactionInstance();
+
+				objChangeTransaction.getDifferenceData().setTransactionId(objVelocityResponse.getBankcardTransactionResponse().getTransactionId());
+
+				objVelocityResponse = velocityProcessor.invokeCaptureRequest(objChangeTransaction);
+
+				if(objVelocityResponse.getBankcardCaptureResponse() != null)
+				{
+					AppLogger.logDebug(getClass(), "invokeAdjustRequest", "Capture Status >>>>>>>>>> "+ objVelocityResponse.getBankcardCaptureResponse().getStatus());
+
+					AppLogger.logDebug(getClass(), "invokeAdjustRequest", "Capture Transaction Id >>>>>>>>>> "+ objVelocityResponse.getBankcardCaptureResponse().getTransactionId());
+
+					com.velocity.models.request.adjust.Adjust objAdjust  = getAdjustTransactionInstance();
+
+					objAdjust.getDifferenceData().setTransactionId(objVelocityResponse.getBankcardCaptureResponse().getTransactionId());
+					objVelocityResponse = velocityProcessor.invokeAdjustRequest(objAdjust);
+					AppLogger.logDebug(getClass(), "invokeAdjustRequest", "Adjust Status >>>>>>>>>> "+ objVelocityResponse.getBankcardTransactionResponse().getStatus());
+
+				}
 			}
+		} catch(Exception ex)
+		{
+
+			AppLogger.logError(this.getClass(),"testinvokeUndoRequest", ex);
+
+		}
+	}
 
 
 
@@ -154,15 +280,45 @@ The method is responsible for the invocation of returnById operation on the Velo
 <b>Sample Code:</b>
 
    
-    /* Invokes the ReturnById transaction from the VelocityTestApp */
-			else if(txnName != null && txnName.equalsIgnoreCase(NABConstants.RETURNBYID))
-			{	
-				ReturnById objReturnById  = getReturnByIdTransactionInstance(req);
-				objReturnById.getDifferenceData().setTransactionId((String)session.getAttribute("transactionId"));
-				velocityResponse = velocityProcessor.invokeReturnByIdRequest(objReturnById);
-				AppLogger.logDebug(this.getClass(), "invokeReturnByIdRequest", "VelocityResponse >>>>>>>>>> "+ velocityResponse);
-				session.setAttribute("txnName", "ReturnById");
+    /**
+	 * This method tests the ReturnById request through the Velocity REST server.
+	 */
+	@Test
+	public void testinvokeReturnByIdRequest()  
+	{
+		try {
+
+			com.velocity.models.request.authorize.AuthorizeTransaction objAuthorizeTransaction = getAuthorizeRequestAuthorizeTransactionInstance();
+			VelocityResponse objVelocityResponse = velocityProcessor.invokeAuthorizeRequest(objAuthorizeTransaction);
+
+			if(objVelocityResponse.getBankcardTransactionResponse() != null)
+			{
+				AppLogger.logDebug(getClass(), "testinvokeReturnByIdRequest", "Authorize Status >>>>>>>>>> "+ objVelocityResponse.getBankcardTransactionResponse().getStatus());
+
+				ChangeTransaction objChangeTransaction = getCaptureTransactionInstance();
+
+				objChangeTransaction.getDifferenceData().setTransactionId(objVelocityResponse.getBankcardTransactionResponse().getTransactionId());
+
+				objVelocityResponse = velocityProcessor.invokeCaptureRequest(objChangeTransaction);
+
+				if(objVelocityResponse.getBankcardCaptureResponse() != null)
+				{
+					AppLogger.logDebug(getClass(), "invokeAdjustRequest", "Capture Status >>>>>>>>>> "+ objVelocityResponse.getBankcardCaptureResponse().getStatus());
+					com.velocity.models.request.returnById.ReturnById objReturnById  = getReturnByIdTransactionInstance();
+
+					objReturnById.getDifferenceData().setTransactionId(objVelocityResponse.getBankcardCaptureResponse().getTransactionId());
+					objVelocityResponse = velocityProcessor.invokeReturnByIdRequest(objReturnById);
+					AppLogger.logDebug(getClass(), "invokeReturnByIdRequest", "ReturnById Status >>>>>>>>>> "+ objVelocityResponse.getBankcardTransactionResponse().getStatus());
+
+				}
 			}
+		} catch(Exception ex)
+		{
+
+			AppLogger.logError(this.getClass(),"testinvokeReturnByIdRequest", ex);
+
+		}
+	}
 
 
 <h2>1.8 invokeReturnUnlinkedRequest(...) </h2><br/>
@@ -176,17 +332,23 @@ The method is responsible for the invocation of returnUnLinked operation on the 
  <b>Sample Code:</b>
    
    
-    else if(txnName != null && txnName.equalsIgnoreCase(NABConstants.RETURNUNLINKED))
-			{
-				velocityResponse = velocityProcessor.invokeReturnUnlinkedRequest(getReturnTransactionInstance(req));
-				if(velocityResponse.getBankcardTransactionResponse() != null)
-				{
-					session.setAttribute("transactionId", velocityResponse.getBankcardTransactionResponse().getTransactionId());
-				}
-				session.setAttribute("txnName", "ReturnUnlinked");
-				AppLogger.logDebug(this.getClass(), "ReturnUnlinkedRequest", "VelocityResponse >>>>>>>>>> "+ velocityResponse);
-			}
-			}
+    /**
+	 * This method tests the ReturnUnlinked request through the Velocity REST server.
+	 */
+	
+	
+	@Test
+	public void testinvokeReturnUnlinkedRequest()
+	{
+		try {
+			ReturnTransaction objReturnTransaction = getReturnTransactionInstance();
+			VelocityResponse objVelocityResponse = velocityProcessor.invokeReturnUnlinkedRequest(objReturnTransaction );
+			AppLogger.logDebug(getClass(), "invokeReturnUnlinkedRequest", "Status >>>>>>>>>> "+objVelocityResponse.getBankcardTransactionResponse().getStatus());
+		} catch(Exception ex)
+		{
+			AppLogger.logError(this.getClass(),"testinvokeReturnUnlinkedRequest", ex);
+		}
+	}
     
 
 <h2>2. VelocityResponse </h2><br/>
