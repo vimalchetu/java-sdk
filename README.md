@@ -335,9 +335,7 @@ The method is responsible for the invocation of returnUnLinked operation on the 
     /**
 	 * This method tests the ReturnUnlinked request through the Velocity REST server.
 	 */
-	
-	
-	@Test
+    @Test
 	public void testinvokeReturnUnlinkedRequest()
 	{
 		try {
