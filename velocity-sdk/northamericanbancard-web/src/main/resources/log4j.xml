@@ -27,11 +27,11 @@
 
     <root>
         
-        <priority value="DEBUG"/>
-        <appender-ref ref="consoleAppender"/> 
+        <!-- <priority value="DEBUG"/>
+        <appender-ref ref="consoleAppender"/> --> 
          
-          <!-- <priority value="DEBUG"/> 
-          <appender-ref ref="DEFAULT-LOG"/> -->
+          <priority value="DEBUG"/> 
+          <appender-ref ref="DEFAULT-LOG"/>
     </root>
 
 </log4j:configuration>
