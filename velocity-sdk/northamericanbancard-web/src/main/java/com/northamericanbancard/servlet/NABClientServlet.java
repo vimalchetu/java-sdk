@@ -3,7 +3,7 @@
  */
 package com.northamericanbancard.servlet;
 
-import java.io.IOException;
+import java.io.IOException; 
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,8 +24,6 @@ import com.velocity.models.request.undo.Undo;
 import com.velocity.models.request.verify.AuthorizeTransaction;
 import com.velocity.models.response.VelocityResponse;
 import com.velocity.transaction.processor.velocity.VelocityProcessor;
-
-
 
 
 
@@ -68,12 +66,19 @@ public class NABClientServlet extends HttpServlet {
 			boolean isTestAccount = (enableTestMode != null) ? true : false; 
 
 			AppLogger.logDebug(getClass(), "service", "isTestAccount >>>>>>>>>>>> "+isTestAccount);
-
+			
+			String sessionToken = null;
+			
+			if(session.getAttribute("sessionToken") != null)
+			{
+				sessionToken = (String) session.getAttribute("sessionToken");
+			}
+			
 			/* Creating the VelocityProcessor object */
-			VelocityProcessor velocityProcessor = new VelocityProcessor(identityToken, appProfileId, merchantProfileId, workFlowId, isTestAccount);
-
+			VelocityProcessor velocityProcessor = new VelocityProcessor(sessionToken, identityToken, appProfileId, merchantProfileId, workFlowId, isTestAccount);
+			AppLogger.logDebug(getClass(), "service", "Session token >>>>>>>>>>>> "+velocityProcessor.getSessionToken());
 			/* Setting the attribute to the session for encrypted SessionToken */
-			session.setAttribute("encSessionToken", velocityProcessor.getEncSessionToken());
+			session.setAttribute("sessionToken", velocityProcessor.getSessionToken());
 
 			/* Setting the attribute to the session for identityToken */
 			session.setAttribute("identityToken", identityToken);

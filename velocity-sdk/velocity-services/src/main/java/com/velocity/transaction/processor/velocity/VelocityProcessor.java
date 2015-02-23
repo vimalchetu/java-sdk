@@ -3,7 +3,7 @@
  */
 package com.velocity.transaction.processor.velocity;
 
-import java.io.IOException;
+import java.io.IOException; 
 
 import org.apache.axis.encoding.Base64;
 import org.apache.http.HttpEntity;
@@ -73,6 +73,7 @@ public class VelocityProcessor implements BaseProcessor {
 	/**
 	 * Constructor for VelocityProcessor class.
 	 * @author vimalk2
+	 * @param sessionToken - Session token of the Velocity server.
 	 * @param identityToken - Encrypted data to initiate transaction.
 	 * @param appProfileId - Application profile Id for transaction initiation.
 	 * @param merchantProfileId- Merchant profile Id for transaction initiation.
@@ -83,8 +84,10 @@ public class VelocityProcessor implements BaseProcessor {
 	 * @throws VelocityGenericException - Generic Exception for Velocity transaction.
 	 * @throws VelocityRestInvokeException - Thrown when exception occurs at invoking REST API
 	 */
-	public VelocityProcessor(String identityToken, String appProfileId, String merchantProfileId, String workFlowId, boolean isTestAccount) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException 
+	public VelocityProcessor(String sessionToken, String identityToken, String appProfileId, String merchantProfileId, String workFlowId, boolean isTestAccount) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException 
 	{
+		AppLogger.logDebug(this.getClass(), "VelocityProcessor constructor", "Entering VelocityProcessor constructor");
+		this.sessionToken = sessionToken;
 		this.identityToken = identityToken;
 		this.appProfileId = appProfileId;
 		this.merchantProfileId = merchantProfileId;
@@ -92,8 +95,24 @@ public class VelocityProcessor implements BaseProcessor {
 		this.isTestAccount = isTestAccount;
 		/* Setting Velocity REST server URL. */
 		setVelocityRestServerURL();
-		/* Setting Velocity session token. */
-		setVelocitySessionToken();
+		
+		if((sessionToken == null || sessionToken.isEmpty()) && (identityToken != null && !identityToken.isEmpty()))
+		{
+			/* Setting Velocity session token. */
+			this.sessionToken = invokeSignOn(identityToken);
+		}
+		AppLogger.logDebug(this.getClass(), "VelocityProcessor constructor", "sessionToken >>>> "+this.sessionToken);
+		/* Encrypting the Velocity server session token. */
+		if(this.sessionToken != null && !this.sessionToken.isEmpty())
+		{
+			encSessionToken = new String(Base64.encode((this.sessionToken + ":").getBytes()));
+		}
+		AppLogger.logDebug(this.getClass(), "VelocityProcessor constructor", "Encrypted session token >>>> "+encSessionToken);
+		AppLogger.logDebug(this.getClass(), "VelocityProcessor constructor", "Exiting VelocityProcessor constructor");
+		if(encSessionToken == null || encSessionToken.isEmpty())
+		{
+			throw new VelocityGenericException("Unable to create VelocityProcessor instance with a valid session.");
+		}
 		
 	}
 	
@@ -117,17 +136,24 @@ public class VelocityProcessor implements BaseProcessor {
 	}
 
 	
+	
 	/* (non-Javadoc)
-	 * @see com.velocity.transaction.processor.BaseProcessor#setVelocitySessionToken()
+	 * @see com.velocity.transaction.processor.BaseProcessor#invokeSignOn(java.lang.String)
 	 */
-	public void setVelocitySessionToken() throws VelocityIllegalArgument, VelocityRestInvokeException
+	public String invokeSignOn(String identityToken) throws VelocityIllegalArgument, VelocityRestInvokeException
 	{
-		AppLogger.logDebug(this.getClass(), "setVelocitySessionToken", "Entering...");
+		AppLogger.logDebug(this.getClass(), "invokeSignOn", "Entering...");
+		
+		if(identityToken == null || identityToken.isEmpty())
+		{
+			throw new VelocityIllegalArgument("identityToken param cannot be null or empty.");
+		}
+		
 		/* Encrypting the Identity Token */
 		String encIdentitytoken = new String(Base64.encode((identityToken + ":").getBytes()));
-		AppLogger.logDebug(this.getClass(), "setVelocitySessionToken", "Encrypted Identity token>>>>>>>>>"+encIdentitytoken);
+		AppLogger.logDebug(this.getClass(), "invokeSignOn", "Encrypted Identity token>>>>>>>>>"+encIdentitytoken);
 		String signOnURL = serverURL + "/SvcInfo/token";
-		AppLogger.logDebug(this.getClass(), "setVelocitySessionToken", "SignOnURL>>>>>>>>>"+signOnURL);
+		AppLogger.logDebug(this.getClass(), "invokeSignOn", "SignOnURL>>>>>>>>>"+signOnURL);
 		HttpGet signOnRequest = new HttpGet(signOnURL);
 
 		/* Generating request headers for signOn request. */
@@ -149,19 +175,17 @@ public class VelocityProcessor implements BaseProcessor {
 			{
 				sessionToken = sessionToken.substring(1, sessionToken.length() - 1);
 			}
-			/* Encrypting the Session token. */
-			encSessionToken = new String(Base64.encode((sessionToken + ":").getBytes()));
-			AppLogger.logDebug(this.getClass(), "setVelocitySessionToken", "Encrypted SessionToken >>>>>>>>> "+encSessionToken);
-
+			AppLogger.logDebug(this.getClass(), "invokeSignOn", "sessionToken >>>> "+sessionToken);
 			/* Closing the HTTP connection. */
 			httpClient.close();
 
 		} catch(IOException ex)
 		{
-			AppLogger.logError(this.getClass(), "getNabVelocitySessionToken", ex);
-			throw new VelocityRestInvokeException("NABCard IO Exception occured::", ex);
+			AppLogger.logError(this.getClass(), "invokeSignOn", ex);
+			throw new VelocityRestInvokeException("Velocity server IO Exception during signOn occured::", ex);
 		}
-		AppLogger.logDebug(this.getClass(), "getNabVelocitySessionToken", "Exiting...");
+		AppLogger.logDebug(this.getClass(), "invokeSignOn", "Exiting...");
+		return sessionToken;
 	}
 	
 	
@@ -245,6 +269,15 @@ public class VelocityProcessor implements BaseProcessor {
 		{
 			throw new VelocityIllegalArgument("AuthorizeTransaction can not be null or empty.");
 		}
+		
+		/* Validating the session token. */
+		if(encSessionToken == null || encSessionToken.isEmpty())
+		{
+			/* Setting Velocity session token. */
+			sessionToken = invokeSignOn(identityToken);
+			/* Encrypting the Velocity server session token. */
+			encSessionToken = new String(Base64.encode((sessionToken + ":").getBytes()));
+		}
 
 		/* Generating verify XML input request. */
 		String verifyTxnRequestXML =  generateVerifyRequestXMLInput(authorizeTransaction);
@@ -252,7 +285,7 @@ public class VelocityProcessor implements BaseProcessor {
 		/*Invoking URL for the XML input request*/
 		String invokeURL = serverURL + "/Txn/" + workFlowId + "/verify";
 		AppLogger.logDebug(getClass(), "invokeVerifyRequest", "InvokeURL == "+invokeURL);
-		velocityResponse = generateVelocityResponse(VelocityConstants.POST_METHOD, invokeURL, "Basic "+getEncSessionToken(), "application/xml", verifyTxnRequestXML);
+		velocityResponse = generateVelocityResponse(VelocityConstants.POST_METHOD, invokeURL, "Basic "+encSessionToken, "application/xml", verifyTxnRequestXML);
 		txnRequestXML = verifyTxnRequestXML ;
 		AppLogger.logDebug(getClass(), "invokeVerifyRequest", "AuthorizeTransaction response message == "+ velocityResponse.getMessage());
 		AppLogger.logDebug(getClass(), "invokeVerifyRequest", "Exiting...");
@@ -345,8 +378,12 @@ public class VelocityProcessor implements BaseProcessor {
 					AppLogger.logDebug(getClass(), "generateVelocityResponse", "Session Token has been Expired.....");
 					AppLogger.logDebug(getClass(), "generateVelocityResponse", "Getting a new Session token.....");
 					
-					setVelocitySessionToken();
-					authorizationHeader = "Basic "+getEncSessionToken();
+					/* Setting Velocity session token. */
+					sessionToken = invokeSignOn(identityToken);
+					/* Encrypting the Velocity server session token. */
+					encSessionToken = new String(Base64.encode((sessionToken + ":").getBytes()));
+					
+					authorizationHeader = "Basic "+encSessionToken;
 					/* Generating request headers for verify request. */
 					httpRequest = new HttpPost(invokeURL);
 					httpRequest.addHeader("Authorization", authorizationHeader);
@@ -374,6 +411,8 @@ public class VelocityProcessor implements BaseProcessor {
 			
 			AppLogger.logDebug(getClass(), "generateVelocityResponse", "Velocity Response >>>>>>>>>>>>> "+txnResponseXML);
 			AppLogger.logDebug(getClass(), "generateVelocityResponse", " Status Code :: " + velocityResponse.getStatusCode() + " Velocity Response message >>>>>>>>>>>>> "+velocityResponse.getMessage());
+			
+			/* Getting the Success response from the Velocity server. */
 			if(txnResponseXML.contains(VelocityConstants.BANCARD_TRANSACTION_RESPONSE))
 			{
 				AppLogger.logDebug(getClass(), "generateVelocityResponse", "Velocity Response for BankcardTransactionResponsePro >>>>>>>>>>>>> ");
@@ -392,6 +431,7 @@ public class VelocityProcessor implements BaseProcessor {
 				velocityResponse.setBankcardCaptureResponse(bankcardCaptureResponse);
 				return velocityResponse;
 			}
+			/* Getting the Error response from the Velocity server. */
 			else if(txnResponseXML.contains(VelocityConstants.ERROR_RESPONSE))
 			{
 				AppLogger.logDebug(getClass(), "generateVelocityResponse", "Velocity Response for ErrorResponse >>>>>>>>>>>>> ");
@@ -534,9 +574,13 @@ public class VelocityProcessor implements BaseProcessor {
 	{
 		AppLogger.logDebug(getClass(), "invokeAuthorizeRequest", "Entering...");
 			
-			if(sessionToken == null || sessionToken.isEmpty())
+		    /* Validating the session token. */
+			if(encSessionToken == null || encSessionToken.isEmpty())
 			{
-				setVelocitySessionToken();
+				/* Setting Velocity session token. */
+				sessionToken = invokeSignOn(identityToken);
+				/* Encrypting the Velocity server session token. */
+				encSessionToken = new String(Base64.encode((sessionToken + ":").getBytes()));
 			}
 			
 			if(authorizeTransaction == null)
@@ -552,7 +596,7 @@ public class VelocityProcessor implements BaseProcessor {
 			/*Invoking the Authorize request URL*/
 			String invokeURL = serverURL + "/Txn/" + workFlowId;
 			AppLogger.logDebug(getClass(), "invokeAuthorizeRequest", "Authorize request invokeURL == "+invokeURL);
-			VelocityResponse velocityResponse = generateVelocityResponse(VelocityConstants.POST_METHOD, invokeURL, "Basic "+getEncSessionToken(), "application/xml", authorizeTxnRequestXML);
+			VelocityResponse velocityResponse = generateVelocityResponse(VelocityConstants.POST_METHOD, invokeURL, "Basic "+encSessionToken, "application/xml", authorizeTxnRequestXML);
 			txnRequestXML = authorizeTxnRequestXML ;
 			AppLogger.logDebug(getClass(), "invokeAuthorizeRequest", "AuthorizeTransaction response message == "+ velocityResponse.getMessage());
 			AppLogger.logDebug(getClass(), "invokeAuthorizeRequest", "Exiting...");
@@ -569,29 +613,32 @@ public class VelocityProcessor implements BaseProcessor {
 	public VelocityResponse invokeAuthorizeAndCaptureRequest(com.velocity.models.request.authorizeAndCapture.AuthorizeAndCaptureTransaction authorizeAndCaptureTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException
 	{
 		AppLogger.logDebug(getClass(), "invokeAuthorizeAndCaptureRequest", "Entering...");
-			
-			if(sessionToken == null || sessionToken.isEmpty())
-			{
-				setVelocitySessionToken();
-			}
-			
-			if(authorizeAndCaptureTransaction == null)
-			{
-				throw new VelocityIllegalArgument("AuthorizeAndCaptureTransaction param can not be null or empty.");
-			}
-			
-			/* Generating authorizeAndCapture XML input request. */
-			String authorizeAndCaptureTxnRequestXML =  generateAuthorizeAndCaptureRequestXMLInput(authorizeAndCaptureTransaction);
-			AppLogger.logDebug(getClass(), "invokeAuthorizeAndCaptureRequest", "AuthorizeAndCapture XML input == "+authorizeAndCaptureTxnRequestXML);
-			/*Invoking URL for the XML input request*/
-			String invokeURL = serverURL + "/Txn/"+ workFlowId;
-			AppLogger.logDebug(getClass(), "invokeAuthorizeAndCaptureRequest", "AuthorizeAndCaptureTransaction request invokeURL == "+invokeURL);
-			VelocityResponse velocityResponse = generateVelocityResponse(VelocityConstants.POST_METHOD, invokeURL, "Basic "+getEncSessionToken(), "application/xml", authorizeAndCaptureTxnRequestXML);
-			txnRequestXML = authorizeAndCaptureTxnRequestXML ;
-			AppLogger.logDebug(getClass(), "invokeAuthorizeAndCaptureRequest", "AuthorizeAndCaptureTransaction response message == "+velocityResponse.getMessage());
-			AppLogger.logDebug(getClass(), "invokeAuthorizeAndCaptureRequest", "Exiting...");
-			return velocityResponse;
-		
+        /* Validating the session token. */
+		if(encSessionToken == null || encSessionToken.isEmpty())
+		{
+			/* Setting Velocity session token. */
+			sessionToken = invokeSignOn(identityToken);
+			/* Encrypting the Velocity server session token. */
+			encSessionToken = new String(Base64.encode((sessionToken + ":").getBytes()));
+		}
+
+		if(authorizeAndCaptureTransaction == null)
+		{
+			throw new VelocityIllegalArgument("AuthorizeAndCaptureTransaction param can not be null or empty.");
+		}
+
+		/* Generating authorizeAndCapture XML input request. */
+		String authorizeAndCaptureTxnRequestXML =  generateAuthorizeAndCaptureRequestXMLInput(authorizeAndCaptureTransaction);
+		AppLogger.logDebug(getClass(), "invokeAuthorizeAndCaptureRequest", "AuthorizeAndCapture XML input == "+authorizeAndCaptureTxnRequestXML);
+		/*Invoking URL for the XML input request*/
+		String invokeURL = serverURL + "/Txn/"+ workFlowId;
+		AppLogger.logDebug(getClass(), "invokeAuthorizeAndCaptureRequest", "AuthorizeAndCaptureTransaction request invokeURL == "+invokeURL);
+		VelocityResponse velocityResponse = generateVelocityResponse(VelocityConstants.POST_METHOD, invokeURL, "Basic "+encSessionToken, "application/xml", authorizeAndCaptureTxnRequestXML);
+		txnRequestXML = authorizeAndCaptureTxnRequestXML ;
+		AppLogger.logDebug(getClass(), "invokeAuthorizeAndCaptureRequest", "AuthorizeAndCaptureTransaction response message == "+velocityResponse.getMessage());
+		AppLogger.logDebug(getClass(), "invokeAuthorizeAndCaptureRequest", "Exiting...");
+		return velocityResponse;
+
 	}
 	
 	
@@ -764,13 +811,22 @@ public class VelocityProcessor implements BaseProcessor {
 				throw new VelocityGenericException("ChangeTransaction param can not be null or empty.");
 			}
 			
+			/* Validating the session token. */
+			if(encSessionToken == null || encSessionToken.isEmpty())
+			{
+				/* Setting Velocity session token. */
+				sessionToken = invokeSignOn(identityToken);
+				/* Encrypting the Velocity server session token. */
+				encSessionToken = new String(Base64.encode((sessionToken + ":").getBytes()));
+			}
+			
 			/* Generating Capture XML input request. */
 			String captureTxnRequestXML =  generateCaptureRequestXMLInput(captureTransaction);
 			AppLogger.logDebug(getClass(), "invokeCaptureRequest", "Capture XML input == "+captureTxnRequestXML);
 			/*Invoking URL for the XML input request*/
 			String invokeURL = serverURL + "/Txn/"+ workFlowId + "/" + captureTransaction.getDifferenceData().getTransactionId();
 			AppLogger.logDebug(getClass(), "invokeCaptureRequest", "CaptureRequest request invokeURL == "+invokeURL);
-			VelocityResponse velocityResponse = generateVelocityResponse(VelocityConstants.PUT_METHOD, invokeURL, "Basic "+getEncSessionToken(), "application/xml", captureTxnRequestXML);
+			VelocityResponse velocityResponse = generateVelocityResponse(VelocityConstants.PUT_METHOD, invokeURL, "Basic "+encSessionToken, "application/xml", captureTxnRequestXML);
 			txnRequestXML = captureTxnRequestXML ;
 			AppLogger.logDebug(getClass(), "invokeCaptureRequest", "ChangeTransaction response message == "+velocityResponse.getMessage());
 			AppLogger.logDebug(getClass(), "invokeCaptureRequest", "Exiting...");
@@ -840,13 +896,22 @@ public class VelocityProcessor implements BaseProcessor {
 				throw new VelocityIllegalArgument("Undo param can not be null or empty.");
 			}
 			
+			/* Validating the session token. */
+			if(encSessionToken == null || encSessionToken.isEmpty())
+			{
+				/* Setting Velocity session token. */
+				sessionToken = invokeSignOn(identityToken);
+				/* Encrypting the Velocity server session token. */
+				encSessionToken = new String(Base64.encode((sessionToken + ":").getBytes()));
+			}
+			
 			/* Generating Undo XML input request. */
 			String undoTxnRequestXML =  generateUndoRequestXMLInput(undoTransaction);
 			AppLogger.logDebug(getClass(), "invokeUndoRequest", "Undo XML input == "+undoTxnRequestXML);
 			/*Invoking URL for the XML input request*/
 			String invokeURL = serverURL + "/Txn/"+ workFlowId + "/" + undoTransaction.getTransactionId();
 			AppLogger.logDebug(getClass(), "invokeUndoRequest", "UndoRequest request invokeURL == "+invokeURL);
-			VelocityResponse velocityResponse = generateVelocityResponse(VelocityConstants.PUT_METHOD, invokeURL, "Basic "+getEncSessionToken(), "application/xml", undoTxnRequestXML);
+			VelocityResponse velocityResponse = generateVelocityResponse(VelocityConstants.PUT_METHOD, invokeURL, "Basic "+encSessionToken, "application/xml", undoTxnRequestXML);
 			txnRequestXML = undoTxnRequestXML;
 			AppLogger.logDebug(getClass(), "invokeUndoRequest", "Undo response message == "+velocityResponse.getMessage());
 			AppLogger.logDebug(getClass(), "UndoRequest", "Exiting...");
@@ -916,13 +981,22 @@ public class VelocityProcessor implements BaseProcessor {
 				throw new VelocityIllegalArgument("Adjust param can not be null or empty.");
 			}
 			
+			/* Validating the session token. */
+			if(encSessionToken == null || encSessionToken.isEmpty())
+			{
+				/* Setting Velocity session token. */
+				sessionToken = invokeSignOn(identityToken);
+				/* Encrypting the Velocity server session token. */
+				encSessionToken = new String(Base64.encode((sessionToken + ":").getBytes()));
+			}
+			
 			/* Generating Adjust XML input request. */
 			String adjustTxnRequestXML =  generateAdjustRequestXMLInput(adjustTransaction);
 			AppLogger.logDebug(getClass(), "invokeAdjustRequest", "Adjust XML input == "+adjustTxnRequestXML);
 			/*Invoking URL for the XML input request*/
 			String invokeURL = serverURL + "/Txn/"+ workFlowId + "/" + adjustTransaction.getDifferenceData().getTransactionId();
 			AppLogger.logDebug(getClass(), "invokeAdjustRequest", "AdjustRequest request invokeURL == "+invokeURL);
-			VelocityResponse velocityResponse = generateVelocityResponse(VelocityConstants.PUT_METHOD, invokeURL, "Basic "+getEncSessionToken(), "application/xml", adjustTxnRequestXML);
+			VelocityResponse velocityResponse = generateVelocityResponse(VelocityConstants.PUT_METHOD, invokeURL, "Basic "+encSessionToken, "application/xml", adjustTxnRequestXML);
 			txnRequestXML = adjustTxnRequestXML;
 			AppLogger.logDebug(getClass(), "invokeAdjustRequest", "Adjust response message == "+velocityResponse.getMessage());
 			AppLogger.logDebug(getClass(), "AdjustRequest", "Exiting...");
@@ -992,13 +1066,22 @@ public class VelocityProcessor implements BaseProcessor {
 				throw new VelocityIllegalArgument("ReturnById param can not be null.");
 			}
 			
+			/* Validating the session token. */
+			if(encSessionToken == null || encSessionToken.isEmpty())
+			{
+				/* Setting Velocity session token. */
+				sessionToken = invokeSignOn(identityToken);
+				/* Encrypting the Velocity server session token. */
+				encSessionToken = new String(Base64.encode((sessionToken + ":").getBytes()));
+			}
+			
 			/* Generating ReturnById XML input request. */
 			String returnByIdTxnRequestXML =  generateReturnByIdRequestXMLInput(returnByIdTransaction);
 			AppLogger.logDebug(getClass(), "invokeReturnByIdRequest", "ReturnById XML input == "+returnByIdTxnRequestXML);
 			/*Invoking URL for the XML input request*/
 			String invokeURL = serverURL + "/Txn/"+ workFlowId;
 			AppLogger.logDebug(getClass(), "invokeReturnByIdRequest", "ReturnByIdRequest request invokeURL == "+invokeURL);
-			VelocityResponse velocityResponse = generateVelocityResponse(VelocityConstants.POST_METHOD, invokeURL, "Basic "+getEncSessionToken(), "application/xml", returnByIdTxnRequestXML);
+			VelocityResponse velocityResponse = generateVelocityResponse(VelocityConstants.POST_METHOD, invokeURL, "Basic "+encSessionToken, "application/xml", returnByIdTxnRequestXML);
 			txnRequestXML = returnByIdTxnRequestXML;
 			AppLogger.logDebug(getClass(), "invokeReturnByIdRequest", "ReturnById response message == "+velocityResponse.getMessage());
 			AppLogger.logDebug(getClass(), "ReturnByIdRequest", "Exiting...");
@@ -1131,13 +1214,22 @@ public class VelocityProcessor implements BaseProcessor {
 				throw new VelocityIllegalArgument("ReturnUnlinked param can not be null.");
 			}
 			
+			/* Validating the session token. */
+			if(encSessionToken == null || encSessionToken.isEmpty())
+			{
+				/* Setting Velocity session token. */
+				sessionToken = invokeSignOn(identityToken);
+				/* Encrypting the Velocity server session token. */
+				encSessionToken = new String(Base64.encode((sessionToken + ":").getBytes()));
+			}
+			
 			/* Generating ReturnUnlinked XML input request. */
 			String returnUnlinkedTxnRequestXML =  generateReturnUnlinkedRequestXMLInput(returnUnlinkedTransaction);
 			AppLogger.logDebug(getClass(), "invokeReturnUnlinkedRequest", "ReturnUnlinked XML input == "+returnUnlinkedTxnRequestXML);
 			/*Invoking URL for the XML input request*/
 			String invokeURL = serverURL + "/Txn/"+ workFlowId;
 			AppLogger.logDebug(getClass(), "invokeReturnUnlinkedRequest", "ReturnUnlinkedRequest request invokeURL == "+invokeURL);
-			VelocityResponse velocityResponse = generateVelocityResponse(VelocityConstants.POST_METHOD, invokeURL, "Basic "+getEncSessionToken(), "application/xml", returnUnlinkedTxnRequestXML);
+			VelocityResponse velocityResponse = generateVelocityResponse(VelocityConstants.POST_METHOD, invokeURL, "Basic "+encSessionToken, "application/xml", returnUnlinkedTxnRequestXML);
 			txnRequestXML = returnUnlinkedTxnRequestXML ;
 			AppLogger.logDebug(getClass(), "invokeReturnUnlinkedRequest", "ReturnUnlinked response message == "+velocityResponse.getMessage());
 			AppLogger.logDebug(getClass(), "ReturnUnlinkedRequest", "Exiting...");
@@ -1145,8 +1237,8 @@ public class VelocityProcessor implements BaseProcessor {
 		
 	}
 	
-	public String getEncSessionToken() {
-		return encSessionToken;
+	public String getSessionToken() {
+		return sessionToken;
 	}
 
 	public String getTxnRequestXML() {

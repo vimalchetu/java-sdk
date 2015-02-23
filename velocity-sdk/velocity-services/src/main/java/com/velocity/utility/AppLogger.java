@@ -24,11 +24,6 @@ public class AppLogger extends Logger {
 		super(name);
 	}
 
-	/* Load log4j.xml configuration file. */
-	/*
-	 * static { DOMConfigurator.configure("../res/log4j.xml"); }
-	 */
-
 	/**
 	 * Description: This method is responsible for logging Error messages
 	 * @author anitk

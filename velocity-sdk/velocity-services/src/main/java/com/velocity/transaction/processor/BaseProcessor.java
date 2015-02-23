@@ -3,7 +3,7 @@
  */
 package com.velocity.transaction.processor;
 
-import com.velocity.exceptions.VelocityGenericException;
+import com.velocity.exceptions.VelocityGenericException; 
 import com.velocity.exceptions.VelocityIllegalArgument;
 import com.velocity.exceptions.VelocityNotFound;
 import com.velocity.exceptions.VelocityRestInvokeException;
@@ -31,11 +31,13 @@ public interface BaseProcessor {
 	/**
 	 * This method sets the SessionToken for VelocityProcessor
 	 * @author anitk.
+	 * @param identityToken - Identity token for Velocity server.
+	 * @return String - Returns the session token from the Velocity server.
 	 * @throws VelocityIllegalArgument - thrown when illegal Argument is passed.
 	 * @throws VelocityRestInvokeException - thrown when the Velocity SessionToken is not found.
 	 */
-	public void setVelocitySessionToken() throws VelocityIllegalArgument, VelocityRestInvokeException;
-
+	public String invokeSignOn(String identityToken) throws VelocityIllegalArgument, VelocityRestInvokeException;
+	
 	/**
 	 * This method invokes the Verify operation on velocity REST server.
 	 * @author anitk

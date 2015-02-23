@@ -3,14 +3,7 @@
  */
 package com.velocity.services;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 
 import org.junit.After;
 import org.junit.Before;
@@ -28,8 +21,6 @@ import com.velocity.models.request.returnById.ReturnById;
 import com.velocity.models.request.returnUnLinked.ReturnTransaction;
 import com.velocity.models.request.undo.Undo;
 import com.velocity.models.request.verify.AuthorizeTransaction;
-import com.velocity.models.response.BankcardCaptureResponse;
-import com.velocity.models.response.BankcardTransactionResponsePro;
 import com.velocity.models.response.VelocityResponse;
 import com.velocity.transaction.processor.BaseProcessor;
 import com.velocity.transaction.processor.velocity.VelocityProcessor;
@@ -55,7 +46,7 @@ public class TestVelocityProcessor {
 
 		try {
 			try {
-				velocityProcessor = new VelocityProcessor(identityToken, appProfileId, merchantProfileId, workFlowId, isTestAccount);
+				velocityProcessor = new VelocityProcessor(identityToken, null, appProfileId, merchantProfileId, workFlowId, isTestAccount);
 			} catch (VelocityRestInvokeException e) {
 				
 				AppLogger.logError(getClass(),"setUp",e);
@@ -80,23 +71,29 @@ public class TestVelocityProcessor {
 		velocityProcessor = null;
 	}
 
+	/**
+	 * @author anitk
+	 * This is the Test case method for Velocity processor signOn method.
+	 */
 	@Test
-	public void testSetVelocitySessionToken()
+	public void testInvokeSignOn()
 	{
 		try {
-			velocityProcessor.setVelocitySessionToken();
-		} catch(Exception ex)
+			String sessionToken = velocityProcessor.invokeSignOn(identityToken);
+			assert(sessionToken != null);
+			AppLogger.logDebug(getClass(), "testInvokeVerifyRequest", "sessionToken >>>>>>>>>> "+sessionToken);
+		}
+		catch(Exception ex)
 		{
-			AppLogger.logError(getClass(),"testSetVelocitySessionToken",ex);
+			AppLogger.logError(getClass(),"testInvokeSignOn", ex);
 		}
 	}
-
+	
 	/**
-	 * This method test's the verify request through the REST API.
 	 * @author anitk
+	 * This method test's the verify request through the REST API.
 	 * The AuthorizeTransaction instance is responsible for invoking the verifyRequest method and reads the the data for XML generation through VelocityProcessor class.
 	 */
-
 	@Test
 	public void testInvokeVerifyRequest()
 	{

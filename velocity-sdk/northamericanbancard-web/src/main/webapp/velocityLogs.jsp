@@ -37,7 +37,7 @@ Velocity Test App (Java)
 	<div id="response">
 	<div id="resheader">Response of SignOn SessionToken</div>
 	<div id="resdata">
-		${encSessionToken}
+		${sessionToken}
 	</div>
 	</div>
 	<div style="clear:both"></div>
