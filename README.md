@@ -3,24 +3,55 @@ This is the velocity java SDK implementation. <br/>
 It has the implementation of all the transaction payment solution methods for a merchant application who wants to access the Velocity payment gateway. <br/><br/>
 At the centre of this SDK, there is the class <b>com.velocity.transaction.processor.velocity.VelocityProcessor</b>. <br/>
 The signature of the constructor of this class is as below: <br/>
-<b>public VelocityProcessor(String identityToken, String appProfileId, String merchantProfileId, String workFlowId, boolean isTestAccount) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b> <br/>
+<b>public VelocityProcessor(String sessionToken, String identityToken, String appProfileId, String merchantProfileId, String workFlowId, boolean isTestAccount) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b> <br/>
 
  <h2>1. VelocityProcessor </h2><br/>
 This class provides the implementation of the following methods: <br/>
-     1. invokeVerifyRequest   <br/>
-     2. invokeAuthorizeRequest  <br/>
-     3. invokeAuthorizeAndCaptureRequest     <br/>
-     4. invokeCaptureRequest  <br/>
-     5. invokeUndoRequest     <br/>
-     6. invokeAdjustRequest   <br/>
-     7. invokeReturnByIdRequest    <br/>
-     8. invokeReturnUnlinkedRequest     <br/><br/>
+     1. invokeSignOn  <br/>
+     2. invokeVerifyRequest   <br/>
+     3. invokeAuthorizeRequest  <br/>
+     4. invokeAuthorizeAndCaptureRequest     <br/>
+     5. invokeCaptureRequest  <br/>
+     6. invokeUndoRequest     <br/>
+     7. invokeAdjustRequest   <br/>
+     8. invokeReturnByIdRequest    <br/>
+     9. invokeReturnUnlinkedRequest     <br/><br/>
+     
+<h2>1.1 invokeSignOn(...) </h2><br/>
 
-<h2>1.1 invokeVerifyRequest(...) </h2><br/>
-The method is responsible for the invocation of verify operation on the Velocity REST server.<br/>
+   The method accepts the identity token as argument and provides the session token.  <br/>
+
+<b>public String invokeSignOn(String identityToken) throws VelocityIllegalArgument, VelocityRestInvokeException</b>
+
+@parameter <b>identityToken </b> - holds the value for encrypted identity token.
+
+@returnType  <b>String</b> <br/>  
+
+<b>Sample Code:</b>
+
+     /**
+	 * This is the Test case method for Velocity processor signOn method.
+	 */
+	@Test
+	public void testInvokeSignOn()
+	{
+		try {
+			String sessionToken = velocityProcessor.invokeSignOn(identityToken);
+			assert(sessionToken != null);
+			AppLogger.logDebug(getClass(), "testInvokeVerifyRequest", "sessionToken >>>>>>>>>> "+sessionToken);
+		}
+		catch(Exception ex)
+		{
+			AppLogger.logError(getClass(),"testInvokeSignOn", ex);
+		}
+	}
+
+
+<h2>1.2 invokeVerifyRequest(...) </h2><br/>
+
+   The method is responsible for the invocation of verify operation on the Velocity REST server.<br/>
 
 <b> public VelocityResponse invokeVerifyRequest(AuthorizeTransaction authorizeTransaction) throws VelocityGenericException, VelocityIllegalArgument, VelocityNotFound, VelocityRestInvokeException</b><br/><br/>
-
 @parameter <b>authorizeTrsansaction </b> - holds the values for the verify request AuthorizeTransaction <br/>
 
 @returnType  <b>VelocityResponse</b>  <br/>  
@@ -55,8 +86,10 @@ The method is responsible for the invocation of verify operation on the Velocity
 		}
 	}
 
-<h2>1.2 invokeAuthorizeRequest(...) </h2><br/>
-The method is responsible for the invocation of authorize operation on the Velocity REST server.<br/>
+<h2>1.3 invokeAuthorizeRequest(...) </h2><br/>
+
+   The method is responsible for the invocation of authorize operation on the Velocity REST server.<br/>
+
 <b>public VelocityResponse invokeAuthorizeRequest(com.velocity.models.request.authorize.AuthorizeTransaction authorizeTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityRestInvokeException, VelocityNotFound</b><br/>
 
 @parameter <b>authorizeTrsansaction </b> - holds the values for the authorize request AuthorizeTransaction <br/>
@@ -96,8 +129,10 @@ The method is responsible for the invocation of authorize operation on the Veloc
  	}
             
 
-<h2>1.3 invokeAuthorizeAndCaptureRequest(...) </h2><br/>
-The method is responsible for the invocation of authorizeAndCapture operation on the Velocity REST server.<br/>
+<h2>1.4 invokeAuthorizeAndCaptureRequest(...) </h2><br/>
+
+   The method is responsible for the invocation of authorizeAndCapture operation on the Velocity REST server.<br/>
+
  <b>                                                                                                                       public VelocityResponse invokeAuthorizeAndCaptureRequest(com.velocity.models.request.authorizeAndCapture.AuthorizeAndCaptureTransaction authorizeAndCaptureTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
 
 @parameter <b>authorizeAndCaptureTransaction </b> - holds the values for the authorizeAndCapture request 
@@ -125,8 +160,10 @@ AuthorizeAndCaptureTransaction <br/>
 		}
 	}
 
-<h2>1.4 invokeCaptureRequest(...) </h2><br/>
-The method is responsible for the invocation of capture operation on the Velocity REST server.<br/>
+<h2>1.5 invokeCaptureRequest(...) </h2><br/>
+
+   The method is responsible for the invocation of capture operation on the Velocity REST server.<br/>
+
 <b>                                                                                                                      public VelocityResponse invokeCaptureRequest(com.velocity.models.request.capture.ChangeTransaction captureTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
 
 @parameter <b>captureTransaction </b> - holds the values for the capture request ChangeTransaction <br/>
@@ -171,8 +208,10 @@ The method is responsible for the invocation of capture operation on the Velocit
 	}          
             
 
-<h2>1.5 invokeUndoRequest(...) </h2><br/>
-The method is responsible for the invocation of undo operation on the Velocity REST server.<br/>
+<h2>1.6 invokeUndoRequest(...) </h2><br/>
+
+   The method is responsible for the invocation of undo operation on the Velocity REST server.<br/>
+
 <b>                                                                                                                      public VelocityResponse invokeUndoRequest(com.velocity.models.request.undo.Undo undoTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
 
 @parameter <b>undoTransaction </b> - holds the values for the undo request Undo <br/>
@@ -211,8 +250,10 @@ The method is responsible for the invocation of undo operation on the Velocity R
 		}
 	}
 
-<h2>1.6 invokeAdjustRequest(...) </h2><br/>
-The method is responsible for the invocation of adjust operation on the Velocity REST server.<br/>
+<h2>1.7 invokeAdjustRequest(...) </h2><br/>
+
+   The method is responsible for the invocation of adjust operation on the Velocity REST server.<br/>
+
 <b>                                                                                                                      public VelocityResponse invokeAdjustRequest(com.velocity.models.request.adjust.Adjust adjustTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
 
 @parameter <b>adjustTransaction </b> - holds the values for the adjust request Adjust <br/>
@@ -269,8 +310,10 @@ The method is responsible for the invocation of adjust operation on the Velocity
 
 
 
-<h2>1.7 invokeReturnByIdRequest(...) </h2><br/>
-The method is responsible for the invocation of returnById operation on the Velocity REST server.<br/>
+<h2>1.8 invokeReturnByIdRequest(...) </h2><br/>
+
+   The method is responsible for the invocation of returnById operation on the Velocity REST server.<br/>
+
 <b>                                                                                                                      public VelocityResponse invokeReturnByIdRequest(com.velocity.models.request.returnById.ReturnById returnByIdTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
 
 @parameter <b>returnByIdTransaction </b> - holds the values for the returnById request ReturnById <br/>
@@ -321,8 +364,10 @@ The method is responsible for the invocation of returnById operation on the Velo
 	}
 
 
-<h2>1.8 invokeReturnUnlinkedRequest(...) </h2><br/>
-The method is responsible for the invocation of returnUnLinked operation on the Velocity REST server.<br/>
+<h2>1.9 invokeReturnUnlinkedRequest(...) </h2><br/>
+
+   The method is responsible for the invocation of returnUnLinked operation on the Velocity REST server.<br/>
+
 <b>                                                                                                                      public VelocityResponse invokeReturnUnlinkedRequest(com.velocity.models.request.returnUnLinked.ReturnTransaction returnUnlinkedTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
 
 @parameter <b>returnUnlinkedTransaction </b> - holds the values for the returnUnlinked request ReturnTransaction<br/>
