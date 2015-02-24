@@ -5,6 +5,49 @@ At the centre of this SDK, there is the class <b>com.velocity.transaction.proces
 The signature of the constructor of this class is as below: <br/>
 <b>public VelocityProcessor(String sessionToken, String identityToken, String appProfileId, String merchantProfileId, String workFlowId, boolean isTestAccount) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b> <br/>
 
+@parameter  <b>sessionToken </b> - initializes the value for session token.  <br/>
+@parameter  <b>identityToken </b> - initializes the value for identity token.  <br/>
+@parameter  <b>appProfileId </b> - initializes the value for application profile Id.  <br/>
+@parameter  <b>merchantProfileId </b> - initializes the value for merchant profile Id.  <br/>
+@parameter  <b>workFlowId </b> - initializes the value for workflow Id.  <br/>
+@parameter  <b>isTestAccount </b> - works as a flag for the TestAccount.  <br/>
+
+<b>Sample Code:</b>
+
+    public VelocityProcessor(String sessionToken, String identityToken, String appProfileId, String merchantProfileId, String workFlowId, boolean isTestAccount) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException 
+	{
+		AppLogger.logDebug(this.getClass(), "VelocityProcessor constructor", "Entering VelocityProcessor constructor");
+		this.sessionToken = sessionToken;
+		this.identityToken = identityToken;
+		this.appProfileId = appProfileId;
+		this.merchantProfileId = merchantProfileId;
+		this.workFlowId = workFlowId;
+		this.isTestAccount = isTestAccount;
+		/* Setting Velocity REST server URL. */
+		setVelocityRestServerURL();
+		
+		if((sessionToken == null || sessionToken.isEmpty()) && (identityToken != null && !identityToken.isEmpty()))
+		{
+			/* Setting Velocity session token. */
+			this.sessionToken = invokeSignOn(identityToken);
+		}
+		AppLogger.logDebug(this.getClass(), "VelocityProcessor constructor", "sessionToken >>>> "+this.sessionToken);
+		/* Encrypting the Velocity server session token. */
+		if(this.sessionToken != null && !this.sessionToken.isEmpty())
+		{
+			encSessionToken = new String(Base64.encode((this.sessionToken + ":").getBytes()));
+		}
+		AppLogger.logDebug(this.getClass(), "VelocityProcessor constructor", "Encrypted session token >>>> "+encSessionToken);
+		AppLogger.logDebug(this.getClass(), "VelocityProcessor constructor", "Exiting VelocityProcessor constructor");
+		if(encSessionToken == null || encSessionToken.isEmpty())
+		{
+			throw new VelocityGenericException("Unable to create VelocityProcessor instance with a valid session.");
+		}
+		
+	}
+
+
+
  <h2>1. VelocityProcessor </h2><br/>
 This class provides the implementation of the following methods: <br/>
      1. invokeSignOn  <br/>
