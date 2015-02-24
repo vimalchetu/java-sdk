@@ -28,7 +28,7 @@ The signature of the constructor of this class is as below: <br/>
 		
 		if((sessionToken == null || sessionToken.isEmpty()) && (identityToken != null && !identityToken.isEmpty()))
 		{
-			/* Setting Velocity session token. */
+			/* Getting the Velocity session token. */
 			this.sessionToken = invokeSignOn(identityToken);
 		}
 		AppLogger.logDebug(this.getClass(), "VelocityProcessor constructor", "sessionToken >>>> "+this.sessionToken);
