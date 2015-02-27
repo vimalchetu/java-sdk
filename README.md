@@ -68,7 +68,7 @@ This class provides the implementation of the following methods: <br/>
 
 @parameter <b>identityToken </b> - holds the value for encrypted identity token.
 
-@returnType  <b>String</b> <br/>  
+@returnType  <b>String</b> - Session token generated on the velocity server. <br/>
 
 <b>Sample Code:</b>
 
