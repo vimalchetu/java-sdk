@@ -134,7 +134,7 @@ This class provides the implementation of the following methods: <br/>
 	 * This method sets the value for the VerifyRequest Instance 
 	 * @return- Returns the AuthoizeTransaction Object.
 	 */
-    getVerifyRequestAuthorizeTransactionInstance();
+    AuthorizeTransaction getVerifyRequestAuthorizeTransactionInstance();
    
     AuthorizeTransaction authorizeTransaction = new AuthorizeTransaction();
 
@@ -246,7 +246,7 @@ This class provides the implementation of the following methods: <br/>
 	 * The method sets the values for Authorize XML elements.
 	 * @return of the type authorizeTransaction instance
 	 */
-	 getAuthorizeRequestAuthorizeTransactionInstance()
+	com.velocity.models.request.authorize.AuthorizeTransaction getAuthorizeRequestAuthorizeTransactionInstance()
 	{
 		com.velocity.models.request.authorize.AuthorizeTransaction authorizeTransaction = new com.velocity.models.request.authorize.AuthorizeTransaction();
 
@@ -398,7 +398,7 @@ AuthorizeAndCaptureTransaction <br/>
 	 * The method sets the values for Authorize XML elements.
 	 * @return of the type authorizeAndCaptureTransaction instance
 	 */
-     getAuthorizeAndCaptureTransactionInstance()
+    AuthorizeAndCaptureTransaction getAuthorizeAndCaptureTransactionInstance()
 	{
     AuthorizeAndCaptureTransaction authorizeAndCaptureTransaction = new AuthorizeAndCaptureTransaction();
 
@@ -566,10 +566,9 @@ AuthorizeAndCaptureTransaction <br/>
 	 * @return of the type captureTransaction
 	 */
        
-    getCaptureTransactionInstance(){
+     com.velocity.models.request.capture.ChangeTransaction getCaptureTransactionInstance(){
 
     com.velocity.models.request.capture.ChangeTransaction captureTransaction = new com.velocity.models.request.capture.ChangeTransaction();
-
 
      captureTransaction.getDifferenceData().setType(VelocityEnums.BankcardCapture);
 		
@@ -625,10 +624,9 @@ AuthorizeAndCaptureTransaction <br/>
 	}
 
     /**This method sets value for the Undo XML.
-	 * @author vimalk2
 	 * @return - of the type undoTransaction
 	 */
-	   getUndoTransactionInstance(){
+	   Undo getUndoTransactionInstance(){
 
 	   Undo undoTransaction = new Undo();
 
@@ -708,7 +706,7 @@ AuthorizeAndCaptureTransaction <br/>
 	 * This method sets the values for the Adjust XML
 	 * @return - of the type Adjust
 	 */
-	getAdjustTransactionInstance(){
+	Adjust getAdjustTransactionInstance(){
 
 	Adjust adjustTransaction = new Adjust();
 
@@ -782,7 +780,7 @@ AuthorizeAndCaptureTransaction <br/>
 	 * This method sets the values for the ReturnById XML.
 	 * @return - of the type ReturnById
 	 */
-	   getReturnByIdTransactionInstance(){
+	   ReturnById getReturnByIdTransactionInstance(){
 
 	   ReturnById returnByIdTransaction = new ReturnById();
 
@@ -832,7 +830,7 @@ AuthorizeAndCaptureTransaction <br/>
 	 * This method sets the values for the ReturnUnlinked XML.
 	 * @return - of the type ReturnTransaction
 	 */
-	getReturnTransactionInstance()
+	ReturnTransaction getReturnTransactionInstance()
 	{
 	ReturnTransaction returnUnlinkedTransaction = new ReturnTransaction();
 
