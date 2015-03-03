@@ -574,7 +574,8 @@ AuthorizeAndCaptureTransaction <br/>
 	 * @return of the type captureTransaction
 	 */
        
-     com.velocity.models.request.capture.ChangeTransaction getCaptureTransactionInstance(){
+     com.velocity.models.request.capture.ChangeTransaction getCaptureTransactionInstance()
+    {
 
     com.velocity.models.request.capture.ChangeTransaction captureTransaction = new com.velocity.models.request.capture.ChangeTransaction();
 
