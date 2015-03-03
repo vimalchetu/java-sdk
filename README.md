@@ -134,9 +134,11 @@ This class provides the implementation of the following methods: <br/>
 	 * This method sets the value for the VerifyRequest Instance 
 	 * @return- Returns the AuthoizeTransaction Object.
 	 */
-    AuthorizeTransaction getVerifyRequestAuthorizeTransactionInstance();
    
-    AuthorizeTransaction authorizeTransaction = new AuthorizeTransaction();
+       AuthorizeTransaction getVerifyRequestAuthorizeTransactionInstance()
+      {
+   
+       AuthorizeTransaction authorizeTransaction = new AuthorizeTransaction();
 
 	authorizeTransaction.getTransaction().setType(VelocityEnums.BankcardTransaction);
 	
@@ -197,7 +199,9 @@ This class provides the implementation of the following methods: <br/>
 	
     authorizeTransaction.getTransaction().getTransactionData().setTipAmount("2.00");
     
-    return authorizeTransaction;	
+    return authorizeTransaction;
+    
+    }  
 
 <h2>1.3 invokeAuthorizeRequest(...) </h2><br/>
 
@@ -246,11 +250,13 @@ This class provides the implementation of the following methods: <br/>
 	 * The method sets the values for Authorize XML elements.
 	 * @return of the type authorizeTransaction instance
 	 */
-	com.velocity.models.request.authorize.AuthorizeTransaction getAuthorizeRequestAuthorizeTransactionInstance()
+	
+        com.velocity.models.request.authorize.AuthorizeTransaction getAuthorizeRequestAuthorizeTransactionInstance()
 	{
 		com.velocity.models.request.authorize.AuthorizeTransaction authorizeTransaction = new com.velocity.models.request.authorize.AuthorizeTransaction();
 
-      //Setting the values for Authorize XML
+      /* Setting the values for Authorize request XML */
+     
      authorizeTransaction.getTransaction().setType(VelocityEnums.BankcardTransaction);
 		
      authorizeTransaction.getTransaction().getCustomerData().getBillingData().getName().setNillable(true);
@@ -398,11 +404,13 @@ AuthorizeAndCaptureTransaction <br/>
 	 * The method sets the values for Authorize XML elements.
 	 * @return of the type authorizeAndCaptureTransaction instance
 	 */
-    AuthorizeAndCaptureTransaction getAuthorizeAndCaptureTransactionInstance()
+    
+     AuthorizeAndCaptureTransaction getAuthorizeAndCaptureTransactionInstance()
 	{
     AuthorizeAndCaptureTransaction authorizeAndCaptureTransaction = new AuthorizeAndCaptureTransaction();
 
-    //Setting the values for AuthorizeAndCapture XML
+    /* Setting the values for AuthorizeAndCapture request XML */
+   
     authorizeAndCaptureTransaction.getTransaction().setType(VelocityEnums.BankcardTransaction);
 	
     authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().getName().setNillable(true);
@@ -570,6 +578,8 @@ AuthorizeAndCaptureTransaction <br/>
 
     com.velocity.models.request.capture.ChangeTransaction captureTransaction = new com.velocity.models.request.capture.ChangeTransaction();
 
+      /* Setting the values for Capture request XML */
+       
      captureTransaction.getDifferenceData().setType(VelocityEnums.BankcardCapture);
 		
      captureTransaction.getDifferenceData().setTransactionId("B877F283052443119721C5699CD5C408");
@@ -626,9 +636,13 @@ AuthorizeAndCaptureTransaction <br/>
     /**This method sets value for the Undo XML.
 	 * @return - of the type undoTransaction
 	 */
-	   Undo getUndoTransactionInstance(){
-
+	  
+           Undo getUndoTransactionInstance()
+          {
+       
 	   Undo undoTransaction = new Undo();
+           
+           /* Setting the values for Undo request XML */
 
 	   undoTransaction.setType(VelocityEnums.Undo);
 		
@@ -638,8 +652,8 @@ AuthorizeAndCaptureTransaction <br/>
 	
 	   undoTransaction.setTransactionId("8C17F72F1BF649AA88EE1366AF699D40");
 
-          return undoTransaction;
-	  }
+           return undoTransaction;
+	    }
 	
 	
 	
@@ -706,14 +720,19 @@ AuthorizeAndCaptureTransaction <br/>
 	 * This method sets the values for the Adjust XML
 	 * @return - of the type Adjust
 	 */
-	Adjust getAdjustTransactionInstance(){
+	
+        Adjust getAdjustTransactionInstance(){
 
 	Adjust adjustTransaction = new Adjust();
+	
+	 /* Setting the values for Adjust request XML */
 
 	adjustTransaction.setType(VelocityEnums.Adjust);
 	
 	adjustTransaction.getBatchIds().setNillable(true);
 		
+	/* Setting the amount for adjust */	
+	
 	adjustTransaction.getDifferenceData().setAmount("3.00");
 		
 	adjustTransaction.getDifferenceData().setTransactionId("8A416AE9BB9840199BD56BA011F80AC2");
@@ -780,20 +799,25 @@ AuthorizeAndCaptureTransaction <br/>
 	 * This method sets the values for the ReturnById XML.
 	 * @return - of the type ReturnById
 	 */
-	   ReturnById getReturnByIdTransactionInstance(){
+	  
+            ReturnById getReturnByIdTransactionInstance(){
 
 	   ReturnById returnByIdTransaction = new ReturnById();
 
+           /* Setting the values for ReturnById request XML */
+	  
 	   returnByIdTransaction.setType(VelocityEnums.ReturnById);
 	   
 	   returnByIdTransaction.getBatchIds().setNillable(true);
 	   
 	   returnByIdTransaction.getDifferenceData().setTransactionId("EACD2B6739724FD9A322B9BEE396CB14");
 	   
+	   /* Setting the values to perform returnByIdTransaction */
+	   
 	   returnByIdTransaction.getDifferenceData().setAmount("50.00");
 
-		return returnByIdTransaction;
-	}
+           return returnByIdTransaction;
+	  }
 
 
 <h2>1.9 invokeReturnUnlinkedRequest(...) </h2><br/>
@@ -830,11 +854,12 @@ AuthorizeAndCaptureTransaction <br/>
 	 * This method sets the values for the ReturnUnlinked XML.
 	 * @return - of the type ReturnTransaction
 	 */
-	ReturnTransaction getReturnTransactionInstance()
+	
+        ReturnTransaction getReturnTransactionInstance()
 	{
 	ReturnTransaction returnUnlinkedTransaction = new ReturnTransaction();
 
-	/*Setting the values for ReturnUnlinked XML*/
+	/*Setting the values for ReturnUnlinked request XML*/
 
 	returnUnlinkedTransaction.getTransaction().setType(VelocityEnums.BankcardTransaction);
 		
@@ -843,9 +868,7 @@ AuthorizeAndCaptureTransaction <br/>
 	returnUnlinkedTransaction.getTransaction().getCustomerData().getBillingData().getName().setNillable(true);
 		
 	returnUnlinkedTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setStreet1("1400 16th St");
-		
 	returnUnlinkedTransaction.getTransaction().getCustomerData().getBillingData().getAddress().getStreet2().setNillable(true);
-		
 	returnUnlinkedTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setCity("Denver");
 		
 	returnUnlinkedTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setStateProvince("CO");
