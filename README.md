@@ -135,44 +135,42 @@ This class provides the implementation of the following methods: <br/>
 	 * @return- Returns the AuthoizeTransaction instance.
 	 */
    
-        AuthorizeTransaction getVerifyRequestAuthorizeTransactionInstance()
-       {
+    AuthorizeTransaction getVerifyRequestAuthorizeTransactionInstance()
+    {
    
-        AuthorizeTransaction authorizeTransaction = new AuthorizeTransaction();
+    AuthorizeTransaction authorizeTransaction = new AuthorizeTransaction();
 
-        /* Setting the values for Verify request XML */
+    /* Setting the values for Verify request XML */
           
-	 authorizeTransaction.getTransaction().setType(VelocityEnums.BankcardTransaction);
+	authorizeTransaction.getTransaction().setType(VelocityEnums.BankcardTransaction);
 	
-	 authorizeTransaction.getTransaction().getTenderData().getCardData().setCardType("Visa");
+	authorizeTransaction.getTransaction().getTenderData().getCardData().setCardType("Visa");
 		
-	 authorizeTransaction.getTransaction().getTenderData().getCardData().setCardholderName("ashish");
+	authorizeTransaction.getTransaction().getTenderData().getCardData().setCardholderName("ashish");
 		
-	 authorizeTransaction.getTransaction().getTenderData().getCardData().setPanNumber("4012888812348882");
+	authorizeTransaction.getTransaction().getTenderData().getCardData().setPanNumber("4012888812348882");
 	
-	 authorizeTransaction.getTransaction().getTenderData().getCardData().setExpiryDate("0113");
+	authorizeTransaction.getTransaction().getTenderData().getCardData().setExpiryDate("0113");
 		
 	authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().setNillable(true);
 
-   
-        authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().getCardholderName().setNillable(true);
+    authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().getCardholderName().setNillable(true);
 
-         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().se
-    tStreet("4 corporate sq");
+    authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setStreet("4 corporate sq");
 		
-	 authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setCity("Denver");
+	authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setCity("Denver");
 		
-	 authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setStateProvince("CO");
+	authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setStateProvince("CO");
 	
-	 authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setPostalCode("80202");
+	authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setPostalCode("80202");
 	
-	 authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setPhone("7849477899");
+	authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setPhone("7849477899");
 	
-       authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().getEmail().setNillable(true);
+    authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().getEmail().setNillable(true);
 
-         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().setCvDataProvided("Provided");
+    authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().setCvDataProvided("Provided");
 		
-        authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().setCvData("123");
+    authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().setCvData("123");
 		
 	authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getKeySerialNumber().setNillable(true);
 		
@@ -180,31 +178,31 @@ This class provides the implementation of the following methods: <br/>
 		
 	authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getIdentificationInformation().setNillable(true);
    
-        authorizeTransaction.getTransaction().getTenderData().getEcommerceSecurityData().setNillable(true);
+    authorizeTransaction.getTransaction().getTenderData().getEcommerceSecurityData().setNillable(true);
 		
-        authorizeTransaction.getTransaction().getTransactionData().setAmount("10000.00");
+    authorizeTransaction.getTransaction().getTransactionData().setAmount("10000.00");
 		
-        authorizeTransaction.getTransaction().getTransactionData().setCurrencyCode("USD");
+    authorizeTransaction.getTransaction().getTransactionData().setCurrencyCode("USD");
 		
-        authorizeTransaction.getTransaction().getTransactionData().setTransactiondateTime("");
+    authorizeTransaction.getTransaction().getTransactionData().setTransactiondateTime("");
     
-        authorizeTransaction.getTransaction().getTransactionData().setCustomerPresent("Ecommerce");
+    authorizeTransaction.getTransaction().getTransactionData().setCustomerPresent("Ecommerce");
     
-        authorizeTransaction.getTransaction().getTransactionData().setEmployeeId("11");
+    authorizeTransaction.getTransaction().getTransactionData().setEmployeeId("11");
 	
-        authorizeTransaction.getTransaction().getTransactionData().setEntryMode("Keyed");
+    authorizeTransaction.getTransaction().getTransactionData().setEntryMode("Keyed");
 	
-        authorizeTransaction.getTransaction().getTransactionData().setIndustryType("Ecommerce");
+    authorizeTransaction.getTransaction().getTransactionData().setIndustryType("Ecommerce");
 	
-        authorizeTransaction.getTransaction().getTransactionData().setInvoiceNumber("802");
+    authorizeTransaction.getTransaction().getTransactionData().setInvoiceNumber("802");
 	
-        authorizeTransaction.getTransaction().getTransactionData().setOrderNumber("629203");
+    authorizeTransaction.getTransaction().getTransactionData().setOrderNumber("629203");
 	
-        authorizeTransaction.getTransaction().getTransactionData().setTipAmount("2.00");
+    authorizeTransaction.getTransaction().getTransactionData().setTipAmount("2.00");
     
-        return authorizeTransaction;
+    return authorizeTransaction;
     
-       }  
+    }  
 
 <h2>1.3 invokeAuthorizeRequest(...) </h2><br/>
 
@@ -255,7 +253,7 @@ This class provides the implementation of the following methods: <br/>
 	 */
 	
         com.velocity.models.request.authorize.AuthorizeTransaction getAuthorizeRequestAuthorizeTransactionInstance()
-	{
+	    {
 		com.velocity.models.request.authorize.AuthorizeTransaction authorizeTransaction = new com.velocity.models.request.authorize.AuthorizeTransaction();
 
         /* Setting the values for Authorize request XML */
@@ -267,6 +265,7 @@ This class provides the implementation of the following methods: <br/>
         authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setStreet1("4 corporate sq");
 	
         authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().getStreet2().setNillable(true);
+        
         authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setCity("Denver");
 		
         authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setStateProvince("CO");
@@ -366,7 +365,7 @@ This class provides the implementation of the following methods: <br/>
         authorizeTransaction.getTransaction().getTransactionData().setQuasiCash(false);
 
         return authorizeTransaction ;
-	 }
+	   }
             
 
 <h2>1.4 invokeAuthorizeAndCaptureRequest(...) </h2><br/>
@@ -408,7 +407,7 @@ AuthorizeAndCaptureTransaction <br/>
 	 */
     
      AuthorizeAndCaptureTransaction getAuthorizeAndCaptureTransactionInstance()
-	{
+	 {
     AuthorizeAndCaptureTransaction authorizeAndCaptureTransaction = new AuthorizeAndCaptureTransaction();
 
     /* Setting the values for AuthorizeAndCapture request XML */
@@ -520,7 +519,7 @@ AuthorizeAndCaptureTransaction <br/>
     authorizeAndCaptureTransaction.getTransaction().getTransactionData().setQuasiCash(false);
 
     return authorizeAndCaptureTransaction;
-   }
+     }
    
 	
 <h2>1.5 invokeCaptureRequest(...) </h2><br/>
@@ -577,11 +576,11 @@ AuthorizeAndCaptureTransaction <br/>
 	 */
        
      com.velocity.models.request.capture.ChangeTransaction getCaptureTransactionInstance()
-    {
+      {
 
     com.velocity.models.request.capture.ChangeTransaction captureTransaction = new com.velocity.models.request.capture.ChangeTransaction();
 
-      /* Setting the values for Capture request XML */
+     /* Setting the values for Capture request XML */
        
      captureTransaction.getDifferenceData().setType(VelocityEnums.BankcardCapture);
 		
@@ -592,7 +591,7 @@ AuthorizeAndCaptureTransaction <br/>
      captureTransaction.getDifferenceData().setTipAmount("3.00");
 
      return captureTransaction;
-	}    
+	 }    
 
 <h2>1.6 invokeUndoRequest(...) </h2><br/>
 
@@ -641,11 +640,11 @@ AuthorizeAndCaptureTransaction <br/>
 	 */
 	  
         Undo getUndoTransactionInstance()
-          {
+        {
        
 	   Undo undoTransaction = new Undo();
            
-           /* Setting the values for Undo request XML */
+        /* Setting the values for Undo request XML */
 
 	   undoTransaction.setType(VelocityEnums.Undo);
 		
@@ -726,7 +725,6 @@ AuthorizeAndCaptureTransaction <br/>
 	
        Adjust getAdjustTransactionInstance()
        {
-
       Adjust adjustTransaction = new Adjust();
 	
 	 /* Setting the values for Adjust request XML */
@@ -805,23 +803,22 @@ AuthorizeAndCaptureTransaction <br/>
 	 */
 	  
          ReturnById getReturnByIdTransactionInstance()
-            {
+         {
+	     ReturnById returnByIdTransaction = new ReturnById();
 
-	   ReturnById returnByIdTransaction = new ReturnById();
-
-            /* Setting the values for ReturnById request XML */
+         /* Setting the values for ReturnById request XML */
 	  
-	   returnByIdTransaction.setType(VelocityEnums.ReturnById);
+	     returnByIdTransaction.setType(VelocityEnums.ReturnById);
 	   
-	   returnByIdTransaction.getBatchIds().setNillable(true);
+	     returnByIdTransaction.getBatchIds().setNillable(true);
 	   
-	   returnByIdTransaction.getDifferenceData().setTransactionId("EACD2B6739724FD9A322B9BEE396CB14");
+	     returnByIdTransaction.getDifferenceData().setTransactionId("EACD2B6739724FD9A322B9BEE396CB14");
 	   
-	    /* Setting the amount to perform returnByIdTransaction */
+	      /* Setting the amount to perform returnByIdTransaction */
 	   
-	   returnByIdTransaction.getDifferenceData().setAmount("50.00");
+	     returnByIdTransaction.getDifferenceData().setAmount("50.00");
 
-           return returnByIdTransaction;
+         return returnByIdTransaction;
 	  }
 
 
@@ -860,7 +857,7 @@ AuthorizeAndCaptureTransaction <br/>
 	 * @return - Returns the type ReturnTransaction instance
 	 */
 	
-        ReturnTransaction getReturnTransactionInstance()
+     ReturnTransaction getReturnTransactionInstance()
 	{
 	ReturnTransaction returnUnlinkedTransaction = new ReturnTransaction();
 
