@@ -132,44 +132,47 @@ This class provides the implementation of the following methods: <br/>
 
      /** 
 	 * This method sets the value for the VerifyRequest Instance 
-	 * @return- Returns the AuthoizeTransaction Object.
+	 * @return- Returns the AuthoizeTransaction instance.
 	 */
    
-       AuthorizeTransaction getVerifyRequestAuthorizeTransactionInstance()
-      {
+        AuthorizeTransaction getVerifyRequestAuthorizeTransactionInstance()
+       {
    
-       AuthorizeTransaction authorizeTransaction = new AuthorizeTransaction();
+        AuthorizeTransaction authorizeTransaction = new AuthorizeTransaction();
 
-	authorizeTransaction.getTransaction().setType(VelocityEnums.BankcardTransaction);
+        /* Setting the values for Verify request XML */
+          
+	 authorizeTransaction.getTransaction().setType(VelocityEnums.BankcardTransaction);
 	
-	authorizeTransaction.getTransaction().getTenderData().getCardData().setCardType("Visa");
+	 authorizeTransaction.getTransaction().getTenderData().getCardData().setCardType("Visa");
 		
-	authorizeTransaction.getTransaction().getTenderData().getCardData().setCardholderName("ashish");
+	 authorizeTransaction.getTransaction().getTenderData().getCardData().setCardholderName("ashish");
 		
-	authorizeTransaction.getTransaction().getTenderData().getCardData().setPanNumber("4012888812348882");
+	 authorizeTransaction.getTransaction().getTenderData().getCardData().setPanNumber("4012888812348882");
 	
-	authorizeTransaction.getTransaction().getTenderData().getCardData().setExpiryDate("0113");
+	 authorizeTransaction.getTransaction().getTenderData().getCardData().setExpiryDate("0113");
 		
 	authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().setNillable(true);
 
-    authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().getCardholderName().setNillable(true);
+   
+        authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().getCardholderName().setNillable(true);
 
-    authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().se
+         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().se
     tStreet("4 corporate sq");
 		
-	authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setCity("Denver");;
+	 authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setCity("Denver");
 		
-	authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setStateProvince("CO");
+	 authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setStateProvince("CO");
 	
-	authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setPostalCode("80202");
+	 authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setPostalCode("80202");
 	
-	authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setPhone("7849477899");
+	 authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setPhone("7849477899");
 	
-	authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().getEmail().setNillable(true);
+       authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().getEmail().setNillable(true);
 
-    authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().setCvDataProvided("Provided");
+         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().setCvDataProvided("Provided");
 		
-	authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().setCvData("123");
+        authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().setCvData("123");
 		
 	authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getKeySerialNumber().setNillable(true);
 		
@@ -177,31 +180,31 @@ This class provides the implementation of the following methods: <br/>
 		
 	authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getIdentificationInformation().setNillable(true);
    
-    authorizeTransaction.getTransaction().getTenderData().getEcommerceSecurityData().setNillabl  e(true);
+        authorizeTransaction.getTransaction().getTenderData().getEcommerceSecurityData().setNillable(true);
 		
-    authorizeTransaction.getTransaction().getTransactionData().setAmount("10000.00");
+        authorizeTransaction.getTransaction().getTransactionData().setAmount("10000.00");
 		
-    authorizeTransaction.getTransaction().getTransactionData().setCurrencyCode("USD");
+        authorizeTransaction.getTransaction().getTransactionData().setCurrencyCode("USD");
 		
-    authorizeTransaction.getTransaction().getTransactionData().setTransactiondateTime("");
+        authorizeTransaction.getTransaction().getTransactionData().setTransactiondateTime("");
     
-    authorizeTransaction.getTransaction().getTransactionData().setCustomerPresent("Ecommerce");
+        authorizeTransaction.getTransaction().getTransactionData().setCustomerPresent("Ecommerce");
     
-    authorizeTransaction.getTransaction().getTransactionData().setEmployeeId("11");
+        authorizeTransaction.getTransaction().getTransactionData().setEmployeeId("11");
 	
-    authorizeTransaction.getTransaction().getTransactionData().setEntryMode("Keyed");
+        authorizeTransaction.getTransaction().getTransactionData().setEntryMode("Keyed");
 	
-    authorizeTransaction.getTransaction().getTransactionData().setIndustryType("Ecommerce");
+        authorizeTransaction.getTransaction().getTransactionData().setIndustryType("Ecommerce");
 	
-    authorizeTransaction.getTransaction().getTransactionData().setInvoiceNumber("802");
+        authorizeTransaction.getTransaction().getTransactionData().setInvoiceNumber("802");
 	
-    authorizeTransaction.getTransaction().getTransactionData().setOrderNumber("629203");
+        authorizeTransaction.getTransaction().getTransactionData().setOrderNumber("629203");
 	
-    authorizeTransaction.getTransaction().getTransactionData().setTipAmount("2.00");
+        authorizeTransaction.getTransaction().getTransactionData().setTipAmount("2.00");
     
-    return authorizeTransaction;
+        return authorizeTransaction;
     
-    }  
+       }  
 
 <h2>1.3 invokeAuthorizeRequest(...) </h2><br/>
 
@@ -248,123 +251,122 @@ This class provides the implementation of the following methods: <br/>
      /**
 	 * This method prepares the AuthorizeTransaction instance for AuthorizeTransaction
 	 * The method sets the values for Authorize XML elements.
-	 * @return of the type authorizeTransaction instance
+	 * @return- Returns the authoizeTransaction instance.
 	 */
 	
         com.velocity.models.request.authorize.AuthorizeTransaction getAuthorizeRequestAuthorizeTransactionInstance()
 	{
 		com.velocity.models.request.authorize.AuthorizeTransaction authorizeTransaction = new com.velocity.models.request.authorize.AuthorizeTransaction();
 
-      /* Setting the values for Authorize request XML */
+        /* Setting the values for Authorize request XML */
      
-     authorizeTransaction.getTransaction().setType(VelocityEnums.BankcardTransaction);
+        authorizeTransaction.getTransaction().setType(VelocityEnums.BankcardTransaction);
 		
-     authorizeTransaction.getTransaction().getCustomerData().getBillingData().getName().setNillable(true);
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().getName().setNillable(true);
 		
-    authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setStreet1("4 corporate sq");
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setStreet1("4 corporate sq");
 	
-    authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().getStreet2().setNillable(true);
-    
-    authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setCity("Denver");
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().getStreet2().setNillable(true);
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setCity("Denver");
 		
-    authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setStateProvince("CO");
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setStateProvince("CO");
 		
-    authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setPostalCode("80202");
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setPostalCode("80202");
 		
-    authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setCountryCode("USA");
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setCountryCode("USA");
 		
-    authorizeTransaction.getTransaction().getCustomerData().getBillingData().setBusinessName("MomCorp");
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().setBusinessName("MomCorp");
 		
-    authorizeTransaction.getTransaction().getCustomerData().getBillingData().getPhone().setNillable(true);
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().getPhone().setNillable(true);
 		
-    authorizeTransaction.getTransaction().getCustomerData().getBillingData().getFax().setNillable(true);
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().getFax().setNillable(true);
 		
-    authorizeTransaction.getTransaction().getCustomerData().getBillingData().getEmail().setNillable(true);
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().getEmail().setNillable(true);
 		
-    authorizeTransaction.getTransaction().getCustomerData().setCustomerId("cust123x");
+        authorizeTransaction.getTransaction().getCustomerData().setCustomerId("cust123x");
 	
-    authorizeTransaction.getTransaction().getCustomerData().getCustomerTaxId().setNillable(true);
+        authorizeTransaction.getTransaction().getCustomerData().getCustomerTaxId().setNillable(true);
 		
-    authorizeTransaction.getTransaction().getCustomerData().getShippingData().setNillable(true);
+        authorizeTransaction.getTransaction().getCustomerData().getShippingData().setNillable(true);
 
-    authorizeTransaction.getTransaction().getReportingData().setComment("a test comment");
+        authorizeTransaction.getTransaction().getReportingData().setComment("a test comment");
 		
-    authorizeTransaction.getTransaction().getReportingData().setDescription("a test description");
+        authorizeTransaction.getTransaction().getReportingData().setDescription("a test description");
 		
-    authorizeTransaction.getTransaction().getReportingData().setReference("001");
+        authorizeTransaction.getTransaction().getReportingData().setReference("001");
 		
-    authorizeTransaction.getTransaction().getTenderData().setPaymentAccountDataToken(null);
+        authorizeTransaction.getTransaction().getTenderData().setPaymentAccountDataToken(null);
 		
-    authorizeTransaction.getTransaction().getTenderData().getSecurePaymentAccountData().setNillable(true);
+        authorizeTransaction.getTransaction().getTenderData().getSecurePaymentAccountData().setNillable(true);
 		
-    authorizeTransaction.getTransaction().getTenderData().getEncryptionKeyId().setNillable(true);
+        authorizeTransaction.getTransaction().getTenderData().getEncryptionKeyId().setNillable(true);
 	
-    authorizeTransaction.getTransaction().getTenderData().getSwipeStatus().setNillable(true);
+        authorizeTransaction.getTransaction().getTenderData().getSwipeStatus().setNillable(true);
 	
-    authorizeTransaction.getTransaction().getTenderData().getCardData().setCardType("MasterCard");
+        authorizeTransaction.getTransaction().getTenderData().getCardData().setCardType("MasterCard");
 	
-    authorizeTransaction.getTransaction().getTenderData().getCardData().setPan("5428376000953619");
+        authorizeTransaction.getTransaction().getTenderData().getCardData().setPan("5428376000953619");
 	
-    authorizeTransaction.getTransaction().getTenderData().getCardData().setExpiryDate("0320");
+        authorizeTransaction.getTransaction().getTenderData().getCardData().setExpiryDate("0320");
 	
-    authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().setNillable(true);
+        authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().setNillable(true);
      
-    authorizeTransaction.getTransaction().getTenderData().getEcommerceSecurityData().setNillable(true);;
+        authorizeTransaction.getTransaction().getTenderData().getEcommerceSecurityData().setNillable(true);;
 		
-    authorizeTransaction.getTransaction().getTransactionData().setAmount("2000.75");
+        authorizeTransaction.getTransaction().getTransactionData().setAmount("2000.75");
 		
-    authorizeTransaction.getTransaction().getTransactionData().setCurrencyCode("USD");
+        authorizeTransaction.getTransaction().getTransactionData().setCurrencyCode("USD");
 		
-    authorizeTransaction.getTransaction().getTransactionData().setTransactionDateTime("2013-04-03T13:50:16");
+        authorizeTransaction.getTransaction().getTransactionData().setTransactionDateTime("2013-04-03T13:50:16");
 		
-    authorizeTransaction.getTransaction().getTransactionData().getCampaignId().setNillable(true);
+        authorizeTransaction.getTransaction().getTransactionData().getCampaignId().setNillable(true);
    
-    authorizeTransaction.getTransaction().getTransactionData().setReference("xyt");
+        authorizeTransaction.getTransaction().getTransactionData().setReference("xyt");
 		
-    authorizeTransaction.getTransaction().getTransactionData().setAccountType("NotSet");
+        authorizeTransaction.getTransaction().getTransactionData().setAccountType("NotSet");
 		
-    authorizeTransaction.getTransaction().getTransactionData().getApprovalCode().setNillable(true);
+        authorizeTransaction.getTransaction().getTransactionData().getApprovalCode().setNillable(true);
     
-    authorizeTransaction.getTransaction().getTransactionData().setCashBackAmount("0.0");
+        authorizeTransaction.getTransaction().getTransactionData().setCashBackAmount("0.0");
 		
-    authorizeTransaction.getTransaction().getTransactionData().setCustomerPresent("Present");
+        authorizeTransaction.getTransaction().getTransactionData().setCustomerPresent("Present");
    
-    authorizeTransaction.getTransaction().getTransactionData().setEmployeeId("11");
+        authorizeTransaction.getTransaction().getTransactionData().setEmployeeId("11");
 	 
-    authorizeTransaction.getTransaction().getTransactionData().setEntryMode("Keyed");;
+        authorizeTransaction.getTransaction().getTransactionData().setEntryMode("Keyed");;
 		
-    authorizeTransaction.getTransaction().getTransactionData().setGoodsType("NotSet");
+        authorizeTransaction.getTransaction().getTransactionData().setGoodsType("NotSet");
 
-    authorizeTransaction.getTransaction().getTransactionData().setIndustryType("Ecommerce");
+        authorizeTransaction.getTransaction().getTransactionData().setIndustryType("Ecommerce");
 		
-    authorizeTransaction.getTransaction().getTransactionData().getInternetTransactionData().setNillable(true);
+        authorizeTransaction.getTransaction().getTransactionData().getInternetTransactionData().setNillable(true);
 		
-    authorizeTransaction.getTransaction().getTransactionData().setInvoiceNumber("");
+        authorizeTransaction.getTransaction().getTransactionData().setInvoiceNumber("");
 		
-    authorizeTransaction.getTransaction().getTransactionData().setOrderNumber("629203");
+        authorizeTransaction.getTransaction().getTransactionData().setOrderNumber("629203");
 		
-    authorizeTransaction.getTransaction().getTransactionData().setPartialShipment(false);
+        authorizeTransaction.getTransaction().getTransactionData().setPartialShipment(false);
 		
-    authorizeTransaction.getTransaction().getTransactionData().setSignatureCaptured(false);
+        authorizeTransaction.getTransaction().getTransactionData().setSignatureCaptured(false);
 		
-    authorizeTransaction.getTransaction().getTransactionData().setFeeAmount("1000.05");
+        authorizeTransaction.getTransaction().getTransactionData().setFeeAmount("1000.05");
 		
-    authorizeTransaction.getTransaction().getTransactionData().getTerminalId().setNillable(true);
+        authorizeTransaction.getTransaction().getTransactionData().getTerminalId().setNillable(true);
  	
-    authorizeTransaction.getTransaction().getTransactionData().getLaneId().setNillable(true);
+        authorizeTransaction.getTransaction().getTransactionData().getLaneId().setNillable(true);
 		
-    authorizeTransaction.getTransaction().getTransactionData().setTipAmount("0.0");
+        authorizeTransaction.getTransaction().getTransactionData().setTipAmount("0.0");
 		
-    authorizeTransaction.getTransaction().getTransactionData().getBatchAssignment().setNillable(true);
+        authorizeTransaction.getTransaction().getTransactionData().getBatchAssignment().setNillable(true);
 
-    authorizeTransaction.getTransaction().getTransactionData().setPartialApprovalCapable("NotSet");
+        authorizeTransaction.getTransaction().getTransactionData().setPartialApprovalCapable("NotSet");
 		
-    authorizeTransaction.getTransaction().getTransactionData().getScoreThreshold().setNillable(true);
+        authorizeTransaction.getTransaction().getTransactionData().getScoreThreshold().setNillable(true);
 		
-    authorizeTransaction.getTransaction().getTransactionData().setQuasiCash(false);
+        authorizeTransaction.getTransaction().getTransactionData().setQuasiCash(false);
 
-     return authorizeTransaction ;
-	}
+        return authorizeTransaction ;
+	 }
             
 
 <h2>1.4 invokeAuthorizeAndCaptureRequest(...) </h2><br/>
@@ -571,7 +573,7 @@ AuthorizeAndCaptureTransaction <br/>
      /**
 	 * This method prepares the CaptureTransaction instance for CaptureTransaction
 	 * The method sets the values for Capture XML elements.
-	 * @return of the type captureTransaction
+	 * @return- Returns the captureTransaction instance.
 	 */
        
      com.velocity.models.request.capture.ChangeTransaction getCaptureTransactionInstance()
@@ -607,7 +609,7 @@ AuthorizeAndCaptureTransaction <br/>
    
    
     /**
-	 * This method tests the Undo request through the Velocity REST server.
+     * This method tests the Undo request through the Velocity REST server.
      * The method performs the Authorize operations before the invoking the Undo 
        transaction and obtains the transactionId.
 	 */
@@ -635,10 +637,10 @@ AuthorizeAndCaptureTransaction <br/>
 	}
 
     /**This method sets value for the Undo XML.
-	 * @return - of the type undoTransaction
+	 * @return- Returns the undoTransaction instance.
 	 */
 	  
-           Undo getUndoTransactionInstance()
+        Undo getUndoTransactionInstance()
           {
        
 	   Undo undoTransaction = new Undo();
@@ -719,12 +721,13 @@ AuthorizeAndCaptureTransaction <br/>
 
     /**
 	 * This method sets the values for the Adjust XML
-	 * @return - of the type Adjust
+	 * @return- Returns the Adjust instance.
 	 */
 	
-        Adjust getAdjustTransactionInstance(){
+       Adjust getAdjustTransactionInstance()
+       {
 
-	Adjust adjustTransaction = new Adjust();
+      Adjust adjustTransaction = new Adjust();
 	
 	 /* Setting the values for Adjust request XML */
 
@@ -798,14 +801,15 @@ AuthorizeAndCaptureTransaction <br/>
        
      /**
 	 * This method sets the values for the ReturnById XML.
-	 * @return - of the type ReturnById
+	 * @return- Returns the ReturnById instance.
 	 */
 	  
-            ReturnById getReturnByIdTransactionInstance(){
+         ReturnById getReturnByIdTransactionInstance()
+            {
 
 	   ReturnById returnByIdTransaction = new ReturnById();
 
-           /* Setting the values for ReturnById request XML */
+            /* Setting the values for ReturnById request XML */
 	  
 	   returnByIdTransaction.setType(VelocityEnums.ReturnById);
 	   
@@ -813,7 +817,7 @@ AuthorizeAndCaptureTransaction <br/>
 	   
 	   returnByIdTransaction.getDifferenceData().setTransactionId("EACD2B6739724FD9A322B9BEE396CB14");
 	   
-	   /* Setting the values to perform returnByIdTransaction */
+	    /* Setting the amount to perform returnByIdTransaction */
 	   
 	   returnByIdTransaction.getDifferenceData().setAmount("50.00");
 
@@ -853,7 +857,7 @@ AuthorizeAndCaptureTransaction <br/>
 
     /**
 	 * This method sets the values for the ReturnUnlinked XML.
-	 * @return - of the type ReturnTransaction
+	 * @return - Returns the type ReturnTransaction instance
 	 */
 	
         ReturnTransaction getReturnTransactionInstance()
@@ -869,7 +873,9 @@ AuthorizeAndCaptureTransaction <br/>
 	returnUnlinkedTransaction.getTransaction().getCustomerData().getBillingData().getName().setNillable(true);
 		
 	returnUnlinkedTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setStreet1("1400 16th St");
+	
 	returnUnlinkedTransaction.getTransaction().getCustomerData().getBillingData().getAddress().getStreet2().setNillable(true);
+	
 	returnUnlinkedTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setCity("Denver");
 		
 	returnUnlinkedTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setStateProvince("CO");
