@@ -114,8 +114,10 @@ This class provides the implementation of the following methods: <br/>
 			AuthorizeTransaction objAuthorizeTransaction = getVerifyRequestAuthorizeTransactionInstance();
 
 			VelocityResponse objVelocityResponse = velocityProcessor.invokeVerifyRequest(objAuthorizeTransaction);
-
-			if(objVelocityResponse.getBankcardTransactionResponse() != null)
+                 
+                /* Getting the BankcardTransactionResponse from the Velocity response. */
+                BankcardTransactionResponse objBankcardTransactionResponse = objVelocityResponse.getBankcardTransactionResponse();
+            if(objVelocityResponse.getBankcardTransactionResponse() != null)
 			{
 				AppLogger.logDebug(getClass(), "testInvokeVerifyRequest", "Status >>>>>>>>>> "+objVelocityResponse.getBankcardTransactionResponse().getStatus());
 			}
@@ -227,6 +229,8 @@ This class provides the implementation of the following methods: <br/>
 		try {
 			com.velocity.models.request.authorize.AuthorizeTransaction objAuthorizeTransaction = getAuthorizeRequestAuthorizeTransactionInstance();
 			VelocityResponse objVelocityResponse = velocityProcessor.invokeAuthorizeRequest(objAuthorizeTransaction);
+                   /* Getting the BankcardTransactionResponse from the Velocity response. */
+               BankcardTransactionResponse objBankcardTransactionResponse = objVelocityResponse.getBankcardTransactionResponse();
 			if(objVelocityResponse.getBankcardTransactionResponse() != null)
 			{
 				AppLogger.logDebug(getClass(), "testInvokeAuthorizeRequest", "Status >>>>>>>>>> "+objVelocityResponse.getBankcardTransactionResponse().getStatus());
@@ -553,6 +557,8 @@ AuthorizeAndCaptureTransaction <br/>
 
 			VelocityResponse captureVelocityResponse = velocityProcessor.invokeCaptureRequest(objChangeTransaction);
 			
+	            /* Getting the BankcardCaptureResponse from the Velocity response. */
+                  BankcardCaptureResponse objbankcardCaptureResponse = captureVelocityResponse.getBankcardCaptureResponse();
 			if(captureVelocityResponse.getBankcardCaptureResponse() != null)
 			{
 				AppLogger.logDebug(this.getClass(), "invokeCaptureRequest", "Status >>>>>>>>>> "+ captureVelocityResponse.getBankcardCaptureResponse().getCaptureState());
@@ -685,7 +691,8 @@ AuthorizeAndCaptureTransaction <br/>
 
 			com.velocity.models.request.authorize.AuthorizeTransaction objAuthorizeTransaction = getAuthorizeRequestAuthorizeTransactionInstance();
 			VelocityResponse objVelocityResponse = velocityProcessor.invokeAuthorizeRequest(objAuthorizeTransaction);
-
+         /* Getting the BankcardTransactionResponse from the Velocity response. */
+          BankcardTransactionResponse objBankcardTransactionResponse = objVelocityResponse.getBankcardTransactionResponse();
 			if(objVelocityResponse.getBankcardTransactionResponse() != null)
 			{
 				AppLogger.logDebug(getClass(), "testinvokeAdjustRequest", "Authorize Status >>>>>>>>>> "+ objVelocityResponse.getBankcardTransactionResponse().getStatus());
@@ -766,6 +773,8 @@ AuthorizeAndCaptureTransaction <br/>
 
 			com.velocity.models.request.authorize.AuthorizeTransaction objAuthorizeTransaction = getAuthorizeRequestAuthorizeTransactionInstance();
 			VelocityResponse objVelocityResponse = velocityProcessor.invokeAuthorizeRequest(objAuthorizeTransaction);
+		  /* Getting the BankcardTransactionResponse from the Velocity response. */
+          BankcardTransactionResponse objBankcardTransactionResponse = objVelocityResponse.getBankcardTransactionResponse();
 
 			if(objVelocityResponse.getBankcardTransactionResponse() != null)
 			{
