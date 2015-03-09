@@ -119,7 +119,7 @@ This class provides the implementation of the following methods: <br/>
             BankcardTransactionResponse objBankcardTransactionResponse = objVelocityResponse.getBankcardTransactionResponse();
             if(objBankcardTransactionResponse != null)
 			{
-				AppLogger.logDebug(getClass(), "testInvokeVerifyRequest", "Status >>>>>>>>>> "+objVelocityResponse.getBankcardTransactionResponse().getStatus());
+				AppLogger.logDebug(getClass(), "testInvokeVerifyRequest", "Status >>>>>>>>>> "+objBankcardTransactionResponse.getStatus());
 			}
 			else if(objVelocityResponse.getErrorResponse() != null)
 			{
