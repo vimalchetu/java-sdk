@@ -121,9 +121,9 @@ This class provides the implementation of the following methods: <br/>
 			{
 				AppLogger.logDebug(getClass(), "testInvokeVerifyRequest", "Status >>>>>>>>>> "+objBankcardTransactionResponse.getStatus());
 			}
-			else if(objVelocityResponse.getErrorResponse() != null)
+			else if(objBankcardTransactionResponse.getErrorResponse() != null)
 			{
-				AppLogger.logDebug(getClass(), "testInvokeVerifyRequest", "Message >>>>>>>>>> "+objVelocityResponse.getErrorResponse().getReason() + " " + objVelocityResponse.getErrorResponse().getValidationErrors().getValidationErrorList().get(0).getRuleMessage());
+				AppLogger.logDebug(getClass(), "testInvokeVerifyRequest", "Message >>>>>>>>>> "+objBankcardTransactionResponse.getErrorResponse().getReason() + " " + objBankcardTransactionResponse.getErrorResponse().getValidationErrors().getValidationErrorList().get(0).getRuleMessage());
 			}
 		} catch (Exception e) {
 			
@@ -233,14 +233,14 @@ This class provides the implementation of the following methods: <br/>
              BankcardTransactionResponse objBankcardTransactionResponse = objVelocityResponse.getBankcardTransactionResponse();
 			if(objBankcardTransactionResponse != null)
 			{
-				AppLogger.logDebug(getClass(), "testInvokeAuthorizeRequest", "Status >>>>>>>>>> "+objVelocityResponse.getBankcardTransactionResponse().getStatus());
+				AppLogger.logDebug(getClass(), "testInvokeAuthorizeRequest", "Status >>>>>>>>>> "+objBankcardTransactionResponse.getStatus());
 			}
-			else if(objVelocityResponse.getErrorResponse() != null)
+			else if(objBankcardTransactionResponse.getErrorResponse() != null)
 			{
-				AppLogger.logDebug(getClass(), "testInvokeAuthorizeRequest", "Error >>>>>>>>>> "+objVelocityResponse.getErrorResponse().getReason());
-				if(objVelocityResponse.getErrorResponse().getValidationErrors() != null)
+				AppLogger.logDebug(getClass(), "testInvokeAuthorizeRequest", "Error >>>>>>>>>> "+objBankcardTransactionResponse.getErrorResponse().getReason());
+				if(objBankcardTransactionResponse.getErrorResponse().getValidationErrors() != null)
 				{
-					AppLogger.logDebug(getClass(), "testInvokeAuthorizeRequest", "Error >>>>>>>>>> "+objVelocityResponse.getErrorResponse().getValidationErrors().getValidationErrorList().get(0).getRuleKey());
+					AppLogger.logDebug(getClass(), "testInvokeAuthorizeRequest", "Error >>>>>>>>>> "+objBankcardTransactionResponse.getErrorResponse().getValidationErrors().getValidationErrorList().get(0).getRuleKey());
 				}
 			}
 			
@@ -395,8 +395,8 @@ AuthorizeAndCaptureTransaction <br/>
 	{
 		try {
 			AuthorizeAndCaptureTransaction objAuthorizeAndCaptureTransaction = getAuthorizeAndCaptureTransactionInstance();
-			VelocityResponse objVelocityResponse = velocityProcessor.invokeAuthorizeAndCaptureRequest(objAuthorizeAndCaptureTransaction);
-			AppLogger.logDebug(getClass(), "invokeAuthorizeAndCaptureRequest", "Status >>>>>>>>>> "+objVelocityResponse.getBankcardTransactionResponse().getStatus());
+			BankcardTransactionResponse objBankcardTransactionResponse =  velocityProcessor.invokeAuthorizeAndCaptureRequest(objAuthorizeAndCaptureTransaction);
+			AppLogger.logDebug(getClass(), "invokeAuthorizeAndCaptureRequest", "Status >>>>>>>>>> "+objBankcardTransactionResponse.getStatus());
 		} catch(Exception ex)
 		{
 			AppLogger.logError(this.getClass(),"testInvokeAuthorizeAndCaptureRequest", ex);
@@ -561,11 +561,11 @@ AuthorizeAndCaptureTransaction <br/>
                   BankcardCaptureResponse objbankcardCaptureResponse = captureVelocityResponse.getBankcardCaptureResponse();
 			if(objbankcardCaptureResponse != null)
 			{
-				AppLogger.logDebug(this.getClass(), "invokeCaptureRequest", "Status >>>>>>>>>> "+ captureVelocityResponse.getBankcardCaptureResponse().getCaptureState());
+				AppLogger.logDebug(this.getClass(), "invokeCaptureRequest", "Status >>>>>>>>>> "+ objbankcardCaptureResponse.getCaptureState());
 			}
-			else if(captureVelocityResponse.getErrorResponse() != null)
+			else if(objbankcardCaptureResponse.getErrorResponse() != null)
 			{
-				AppLogger.logDebug(this.getClass(), "invokeCaptureRequest", "Status >>>>>>>>>> "+ captureVelocityResponse.getErrorResponse().getErrorId());
+				AppLogger.logDebug(this.getClass(), "invokeCaptureRequest", "Status >>>>>>>>>> "+ objbankcardCaptureResponse.getErrorResponse().getErrorId());
 			}
 		} catch(Exception ex)
 		{
@@ -695,25 +695,25 @@ AuthorizeAndCaptureTransaction <br/>
           BankcardTransactionResponse objBankcardTransactionResponse = objVelocityResponse.getBankcardTransactionResponse();
 			if(objBankcardTransactionResponse != null)
 			{
-				AppLogger.logDebug(getClass(), "testinvokeAdjustRequest", "Authorize Status >>>>>>>>>> "+ objVelocityResponse.getBankcardTransactionResponse().getStatus());
+				AppLogger.logDebug(getClass(), "testinvokeAdjustRequest", "Authorize Status >>>>>>>>>> "+ objBankcardTransactionResponse.getStatus());
 
 				ChangeTransaction objChangeTransaction = getCaptureTransactionInstance();
 
-				objChangeTransaction.getDifferenceData().setTransactionId(objVelocityResponse.getBankcardTransactionResponse().getTransactionId());
+				objChangeTransaction.getDifferenceData().setTransactionId(objBankcardTransactionResponse.getTransactionId());
 
-				objVelocityResponse = velocityProcessor.invokeCaptureRequest(objChangeTransaction);
+				objBankcardTransactionResponse = velocityProcessor.invokeCaptureRequest(objChangeTransaction);
 
-				if(objVelocityResponse.getBankcardCaptureResponse() != null)
+				if(objBankcardTransactionResponse != null)
 				{
-					AppLogger.logDebug(getClass(), "invokeAdjustRequest", "Capture Status >>>>>>>>>> "+ objVelocityResponse.getBankcardCaptureResponse().getStatus());
+					AppLogger.logDebug(getClass(), "invokeAdjustRequest", "Capture Status >>>>>>>>>> "+ objBankcardTransactionResponse.getStatus());
 
-					AppLogger.logDebug(getClass(), "invokeAdjustRequest", "Capture Transaction Id >>>>>>>>>> "+ objVelocityResponse.getBankcardCaptureResponse().getTransactionId());
+					AppLogger.logDebug(getClass(), "invokeAdjustRequest", "Capture Transaction Id >>>>>>>>>> "+ objBankcardTransactionResponse.getTransactionId());
 
 					com.velocity.models.request.adjust.Adjust objAdjust  = getAdjustTransactionInstance();
 
-					objAdjust.getDifferenceData().setTransactionId(objVelocityResponse.getBankcardCaptureResponse().getTransactionId());
-					objVelocityResponse = velocityProcessor.invokeAdjustRequest(objAdjust);
-					AppLogger.logDebug(getClass(), "invokeAdjustRequest", "Adjust Status >>>>>>>>>> "+ objVelocityResponse.getBankcardTransactionResponse().getStatus());
+					objAdjust.getDifferenceData().setTransactionId(objBankcardTransactionResponse.getTransactionId());
+					objBankcardTransactionResponse = velocityProcessor.invokeAdjustRequest(objAdjust);
+					AppLogger.logDebug(getClass(), "invokeAdjustRequest", "Adjust Status >>>>>>>>>> "+ objBankcardTransactionResponse.getStatus());
 
 				}
 			}
@@ -778,22 +778,22 @@ AuthorizeAndCaptureTransaction <br/>
 
 			if(objBankcardTransactionResponse != null)
 			{
-				AppLogger.logDebug(getClass(), "testinvokeReturnByIdRequest", "Authorize Status >>>>>>>>>> "+ objVelocityResponse.getBankcardTransactionResponse().getStatus());
+				AppLogger.logDebug(getClass(), "testinvokeReturnByIdRequest", "Authorize Status >>>>>>>>>> "+ objBankcardTransactionResponse.getStatus());
 
 				ChangeTransaction objChangeTransaction = getCaptureTransactionInstance();
 
-				objChangeTransaction.getDifferenceData().setTransactionId(objVelocityResponse.getBankcardTransactionResponse().getTransactionId());
+				objChangeTransaction.getDifferenceData().setTransactionId(objBankcardTransactionResponse.getTransactionId());
 
-				objVelocityResponse = velocityProcessor.invokeCaptureRequest(objChangeTransaction);
+				objBankcardTransactionResponse = velocityProcessor.invokeCaptureRequest(objChangeTransaction);
 
-				if(objVelocityResponse.getBankcardCaptureResponse() != null)
+				if(objBankcardTransactionResponse != null)
 				{
-					AppLogger.logDebug(getClass(), "invokeAdjustRequest", "Capture Status >>>>>>>>>> "+ objVelocityResponse.getBankcardCaptureResponse().getStatus());
+					AppLogger.logDebug(getClass(), "invokeAdjustRequest", "Capture Status >>>>>>>>>> "+ objBankcardTransactionResponse.getStatus());
 					com.velocity.models.request.returnById.ReturnById objReturnById  = getReturnByIdTransactionInstance();
 
-					objReturnById.getDifferenceData().setTransactionId(objVelocityResponse.getBankcardCaptureResponse().getTransactionId());
-					objVelocityResponse = velocityProcessor.invokeReturnByIdRequest(objReturnById);
-					AppLogger.logDebug(getClass(), "invokeReturnByIdRequest", "ReturnById Status >>>>>>>>>> "+ objVelocityResponse.getBankcardTransactionResponse().getStatus());
+					objReturnById.getDifferenceData().setTransactionId(objBankcardTransactionResponse.getTransactionId());
+					objBankcardTransactionResponse = velocityProcessor.invokeReturnByIdRequest(objReturnById);
+					AppLogger.logDebug(getClass(), "invokeReturnByIdRequest", "ReturnById Status >>>>>>>>>> "+ objBankcardTransactionResponse.getStatus());
 
 				}
 			}
