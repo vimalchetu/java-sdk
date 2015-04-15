@@ -1,16 +1,19 @@
+/**
+ * 
+ */
 package com.velocity.exceptions;
 
 /**
- * This class defines the RestInvokeException exception for Velocity payment gateway implementation.
- * @author anitk
- * @date 13-January-2015
+ * This class defines the Generic exception for Velocity payment gateway implementation.
+ * @author vimalk2
+ * @date 30-December-2014
  */
-public class VelocityRestInvokeException extends Exception {
-    private static final long serialVersionUID = 2407112332528162904L;
+public class VelocityGenericException extends Exception {
+
     /**
      * Default constructor
      */
-    public VelocityRestInvokeException() {
+    public VelocityGenericException() {
         super();
     }
 
@@ -18,7 +21,7 @@ public class VelocityRestInvokeException extends Exception {
      * Constructor
      * @param msg - the message to include in the exception
      */
-    public VelocityRestInvokeException(String msg) {
+    public VelocityGenericException(String msg) {
         super(msg);
 
     }
@@ -27,7 +30,7 @@ public class VelocityRestInvokeException extends Exception {
      * Constructor
      * @param t  - creates the exception from another exception
      */
-    public VelocityRestInvokeException(Throwable t) {
+    public VelocityGenericException(Throwable t) {
         super(t);
 
     }
@@ -37,7 +40,7 @@ public class VelocityRestInvokeException extends Exception {
      * @param msg - message to include in the exception
      * @param t - the causing exception
      */
-    public VelocityRestInvokeException(String msg, Throwable t) {
+    public VelocityGenericException(String msg, Throwable t) {
         super(msg, t);
 
     }

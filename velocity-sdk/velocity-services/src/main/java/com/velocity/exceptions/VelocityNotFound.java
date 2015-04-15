@@ -1,16 +1,19 @@
+/**
+ * 
+ */
 package com.velocity.exceptions;
 
 /**
- * This class defines the RestInvokeException exception for Velocity payment gateway implementation.
+ * This class defines the NotFound exception for Velocity payment gateway implementation.
  * @author anitk
  * @date 13-January-2015
  */
-public class VelocityRestInvokeException extends Exception {
-    private static final long serialVersionUID = 2407112332528162904L;
+public class VelocityNotFound extends Exception {
+
     /**
      * Default constructor
      */
-    public VelocityRestInvokeException() {
+    public VelocityNotFound() {
         super();
     }
 
@@ -18,7 +21,7 @@ public class VelocityRestInvokeException extends Exception {
      * Constructor
      * @param msg - the message to include in the exception
      */
-    public VelocityRestInvokeException(String msg) {
+    public VelocityNotFound(String msg) {
         super(msg);
 
     }
@@ -27,7 +30,7 @@ public class VelocityRestInvokeException extends Exception {
      * Constructor
      * @param t  - creates the exception from another exception
      */
-    public VelocityRestInvokeException(Throwable t) {
+    public VelocityNotFound(Throwable t) {
         super(t);
 
     }
@@ -37,7 +40,7 @@ public class VelocityRestInvokeException extends Exception {
      * @param msg - message to include in the exception
      * @param t - the causing exception
      */
-    public VelocityRestInvokeException(String msg, Throwable t) {
+    public VelocityNotFound(String msg, Throwable t) {
         super(msg, t);
 
     }
