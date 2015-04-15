@@ -1,0 +1,47 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.velocity.sdk</groupId>
+	<artifactId>velocity-sdk</artifactId>
+	<version>1.0</version>
+	<packaging>pom</packaging>
+	<name>Java SDK</name>
+	<description>Java SDK</description>
+	<properties>
+		<java-version>1.7</java-version>
+	</properties>
+	<modules>
+		<module>velocity-services</module>
+		<module>NorthamericanbancardTestApp</module>
+	</modules>
+	<build>
+		<plugins>
+			<!-- Perform check style analysis -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<configuration>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
+				</configuration>
+			</plugin>
+			<!-- Perform PMD and CPD analysis -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<executions>
+					<execution>
+						<configuration>
+							<failOnViolation>false</failOnViolation>
+							<failurePriority>2</failurePriority>
+						</configuration>
+
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
