@@ -14,53 +14,41 @@ The signature of the constructor of this class is as below: <br/>
 
 <b>Sample Code:</b>
 
-    public VelocityProcessor(String sessionToken, String identityToken, String appProfileId, String merchantProfileId, String workFlowId, boolean isTestAccount) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException 
-	{
-		AppLogger.logDebug(this.getClass(), "VelocityProcessor constructor", "Entering VelocityProcessor constructor");
-		this.sessionToken = sessionToken;
-		this.identityToken = identityToken;
-		this.appProfileId = appProfileId;
-		this.merchantProfileId = merchantProfileId;
-		this.workFlowId = workFlowId;
-		this.isTestAccount = isTestAccount;
-		/* Setting Velocity REST server URL. */
-		setVelocityRestServerURL();
-		
-		if((sessionToken == null || sessionToken.isEmpty()) && (identityToken != null && !identityToken.isEmpty()))
-		{
-			/* Getting the Velocity session token. */
-			this.sessionToken = invokeSignOn(identityToken);
-		}
-		AppLogger.logDebug(this.getClass(), "VelocityProcessor constructor", "sessionToken >>>> "+this.sessionToken);
-		/* Encrypting the Velocity server session token. */
-		if(this.sessionToken != null && !this.sessionToken.isEmpty())
-		{
-			encSessionToken = new String(Base64.encode((this.sessionToken + ":").getBytes()));
-		}
-		AppLogger.logDebug(this.getClass(), "VelocityProcessor constructor", "Encrypted session token >>>> "+encSessionToken);
-		AppLogger.logDebug(this.getClass(), "VelocityProcessor constructor", "Exiting VelocityProcessor constructor");
-		if(encSessionToken == null || encSessionToken.isEmpty())
-		{
-			throw new VelocityGenericException("Unable to create VelocityProcessor instance with a valid session.");
-		}
-		
-	}
+    public VelocityProcessor(String sessionToken, String identityToken, String appProfileId, String merchantProfileId, String workFlowId, boolean isTestAccount) throws VelocityIllegalArgumentException, VelocityException, VelocityNotFoundException, VelocityRestInvokeException, VelocityException, IOException {
+        this.identityToken = identityToken;
+        this.appProfileId = appProfileId;
+        this.merchantProfileId = merchantProfileId;
+        this.workFlowId = workFlowId;
+        this.isTestAccount = isTestAccount;
+        velocityConfigManager = new VelocityConfigManager();
+        /*
+         * If session token is not provided by merchants then call SignOn to
+         * velocity server to get new session token based on identityToken value
+         */
+        if((sessionToken == null || sessionToken.isEmpty()) && (this.identityToken != null && !this.identityToken.isEmpty())){
+            this.sessionToken = signOn(identityToken);
+        }else{
+            this.sessionToken = sessionToken;
+        }
+    }
 
 
 
  <h2>1. VelocityProcessor </h2><br/>
 This class provides the implementation of the following methods: <br/>
-     1. invokeSignOn  <br/>
-     2. invokeVerifyRequest   <br/>
-     3. invokeAuthorizeRequest  <br/>
-     4. invokeAuthorizeAndCaptureRequest     <br/>
-     5. invokeCaptureRequest  <br/>
-     6. invokeUndoRequest     <br/>
-     7. invokeAdjustRequest   <br/>
-     8. invokeReturnByIdRequest    <br/>
-     9. invokeReturnUnlinkedRequest     <br/><br/>
+     1. signOn  <br/>
+     2. verify   <br/>
+     3. authorize  <br/>
+     4. authorizeAndCapture     <br/>
+     5. capture  <br/>
+     6. undo     <br/>
+     7. adjust   <br/>
+     8. returnById    <br/>
+     9. returnUnlinked     
+     10. queryTransactionsDetail <br/>
+     11. captureAll <br/>
      
-<h2>1.1 invokeSignOn(...) </h2><br/>
+<h2>1.1 signOn(...) </h2><br/>
 
    The method accepts the identity token as argument and provides the session token.  <br/>
 
@@ -90,7 +78,7 @@ This class provides the implementation of the following methods: <br/>
 	}
 
 
-<h2>1.2 invokeVerifyRequest(...) </h2><br/>
+<h2>1.2 verify(...) </h2><br/>
 
    The method is responsible for the invocation of verify operation on the Velocity REST server.<br/>
 
@@ -206,7 +194,7 @@ This class provides the implementation of the following methods: <br/>
     
     }  
 
-<h2>1.3 invokeAuthorizeRequest(...) </h2><br/>
+<h2>1.3 authorize(...) </h2><br/>
 
    The method is responsible for the invocation of authorize operation on the Velocity REST server.<br/>
 
@@ -372,7 +360,7 @@ This class provides the implementation of the following methods: <br/>
 	   }
             
 
-<h2>1.4 invokeAuthorizeAndCaptureRequest(...) </h2><br/>
+<h2>1.4 authorizeAndCapture(...) </h2><br/>
 
    The method is responsible for the invocation of authorizeAndCapture operation on the Velocity REST server.<br/>
 
@@ -526,7 +514,7 @@ AuthorizeAndCaptureTransaction <br/>
      }
    
 	
-<h2>1.5 invokeCaptureRequest(...) </h2><br/>
+<h2>1.5 capture(...) </h2><br/>
 
    The method is responsible for the invocation of capture operation on the Velocity REST server.<br/>
 
@@ -599,7 +587,7 @@ AuthorizeAndCaptureTransaction <br/>
      return captureTransaction;
 	 }    
 
-<h2>1.6 invokeUndoRequest(...) </h2><br/>
+<h2>1.6 undo(...) </h2><br/>
 
    The method is responsible for the invocation of undo operation on the Velocity REST server.<br/>
 
@@ -666,7 +654,7 @@ AuthorizeAndCaptureTransaction <br/>
 	
 	
 
-<h2>1.7 invokeAdjustRequest(...) </h2><br/>
+<h2>1.7 adjust(...) </h2><br/>
 
    The method is responsible for the invocation of adjust operation on the Velocity REST server.<br/>
 
@@ -750,7 +738,7 @@ AuthorizeAndCaptureTransaction <br/>
 	}
 
 
-<h2>1.8 invokeReturnByIdRequest(...) </h2><br/>
+<h2>1.8 returnById(...) </h2><br/>
 
    The method is responsible for the invocation of returnById operation on the Velocity REST server.<br/>
 
@@ -831,7 +819,7 @@ AuthorizeAndCaptureTransaction <br/>
 	  }
 
 
-<h2>1.9 invokeReturnUnlinkedRequest(...) </h2><br/>
+<h2>1.9 returnUnlinked(...) </h2><br/>
 
    The method is responsible for the invocation of returnUnLinked operation on the Velocity REST server.<br/>
 
@@ -982,6 +970,103 @@ AuthorizeAndCaptureTransaction <br/>
 
 	return returnUnlinkedTransaction;
 	}
+	
+<h2>1.10 queryTransactionsDetail(...) </h2><br/>
+
+The method queries the specified transactions and returns both summary details
+      and full transaction details.<br/>
+
+<b> public VelocityResponse queryTransactionsDetail(QueryTransactionsDetail queryTransactionsDetail) throws VelocityIllegalArgumentException, VelocityException, VelocityNotFoundException, VelocityRestInvokeException</b><br/>
+
+@parameter <b>queryTransactionsDetail</b> - holds the value for queryTransactionsDetail request QueryTransactionsDetail transaction.
+
+@returnType  <b>VelocityResponse</b>  <br/> 
+
+<b>Sample Code:</b>
+
+    /**
+     * This method tests the QueryTransactionsDetail request through the REST API.
+     * The method tests the data by sending the request through JSON object.
+     * @return returns the type void.
+     */
+    @Test
+    public void testInvokeQueryTransactionDetailRequest()
+    {
+        try{
+    QueryTransactionsDetail queryTransactionsDetail = new QueryTransactionsDetail();
+    /* Setting request parameters for Query Transaction Detail */
+    queryTransactionsDetail.setTransactionDetailFormat(com.velocity.enums.TransactionDetailFormat.CWSTransaction);
+    queryTransactionsDetail.getPagingParameters().setPage(0);
+    queryTransactionsDetail.getPagingParameters().setPageSize(4);
+    queryTransactionsDetail.getQueryTransactionsParameters().getAmounts().add(100f);
+    queryTransactionsDetail.getQueryTransactionsParameters().getApprovalCodes().add("VI0000");
+    queryTransactionsDetail.getQueryTransactionsParameters().getBatchIds().add("0539");  
+    queryTransactionsDetail.getQueryTransactionsParameters().getCaptureDateRange().setStartDateTime("2015-03-13 02:03:40");
+    queryTransactionsDetail.getQueryTransactionsParameters().getCaptureDateRange().setEndDateTime("2015-03-17 02:03:40");
+    queryTransactionsDetail.getQueryTransactionsParameters().getMerchantProfileIds().add("PrestaShop Global HC"); 
+    queryTransactionsDetail.getQueryTransactionsParameters().getServiceIds().add("2317000001";
+    queryTransactionsDetail.getQueryTransactionsParameters().getServiceKeys().add("FF3BB6DC58300001");
+    queryTransactionsDetail.getQueryTransactionsParameters().setQueryType(QueryType.OR);
+    queryTransactionsDetail.getQueryTransactionsParameters().setCaptureState(CaptureState.Captured);
+    queryTransactionsDetail.getQueryTransactionsParameters().setCardTypes(TypeCardType.Visa);
+    queryTransactionsDetail.getQueryTransactionsParameters().setIsAcknowledged("false");
+    queryTransactionsDetail.getQueryTransactionsParameters().getOrderNumbers().add("629203");
+    queryTransactionsDetail.getQueryTransactionsParameters().getTransactionDateRange().setEndDateTime("2015-03-17 02:03:40");
+    queryTransactionsDetail.getQueryTransactionsParameters().getTransactionDateRange().setStartDateTime("2015-03-13 02:03:40");
+    queryTransactionsDetail.getQueryTransactionsParameters().setTransactionState(TransactionState.Authorized);
+    queryTransactionsDetail.getQueryTransactionsParameters().getTransactionIds().add("191DB098CC8E402DA8D4B37B5FC6ACE3");
+    queryTransactionsDetail.getQueryTransactionsParameters().getTransactionIds().add("8D90B6F54CAC440B9B67727437EE27CD");
+    queryTransactionsDetail.getQueryTransactionsParameters().getTransactionClassTypePairs().put("CREDIT", "AUTH");
+    VelocityResponse  velocityResponse=velocityProcessor.queryTransactionsDetail(queryTransactionsDetail);
+    LOG.debug("QueryTransaction response>>>\n" + velocityResponse.getResult());
+    LOG.debug("TransactionDetailList size >>>>>> " + velocityResponse.getTransactionDetailList().size());
+           
+        }catch (Exception ex)
+        {
+            LOG.error("testInvokeQueryTransactionDetailRequest", ex);
+        }
+    }
+    
+ 
+<h2>1.11 captureAll(...) </h2><br/>
+
+  
+   The method is used to flag all transactions for settlement 
+   that have been successfully authorized using the Authorize operation.
+
+<b>public VelocityResponse captureAll(CaptureAll captureAllTransaction) throws VelocityIllegalArgumentException, VelocityException, VelocityNotFoundException, VelocityRestInvokeException<b/>
+
+@parameter <b>captureAllTransaction</b> - holds the value for captureAllTransaction request CaptureAllTransaction.
+
+<b>Sample Code:</b>
+
+
+    /**
+     * This method tests the CaptureAll request through the REST API.
+     * The method performs the Authorize operations before the invoking the
+     * captureAll transaction in order to obtain the Transaction Id.
+     */
+    @Test
+    public void testInvokeCaptureAllRequest()
+    {
+        try{
+      CaptureAll objCaptureAll = getCaptureAllInstance();
+    VelocityResponse captureAllVelocityResponse=velocityProcessor.captureAll(objCaptureAll);
+     if(captureAllVelocityResponse.getArrayOfResponse() != null)
+     {
+    LOG.debug("invokeCaptureAllRequest Status >>>>>>>>>> " + captureAllVelocityResponse.getArrayOfResponse().getResponse().getStatus());
+     }
+    else if(captureAllVelocityResponse.getErrorResponse() != null)
+    {
+     LOG.debug("invokeCaptureAllRequest Status >>>>>>>>>> " + captureAllVelocityResponse.getErrorResponse().getErrorId());
+    }
+    }catch (Exception ex)
+        {
+            LOG.error("testinvokeCaptureAllRequest", ex);
+        }
+    }
+	
+	
 
 <h2>2. VelocityResponse </h2><br/>
 
