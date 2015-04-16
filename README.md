@@ -1147,6 +1147,29 @@ This class has the following main attributes with its name and datatype. <br/>
    4.  reason - String   <br/>
    5.  validationErrors - ValidationErrors    <br/>
    
+<h2>2.4 ArrayOfResponse</h2><br/>
+
+This class has the following main attributes with its name and datatype. <br/>
+
+   1.   status - String     <br/>
+   2.   statusCode - String     <br/>
+   3.   statusMessage - String     <br/>
+   4.   transactionId - String     <br/>
+   5.   originatorTransactionId - String     <br/>
+   6.   serviceTransactionId - String     <br/>
+   7.   serviceTransactionDateTime - ServiceTransactionDateTime   <br/>
+   8.   addendum - Addendum    <br/>
+   9.   captureState - String     <br/>
+   10.  transactionState - String     <br/>
+   11.  acknowledged - boolean   <br/>
+   12.  reference - Reference  <br/>
+   13.  batchId - BatchId  <br/>
+   14.  industryType - String  <br/>
+   15.  transactionSummaryData - TransactionSummaryData  <br/>
+   16.  prepaidCard - String      <br/>
+  
+
+
 <h2>3. Velocity Test Web Application </h2><br/>
 
 
@@ -1169,6 +1192,9 @@ The Velocity Test Web Application is able to test the following transaction meth
 9. <b>ReturnById </b>- The ReturnById operation is used to perform a linked credit to a card-holder’s account from the merchant’s account based on a previously authorized and settled(Captured) transaction.  <br/>
 10. <b>ReturnUnlinked </b>- The ReturnUnlinked operation is used to perform an "unlinked", or standalone, credit to a card-holder’s account from the merchant’s account. <br/>
 11. <b>ReturnUnlinked W/O token </b>- This method proceeds with the card details when payment account data token is not available.<br/>
+12. <b>QueryTransactionsDetail </b>- This method queries the specified transactions and returns both summary details
+and full transaction details.<br/>
+13. <b>CaptureAll </b>- This method is used to flag all transactions for settlement that have been successfully authorized using the Authorize operation.
 
 Depending upon the type of transaction performed with request input data, response is generated from the velocity server which can be viewed on the Result page. <br/>
 In this test Application View log feature has been provided where one can view the Logs for a transaction request made. <br/>
