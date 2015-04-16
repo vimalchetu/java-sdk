@@ -101,7 +101,7 @@ This class provides the implementation of the following methods: <br/>
 		try {
 			AuthorizeTransaction objAuthorizeTransaction = getVerifyRequestAuthorizeTransactionInstance();
 
-			VelocityResponse objVelocityResponse = velocityProcessor.invokeVerifyRequest(objAuthorizeTransaction);
+			VelocityResponse objVelocityResponse = velocityProcessor.verify(objAuthorizeTransaction);
                  
             /* Getting the BankcardTransactionResponse from the Velocity response. */
             BankcardTransactionResponse objBankcardTransactionResponse = objVelocityResponse.getBankcardTransactionResponse();
@@ -216,7 +216,8 @@ This class provides the implementation of the following methods: <br/>
 	 {
 		try {
 			com.velocity.models.request.authorize.AuthorizeTransaction objAuthorizeTransaction = getAuthorizeRequestAuthorizeTransactionInstance();
-			VelocityResponse objVelocityResponse = velocityProcessor.invokeAuthorizeRequest(objAuthorizeTransaction);
+            AuthorizeTransaction objAuthorizeTransaction = getP2PEAuthorizeRequestAuthorizeTransactionInstance();
+			VelocityResponse objVelocityResponse = velocityProcessor.authorize(objAuthorizeTransaction);
             /* Getting the BankcardTransactionResponse from the Velocity response. */
              BankcardTransactionResponse objBankcardTransactionResponse = objVelocityResponse.getBankcardTransactionResponse();
 			if(objBankcardTransactionResponse != null)
@@ -253,7 +254,7 @@ This class provides the implementation of the following methods: <br/>
         authorizeTransaction.getTransaction().setType(VelocityEnums.BankcardTransaction);
 		
         authorizeTransaction.getTransaction().getCustomerData().getBillingData().getName().setNillable(true);
-		
+
         authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setStreet1("4 corporate sq");
 	
         authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().getStreet2().setNillable(true);
@@ -358,6 +359,84 @@ This class provides the implementation of the following methods: <br/>
 
         return authorizeTransaction ;
 	   }
+	   
+<b>For P2PE Authorize:</b>	  
+	  
+	   private AuthorizeTransaction getP2PEAuthorizeRequestAuthorizeTransactionInstance()
+    {
+        AuthorizeTransaction authorizeTransaction = new AuthorizeTransaction();
+        // Setting the values for Authorize XML
+        authorizeTransaction.getTransaction().setType(VelocityEnums.BankcardTransaction);
+        
+        authorizeTransaction.getTransaction().getRelayResponseUrl().setNillable(true);
+       
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().getName().setNillable(true);
+       
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setStreet1("1400 16th St");
+      
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().getStreet2().setNillable(true);
+        
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setCity("Denver");
+        
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setStateProvince("CO");
+        
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setPostalCode("80202");
+        
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setCountryCode("USA");
+       
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().setBusinessName("MomCorp");
+        
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().getPhone().setNillable(true);
+       
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().getFax().setNillable(true);
+       
+        authorizeTransaction.getTransaction().getCustomerData().getBillingData().getEmail().setNillable(true);
+       
+        authorizeTransaction.getTransaction().getCustomerData().setCustomerId("cust123x");
+        
+        authorizeTransaction.getTransaction().getCustomerData().getCustomerTaxId().setNillable(true);
+        
+        authorizeTransaction.getTransaction().getCustomerData().getShippingData().setNillable(true);
+        
+        authorizeTransaction.getTransaction().getReportingData().setComment("a test comment");
+        
+        authorizeTransaction.getTransaction().getReportingData().setDescription("a test description");
+        
+        authorizeTransaction.getTransaction().getReportingData().setReference("001");
+        
+        authorizeTransaction.getTransaction().getTenderData().getPaymentAccountDataToken().setNillable(true);
+        
+        authorizeTransaction.getTransaction().getTenderData().getSecurePaymentAccountData().setValue("576F2E197D5804F2B6201F         B2578DCD1DDDC7BAE692FE48E9C368E678914233561FB953DF47E29F88");
+        
+        authorizeTransaction.getTransaction().getTenderData().getEncryptionKeyId().setValue("9010010B257DC7000084");
+        
+        authorizeTransaction.getTransaction().getTenderData().getSwipeStatus().setValue("61403000");
+        
+        authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getIdentificationInformation().setValue(
+        "10CB07E3D25EF91A5DAD25629D1E4A673F016A7B6E6C760F6AAEC985E77B02E796981928AEEE94618C34E2801F4A76E32BCEF984144D51F2");
+        
+        authorizeTransaction.getTransaction().getTransactionData().setAmount("10.00");
+        
+        authorizeTransaction.getTransaction().getTransactionData().setCurrencyCode("USD");
+        
+        authorizeTransaction.getTransaction().getTransactionData().setTransactionDateTime("2012-12-11T10:28:11");
+        
+        authorizeTransaction.getTransaction().getTransactionData().getCampaignId().setNillable(true);
+        
+        authorizeTransaction.getTransaction().getTransactionData().setReference("xyt");
+        
+        authorizeTransaction.getTransaction().getTransactionData().setEmployeeId("11");
+        
+        authorizeTransaction.getTransaction().getTransactionData().setEntryMode("TrackDataFromMSR");
+        
+        authorizeTransaction.getTransaction().getTransactionData().setGoodsType("NotSet");
+        
+        authorizeTransaction.getTransaction().getTransactionData().setIndustryType("Retail");
+        
+        authorizeTransaction.getTransaction().getTransactionData().setInvoiceNumber("");
+        
+        return authorizeTransaction;
+       }	   
             
 
 <h2>1.4 authorizeAndCapture(...) </h2><br/>
@@ -383,7 +462,8 @@ AuthorizeAndCaptureTransaction <br/>
 	{
 		try {
 			AuthorizeAndCaptureTransaction objAuthorizeAndCaptureTransaction = getAuthorizeAndCaptureTransactionInstance();
-			BankcardTransactionResponse objBankcardTransactionResponse =  velocityProcessor.invokeAuthorizeAndCaptureRequest(objAuthorizeAndCaptureTransaction);
+            AuthorizeAndCaptureTransaction objAuthorizeAndCaptureTransaction = getP2PEAuthorizeAndCaptureRequestAuthorizeTransactionInstance();
+			BankcardTransactionResponse objBankcardTransactionResponse =  velocityProcessor.authorizeAndCapture(objAuthorizeAndCaptureTransaction);
 			AppLogger.logDebug(getClass(), "invokeAuthorizeAndCaptureRequest", "Status >>>>>>>>>> "+objBankcardTransactionResponse.getStatus());
 		} catch(Exception ex)
 		{
@@ -512,6 +592,115 @@ AuthorizeAndCaptureTransaction <br/>
 
     return authorizeAndCaptureTransaction;
      }
+     
+ <b>For P2PE AuthorizeAndCapture :</b>
+     
+     
+       private AuthorizeAndCaptureTransaction getP2PEAuthorizeAndCaptureRequestAuthorizeTransactionInstance()
+       {
+         AuthorizeAndCaptureTransaction authorizeAndCaptureTransaction = new AuthorizeAndCaptureTransaction();
+       
+        // Setting the values for AuthorizeAndCapture XML
+        authorizeAndCaptureTransaction.getTransaction().setType(VelocityEnums.BankcardTransaction);
+       
+        authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().getName().setNillable(true);
+        
+        authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setStreet1("1400 16th St.");
+        
+        authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().getAddress().getStreet2().setNillable(true);
+       
+        authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setCity("Denver");
+        
+        authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setStateProvince("CO");
+        
+        authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setPostalCode("80202");
+        
+        authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setCountryCode("USA");
+       
+        authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().setBusinessName("MomCorp");
+       
+        authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().getPhone().setNillable(true);
+        
+        authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().getFax().setNillable(true);
+        
+        authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().getEmail().setNillable(true);
+        
+        authorizeAndCaptureTransaction.getTransaction().getCustomerData().setCustomerId("cust123x");
+        
+        authorizeAndCaptureTransaction.getTransaction().getCustomerData().getCustomerTaxId().setNillable(true);
+        
+        authorizeAndCaptureTransaction.getTransaction().getCustomerData().getShippingData().setNillable(true);
+        
+        authorizeAndCaptureTransaction.getTransaction().getReportingData().setComment("a test comment");
+        
+        authorizeAndCaptureTransaction.getTransaction().getReportingData().setDescription("a test description");
+        
+        authorizeAndCaptureTransaction.getTransaction().getReportingData().setReference("001");
+       
+        authorizeAndCaptureTransaction.getTransaction().getTenderData().getPaymentAccountDataToken().setNillable(true);
+        
+        authorizeAndCaptureTransaction.getTransaction().getTenderData().getSecurePaymentAccountData().setValue("2540E479632A5FBACD3BDB8A3798104BC5C06105421D5E6369C7F78CBEA85647434D966CF8B4DAD1");;
+        
+        authorizeAndCaptureTransaction.getTransaction().getTenderData().getEncryptionKeyId().setValue("9010010B257DC7000083");
+        
+        authorizeAndCaptureTransaction.getTransaction().getTenderData().getSwipeStatus().setValue("61403000");
+        
+        authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardSecurityData().getIdentificationInformation().setValue("10CB07E3D25EF91A5DAD25629D1E4A673F016A7B6E6C760F6AAEC985E77B02E796981928AEEE94618C34E2801F4A76E32BCEF984144D51F2");
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setAmount("100.00");
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setCurrencyCode("USD");
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setTransactionDateTime("2013-04-03T13:50:16");
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().getCampaignId().setNillable(true);
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setReference("xyt");
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setAccountType("NotSet");
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().getApprovalCode().setNillable(true);
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setCashBackAmount("0.0");
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setCustomerPresent("Present");
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setEmployeeId("11");
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setEntryMode("TrackDataFromMSR");
+       
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setGoodsType("NotSet");
+       
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setIndustryType("Restaurant");
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().getInternetTransactionData().setNillable(true);
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setInvoiceNumber("802");
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setOrderNumber("629203");
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setPartialShipment(false);
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setSignatureCaptured(false);
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setFeeAmount("0.0");
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().getTerminalId().setNillable(true);
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().getLaneId().setNillable(true);
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setTipAmount("0.0");
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().getBatchAssignment().setNillable(true);
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setPartialApprovalCapable("NotSet");
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().getScoreThreshold().setNillable(true);
+        
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setQuasiCash(false);
+        
+        return authorizeAndCaptureTransaction;
+      }
    
 	
 <h2>1.5 capture(...) </h2><br/>
