@@ -67,7 +67,7 @@ This class provides the implementation of the following methods: <br/>
 	public void testInvokeSignOn()
 	{
 		try {
-			String sessionToken = velocityProcessor.invokeSignOn(identityToken);
+			String sessionToken = velocityProcessor.signOn(identityToken);
 			assert(sessionToken != null);
 			AppLogger.logDebug(getClass(), "testInvokeVerifyRequest", "sessionToken >>>>>>>>>> "+sessionToken);
 		}
@@ -82,7 +82,7 @@ This class provides the implementation of the following methods: <br/>
 
    The method is responsible for the invocation of verify operation on the Velocity REST server.<br/>
 
-<b> public VelocityResponse invokeVerifyRequest(AuthorizeTransaction authorizeTransaction) throws VelocityGenericException, VelocityIllegalArgument, VelocityNotFound, VelocityRestInvokeException</b><br/><br/>
+<b> public VelocityResponse verify(AuthorizeTransaction authorizeTransaction) throws VelocityGenericException, VelocityIllegalArgument, VelocityNotFound, VelocityRestInvokeException</b><br/><br/>
 @parameter <b>authorizeTrsansaction </b> - holds the values for the verify request AuthorizeTransaction <br/>
 
 @returnType  <b>VelocityResponse</b>  <br/>  
@@ -198,7 +198,7 @@ This class provides the implementation of the following methods: <br/>
 
    The method is responsible for the invocation of authorize operation on the Velocity REST server.<br/>
 
-<b>public VelocityResponse invokeAuthorizeRequest(com.velocity.models.request.authorize.AuthorizeTransaction authorizeTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityRestInvokeException, VelocityNotFound</b><br/>
+<b>public VelocityResponse authorize(AuthorizeTransaction authorizeTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityRestInvokeException, VelocityNotFound</b><br/>
 
 @parameter <b>authorizeTrsansaction </b> - holds the values for the authorize request AuthorizeTransaction <br/>
 
@@ -443,7 +443,7 @@ This class provides the implementation of the following methods: <br/>
 
    The method is responsible for the invocation of authorizeAndCapture operation on the Velocity REST server.<br/>
 
- <b>                                                                                                                       public VelocityResponse invokeAuthorizeAndCaptureRequest(com.velocity.models.request.authorizeAndCapture.AuthorizeAndCaptureTransaction authorizeAndCaptureTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
+ <b>                                                                                                                       public VelocityResponse authorizeAndCapture(AuthorizeAndCaptureTransaction authorizeAndCaptureTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
 
 @parameter <b>authorizeAndCaptureTransaction </b> - holds the values for the authorizeAndCapture request 
 AuthorizeAndCaptureTransaction <br/>
@@ -707,7 +707,7 @@ AuthorizeAndCaptureTransaction <br/>
 
    The method is responsible for the invocation of capture operation on the Velocity REST server.<br/>
 
-<b>                                                                                                                      public VelocityResponse invokeCaptureRequest(com.velocity.models.request.capture.ChangeTransaction captureTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
+<b>                                                                                                                      public VelocityResponse capture(ChangeTransaction captureTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
 
 @parameter <b>captureTransaction </b> - holds the values for the capture request ChangeTransaction <br/>
 
@@ -726,13 +726,13 @@ AuthorizeAndCaptureTransaction <br/>
 		try {
 
 			com.velocity.models.request.authorize.AuthorizeTransaction objAuthorizeTransaction = getAuthorizeRequestAuthorizeTransactionInstance();
-			VelocityResponse objVelocityResponse = velocityProcessor.invokeAuthorizeRequest(objAuthorizeTransaction);
+			VelocityResponse objVelocityResponse = velocityProcessor.authorize(objAuthorizeTransaction);
 
 			ChangeTransaction objChangeTransaction = getCaptureTransactionInstance();
 
 		    objChangeTransaction.getDifferenceData().setTransactionId(objVelocityResponse.getBankcardTransactionResponse().getTransactionId());
 
-			VelocityResponse captureVelocityResponse = velocityProcessor.invokeCaptureRequest(objChangeTransaction);
+			VelocityResponse captureVelocityResponse = velocityProcessor.capture(objChangeTransaction);
 			
 	            /* Getting the BankcardCaptureResponse from the Velocity response. */
                   BankcardCaptureResponse objbankcardCaptureResponse = captureVelocityResponse.getBankcardCaptureResponse();
@@ -780,7 +780,7 @@ AuthorizeAndCaptureTransaction <br/>
 
    The method is responsible for the invocation of undo operation on the Velocity REST server.<br/>
 
-<b>                                                                                                                      public VelocityResponse invokeUndoRequest(com.velocity.models.request.undo.Undo undoTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
+<b>                                                                                                                      public VelocityResponse undo(Undo undoTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
 
 @parameter <b>undoTransaction </b> - holds the values for the undo request Undo <br/>
 
@@ -801,14 +801,14 @@ AuthorizeAndCaptureTransaction <br/>
 		try {
 
 			com.velocity.models.request.authorize.AuthorizeTransaction objAuthorizeTransaction = getAuthorizeRequestAuthorizeTransactionInstance();
-			VelocityResponse objVelocityResponse = velocityProcessor.invokeAuthorizeRequest(objAuthorizeTransaction);
+			VelocityResponse objVelocityResponse = velocityProcessor.authorize(objAuthorizeTransaction);
 
 			com.velocity.models.request.undo.Undo objUndo  = getUndoTransactionInstance();
 			Undo objUndo1 = getUndoTransactionInstance();
 
 			objUndo1.setTransactionId(objVelocityResponse.getBankcardTransactionResponse().getTransactionId());
 
-			VelocityResponse objVelocityResponse2 = velocityProcessor.invokeUndoRequest(objUndo1);
+			VelocityResponse objVelocityResponse2 = velocityProcessor.undo(objUndo1);
 			AppLogger.logDebug(getClass(), "testinvokeUndoRequest", "Status >>>>>>>>>> "+ objVelocityResponse2.getBankcardTransactionResponse().getStatus());
 		} catch(Exception ex)
 		{
@@ -847,7 +847,7 @@ AuthorizeAndCaptureTransaction <br/>
 
    The method is responsible for the invocation of adjust operation on the Velocity REST server.<br/>
 
-<b>                                                                                                                      public VelocityResponse invokeAdjustRequest(com.velocity.models.request.adjust.Adjust adjustTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
+<b>                                                                                                                      public VelocityResponse adjust(Adjust adjustTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
 
 @parameter <b>adjustTransaction </b> - holds the values for the adjust request Adjust <br/>
 
@@ -867,7 +867,7 @@ AuthorizeAndCaptureTransaction <br/>
 		try {
 
 			com.velocity.models.request.authorize.AuthorizeTransaction objAuthorizeTransaction = getAuthorizeRequestAuthorizeTransactionInstance();
-			VelocityResponse objVelocityResponse = velocityProcessor.invokeAuthorizeRequest(objAuthorizeTransaction);
+			VelocityResponse objVelocityResponse = velocityProcessor.authorize(objAuthorizeTransaction);
          /* Getting the BankcardTransactionResponse from the Velocity response. */
           BankcardTransactionResponse objBankcardTransactionResponse = objVelocityResponse.getBankcardTransactionResponse();
 			if(objBankcardTransactionResponse != null)
@@ -878,7 +878,7 @@ AuthorizeAndCaptureTransaction <br/>
 
 				objChangeTransaction.getDifferenceData().setTransactionId(objBankcardTransactionResponse.getTransactionId());
 
-				objBankcardTransactionResponse = velocityProcessor.invokeCaptureRequest(objChangeTransaction);
+				objBankcardTransactionResponse = velocityProcessor.capture(objChangeTransaction);
 
 				if(objBankcardTransactionResponse != null)
 				{
@@ -889,7 +889,7 @@ AuthorizeAndCaptureTransaction <br/>
 					com.velocity.models.request.adjust.Adjust objAdjust  = getAdjustTransactionInstance();
 
 					objAdjust.getDifferenceData().setTransactionId(objBankcardTransactionResponse.getTransactionId());
-					objBankcardTransactionResponse = velocityProcessor.invokeAdjustRequest(objAdjust);
+					objBankcardTransactionResponse = velocityProcessor.adjust(objAdjust);
 					AppLogger.logDebug(getClass(), "invokeAdjustRequest", "Adjust Status >>>>>>>>>> "+ objBankcardTransactionResponse.getStatus());
 
 				}
@@ -931,7 +931,7 @@ AuthorizeAndCaptureTransaction <br/>
 
    The method is responsible for the invocation of returnById operation on the Velocity REST server.<br/>
 
-<b>                                                                                                                      public VelocityResponse invokeReturnByIdRequest(com.velocity.models.request.returnById.ReturnById returnByIdTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
+<b>                                                                                                                      public VelocityResponse invokeReturnByIdRequest(ReturnById returnByIdTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
 
 @parameter <b>returnByIdTransaction </b> - holds the values for the returnById request ReturnById <br/>
 
@@ -949,7 +949,7 @@ AuthorizeAndCaptureTransaction <br/>
 		try {
 
 			com.velocity.models.request.authorize.AuthorizeTransaction objAuthorizeTransaction = getAuthorizeRequestAuthorizeTransactionInstance();
-			VelocityResponse objVelocityResponse = velocityProcessor.invokeAuthorizeRequest(objAuthorizeTransaction);
+			VelocityResponse objVelocityResponse = velocityProcessor.authorize(objAuthorizeTransaction);
 		  /* Getting the BankcardTransactionResponse from the Velocity response. */
           BankcardTransactionResponse objBankcardTransactionResponse = objVelocityResponse.getBankcardTransactionResponse();
 
@@ -961,7 +961,7 @@ AuthorizeAndCaptureTransaction <br/>
 
 				objChangeTransaction.getDifferenceData().setTransactionId(objBankcardTransactionResponse.getTransactionId());
 
-				objBankcardTransactionResponse = velocityProcessor.invokeCaptureRequest(objChangeTransaction);
+				objBankcardTransactionResponse = velocityProcessor.capture(objChangeTransaction);
 
 				if(objBankcardTransactionResponse != null)
 				{
@@ -969,7 +969,7 @@ AuthorizeAndCaptureTransaction <br/>
 					com.velocity.models.request.returnById.ReturnById objReturnById  = getReturnByIdTransactionInstance();
 
 					objReturnById.getDifferenceData().setTransactionId(objBankcardTransactionResponse.getTransactionId());
-					objBankcardTransactionResponse = velocityProcessor.invokeReturnByIdRequest(objReturnById);
+					objBankcardTransactionResponse = velocityProcessor.returnById(objReturnById);
 					AppLogger.logDebug(getClass(), "invokeReturnByIdRequest", "ReturnById Status >>>>>>>>>> "+ objBankcardTransactionResponse.getStatus());
 
 				}
@@ -1012,7 +1012,7 @@ AuthorizeAndCaptureTransaction <br/>
 
    The method is responsible for the invocation of returnUnLinked operation on the Velocity REST server.<br/>
 
-<b>                                                                                                                      public VelocityResponse invokeReturnUnlinkedRequest(com.velocity.models.request.returnUnLinked.ReturnTransaction returnUnlinkedTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
+<b>                                                                                                                      public VelocityResponse returnUnlinked(ReturnTransaction returnUnlinkedTransaction) throws VelocityIllegalArgument, VelocityGenericException, VelocityNotFound, VelocityRestInvokeException</b><br/>
 
 @parameter <b>returnUnlinkedTransaction </b> - holds the values for the returnUnlinked request ReturnTransaction<br/>
 
@@ -1295,31 +1295,56 @@ The method queries the specified transactions and returns both summary details
     {
         try{
     QueryTransactionsDetail queryTransactionsDetail = new QueryTransactionsDetail();
-    /* Setting request parameters for Query Transaction Detail */
+    
+     /* Setting request parameters for Query Transaction Detail */
     queryTransactionsDetail.setTransactionDetailFormat(com.velocity.enums.TransactionDetailFormat.CWSTransaction);
+    
     queryTransactionsDetail.getPagingParameters().setPage(0);
+    
     queryTransactionsDetail.getPagingParameters().setPageSize(4);
+   
     queryTransactionsDetail.getQueryTransactionsParameters().getAmounts().add(100f);
+    
     queryTransactionsDetail.getQueryTransactionsParameters().getApprovalCodes().add("VI0000");
+   
     queryTransactionsDetail.getQueryTransactionsParameters().getBatchIds().add("0539");  
+   
     queryTransactionsDetail.getQueryTransactionsParameters().getCaptureDateRange().setStartDateTime("2015-03-13 02:03:40");
+   
     queryTransactionsDetail.getQueryTransactionsParameters().getCaptureDateRange().setEndDateTime("2015-03-17 02:03:40");
+    
     queryTransactionsDetail.getQueryTransactionsParameters().getMerchantProfileIds().add("PrestaShop Global HC"); 
+    
     queryTransactionsDetail.getQueryTransactionsParameters().getServiceIds().add("2317000001";
+   
     queryTransactionsDetail.getQueryTransactionsParameters().getServiceKeys().add("FF3BB6DC58300001");
+   
     queryTransactionsDetail.getQueryTransactionsParameters().setQueryType(QueryType.OR);
+    
     queryTransactionsDetail.getQueryTransactionsParameters().setCaptureState(CaptureState.Captured);
+    
     queryTransactionsDetail.getQueryTransactionsParameters().setCardTypes(TypeCardType.Visa);
+    
     queryTransactionsDetail.getQueryTransactionsParameters().setIsAcknowledged("false");
+    
     queryTransactionsDetail.getQueryTransactionsParameters().getOrderNumbers().add("629203");
+    
     queryTransactionsDetail.getQueryTransactionsParameters().getTransactionDateRange().setEndDateTime("2015-03-17 02:03:40");
+    
     queryTransactionsDetail.getQueryTransactionsParameters().getTransactionDateRange().setStartDateTime("2015-03-13 02:03:40");
+   
     queryTransactionsDetail.getQueryTransactionsParameters().setTransactionState(TransactionState.Authorized);
+    
     queryTransactionsDetail.getQueryTransactionsParameters().getTransactionIds().add("191DB098CC8E402DA8D4B37B5FC6ACE3");
+    
     queryTransactionsDetail.getQueryTransactionsParameters().getTransactionIds().add("8D90B6F54CAC440B9B67727437EE27CD");
+    
     queryTransactionsDetail.getQueryTransactionsParameters().getTransactionClassTypePairs().put("CREDIT", "AUTH");
+    
     VelocityResponse  velocityResponse=velocityProcessor.queryTransactionsDetail(queryTransactionsDetail);
+    
     LOG.debug("QueryTransaction response>>>\n" + velocityResponse.getResult());
+    
     LOG.debug("TransactionDetailList size >>>>>> " + velocityResponse.getTransactionDetailList().size());
            
         }catch (Exception ex)
