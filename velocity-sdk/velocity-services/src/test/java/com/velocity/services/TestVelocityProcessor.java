@@ -42,14 +42,14 @@ import com.velocity.utility.CommonUtils;
 public class TestVelocityProcessor {
 
     private static final Logger LOG = Logger.getLogger(TestVelocityProcessor.class);
-//    String identityToken =
-//            "PHNhbWw6QXNzZXJ0aW9uIE1ham9yVmVyc2lvbj0iMSIgTWlub3JWZXJzaW9uPSIxIiBBc3NlcnRpb25JRD0iXzdlMDhiNzdjLTUzZWEtNDEwZC1hNmJiLTAyYjJmMTAzMzEwYyIgSXNzdWVyPSJJcGNBdXRoZW50aWNhdGlvbiIgSXNzdWVJbnN0YW50PSIyMDE0LTEwLTEwVDIwOjM2OjE4LjM3OVoiIHhtbG5zOnNhbWw9InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjEuMDphc3NlcnRpb24iPjxzYW1sOkNvbmRpdGlvbnMgTm90QmVmb3JlPSIyMDE0LTEwLTEwVDIwOjM2OjE4LjM3OVoiIE5vdE9uT3JBZnRlcj0iMjA0NC0xMC0xMFQyMDozNjoxOC4zNzlaIj48L3NhbWw6Q29uZGl0aW9ucz48c2FtbDpBZHZpY2U+PC9zYW1sOkFkdmljZT48c2FtbDpBdHRyaWJ1dGVTdGF0ZW1lbnQ+PHNhbWw6U3ViamVjdD48c2FtbDpOYW1lSWRlbnRpZmllcj5GRjNCQjZEQzU4MzAwMDAxPC9zYW1sOk5hbWVJZGVudGlmaWVyPjwvc2FtbDpTdWJqZWN0PjxzYW1sOkF0dHJpYnV0ZSBBdHRyaWJ1dGVOYW1lPSJTQUsiIEF0dHJpYnV0ZU5hbWVzcGFjZT0iaHR0cDovL3NjaGVtYXMuaXBjb21tZXJjZS5jb20vSWRlbnRpdHkiPjxzYW1sOkF0dHJpYnV0ZVZhbHVlPkZGM0JCNkRDNTgzMDAwMDE8L3NhbWw6QXR0cmlidXRlVmFsdWU+PC9zYW1sOkF0dHJpYnV0ZT48c2FtbDpBdHRyaWJ1dGUgQXR0cmlidXRlTmFtZT0iU2VyaWFsIiBBdHRyaWJ1dGVOYW1lc3BhY2U9Imh0dHA6Ly9zY2hlbWFzLmlwY29tbWVyY2UuY29tL0lkZW50aXR5Ij48c2FtbDpBdHRyaWJ1dGVWYWx1ZT5iMTVlMTA4MS00ZGY2LTQwMTYtODM3Mi02NzhkYzdmZDQzNTc8L3NhbWw6QXR0cmlidXRlVmFsdWU+PC9zYW1sOkF0dHJpYnV0ZT48c2FtbDpBdHRyaWJ1dGUgQXR0cmlidXRlTmFtZT0ibmFtZSIgQXR0cmlidXRlTmFtZXNwYWNlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcyI+PHNhbWw6QXR0cmlidXRlVmFsdWU+RkYzQkI2REM1ODMwMDAwMTwvc2FtbDpBdHRyaWJ1dGVWYWx1ZT48L3NhbWw6QXR0cmlidXRlPjwvc2FtbDpBdHRyaWJ1dGVTdGF0ZW1lbnQ+PFNpZ25hdHVyZSB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnIyI+PFNpZ25lZEluZm8+PENhbm9uaWNhbGl6YXRpb25NZXRob2QgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzEwL3htbC1leGMtYzE0biMiPjwvQ2Fub25pY2FsaXphdGlvbk1ldGhvZD48U2lnbmF0dXJlTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnI3JzYS1zaGExIj48L1NpZ25hdHVyZU1ldGhvZD48UmVmZXJlbmNlIFVSST0iI183ZTA4Yjc3Yy01M2VhLTQxMGQtYTZiYi0wMmIyZjEwMzMxMGMiPjxUcmFuc2Zvcm1zPjxUcmFuc2Zvcm0gQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjZW52ZWxvcGVkLXNpZ25hdHVyZSI+PC9UcmFuc2Zvcm0+PFRyYW5zZm9ybSBBbGdvcml0aG09Imh0dHA6Ly93d3cudzMub3JnLzIwMDEvMTAveG1sLWV4Yy1jMTRuIyI+PC9UcmFuc2Zvcm0+PC9UcmFuc2Zvcm1zPjxEaWdlc3RNZXRob2QgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjc2hhMSI+PC9EaWdlc3RNZXRob2Q+PERpZ2VzdFZhbHVlPnl3NVZxWHlUTUh5NUNjdmRXN01TV2RhMDZMTT08L0RpZ2VzdFZhbHVlPjwvUmVmZXJlbmNlPjwvU2lnbmVkSW5mbz48U2lnbmF0dXJlVmFsdWU+WG9ZcURQaUorYy9IMlRFRjNQMWpQdVBUZ0VDVHp1cFVlRXpESERwMlE2ZW92T2lhN0pkVjI1bzZjTk1vczBTTzRISStSUGRUR3hJUW9xa0paeEtoTzZHcWZ2WHFDa2NNb2JCemxYbW83NUFSWU5jMHdlZ1hiQUVVQVFCcVNmeGwxc3huSlc1ZHZjclpuUytkSThoc2lZZW4vT0VTOUdtZUpsZVd1WUR4U0xmQjZJZnd6dk5LQ0xlS0FXenBkTk9NYmpQTjJyNUJWQUhQZEJ6WmtiSGZwdUlablp1Q2l5OENvaEo1bHU3WGZDbXpHdW96VDVqVE0wU3F6bHlzeUpWWVNSbVFUQW5WMVVGMGovbEx6SU14MVJmdWltWHNXaVk4c2RvQ2IrZXpBcVJnbk5EVSs3NlVYOEZFSEN3Q2c5a0tLSzQwMXdYNXpLd2FPRGJJUFpEYitBPT08L1NpZ25hdHVyZVZhbHVlPjxLZXlJbmZvPjxvOlNlY3VyaXR5VG9rZW5SZWZlcmVuY2UgeG1sbnM6bz0iaHR0cDovL2RvY3Mub2FzaXMtb3Blbi5vcmcvd3NzLzIwMDQvMDEvb2FzaXMtMjAwNDAxLXdzcy13c3NlY3VyaXR5LXNlY2V4dC0xLjAueHNkIj48bzpLZXlJZGVudGlmaWVyIFZhbHVlVHlwZT0iaHR0cDovL2RvY3Mub2FzaXMtb3Blbi5vcmcvd3NzL29hc2lzLXdzcy1zb2FwLW1lc3NhZ2Utc2VjdXJpdHktMS4xI1RodW1icHJpbnRTSEExIj5ZREJlRFNGM0Z4R2dmd3pSLzBwck11OTZoQ2M9PC9vOktleUlkZW50aWZpZXI+PC9vOlNlY3VyaXR5VG9rZW5SZWZlcmVuY2U+PC9LZXlJbmZvPjwvU2lnbmF0dXJlPjwvc2FtbDpBc3NlcnRpb24+";
-//    String appProfileId = "14644";
-//    String merchantProfileId = "PrestaShop Global HC";
-//    String workFlowId = "2317000001";
+    String identityToken =
+            "PHNhbWw6QXNzZXJ0aW9uIE1ham9yVmVyc2lvbj0iMSIgTWlub3JWZXJzaW9uPSIxIiBBc3NlcnRpb25JRD0iXzdlMDhiNzdjLTUzZWEtNDEwZC1hNmJiLTAyYjJmMTAzMzEwYyIgSXNzdWVyPSJJcGNBdXRoZW50aWNhdGlvbiIgSXNzdWVJbnN0YW50PSIyMDE0LTEwLTEwVDIwOjM2OjE4LjM3OVoiIHhtbG5zOnNhbWw9InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjEuMDphc3NlcnRpb24iPjxzYW1sOkNvbmRpdGlvbnMgTm90QmVmb3JlPSIyMDE0LTEwLTEwVDIwOjM2OjE4LjM3OVoiIE5vdE9uT3JBZnRlcj0iMjA0NC0xMC0xMFQyMDozNjoxOC4zNzlaIj48L3NhbWw6Q29uZGl0aW9ucz48c2FtbDpBZHZpY2U+PC9zYW1sOkFkdmljZT48c2FtbDpBdHRyaWJ1dGVTdGF0ZW1lbnQ+PHNhbWw6U3ViamVjdD48c2FtbDpOYW1lSWRlbnRpZmllcj5GRjNCQjZEQzU4MzAwMDAxPC9zYW1sOk5hbWVJZGVudGlmaWVyPjwvc2FtbDpTdWJqZWN0PjxzYW1sOkF0dHJpYnV0ZSBBdHRyaWJ1dGVOYW1lPSJTQUsiIEF0dHJpYnV0ZU5hbWVzcGFjZT0iaHR0cDovL3NjaGVtYXMuaXBjb21tZXJjZS5jb20vSWRlbnRpdHkiPjxzYW1sOkF0dHJpYnV0ZVZhbHVlPkZGM0JCNkRDNTgzMDAwMDE8L3NhbWw6QXR0cmlidXRlVmFsdWU+PC9zYW1sOkF0dHJpYnV0ZT48c2FtbDpBdHRyaWJ1dGUgQXR0cmlidXRlTmFtZT0iU2VyaWFsIiBBdHRyaWJ1dGVOYW1lc3BhY2U9Imh0dHA6Ly9zY2hlbWFzLmlwY29tbWVyY2UuY29tL0lkZW50aXR5Ij48c2FtbDpBdHRyaWJ1dGVWYWx1ZT5iMTVlMTA4MS00ZGY2LTQwMTYtODM3Mi02NzhkYzdmZDQzNTc8L3NhbWw6QXR0cmlidXRlVmFsdWU+PC9zYW1sOkF0dHJpYnV0ZT48c2FtbDpBdHRyaWJ1dGUgQXR0cmlidXRlTmFtZT0ibmFtZSIgQXR0cmlidXRlTmFtZXNwYWNlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcyI+PHNhbWw6QXR0cmlidXRlVmFsdWU+RkYzQkI2REM1ODMwMDAwMTwvc2FtbDpBdHRyaWJ1dGVWYWx1ZT48L3NhbWw6QXR0cmlidXRlPjwvc2FtbDpBdHRyaWJ1dGVTdGF0ZW1lbnQ+PFNpZ25hdHVyZSB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnIyI+PFNpZ25lZEluZm8+PENhbm9uaWNhbGl6YXRpb25NZXRob2QgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzEwL3htbC1leGMtYzE0biMiPjwvQ2Fub25pY2FsaXphdGlvbk1ldGhvZD48U2lnbmF0dXJlTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnI3JzYS1zaGExIj48L1NpZ25hdHVyZU1ldGhvZD48UmVmZXJlbmNlIFVSST0iI183ZTA4Yjc3Yy01M2VhLTQxMGQtYTZiYi0wMmIyZjEwMzMxMGMiPjxUcmFuc2Zvcm1zPjxUcmFuc2Zvcm0gQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjZW52ZWxvcGVkLXNpZ25hdHVyZSI+PC9UcmFuc2Zvcm0+PFRyYW5zZm9ybSBBbGdvcml0aG09Imh0dHA6Ly93d3cudzMub3JnLzIwMDEvMTAveG1sLWV4Yy1jMTRuIyI+PC9UcmFuc2Zvcm0+PC9UcmFuc2Zvcm1zPjxEaWdlc3RNZXRob2QgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjc2hhMSI+PC9EaWdlc3RNZXRob2Q+PERpZ2VzdFZhbHVlPnl3NVZxWHlUTUh5NUNjdmRXN01TV2RhMDZMTT08L0RpZ2VzdFZhbHVlPjwvUmVmZXJlbmNlPjwvU2lnbmVkSW5mbz48U2lnbmF0dXJlVmFsdWU+WG9ZcURQaUorYy9IMlRFRjNQMWpQdVBUZ0VDVHp1cFVlRXpESERwMlE2ZW92T2lhN0pkVjI1bzZjTk1vczBTTzRISStSUGRUR3hJUW9xa0paeEtoTzZHcWZ2WHFDa2NNb2JCemxYbW83NUFSWU5jMHdlZ1hiQUVVQVFCcVNmeGwxc3huSlc1ZHZjclpuUytkSThoc2lZZW4vT0VTOUdtZUpsZVd1WUR4U0xmQjZJZnd6dk5LQ0xlS0FXenBkTk9NYmpQTjJyNUJWQUhQZEJ6WmtiSGZwdUlablp1Q2l5OENvaEo1bHU3WGZDbXpHdW96VDVqVE0wU3F6bHlzeUpWWVNSbVFUQW5WMVVGMGovbEx6SU14MVJmdWltWHNXaVk4c2RvQ2IrZXpBcVJnbk5EVSs3NlVYOEZFSEN3Q2c5a0tLSzQwMXdYNXpLd2FPRGJJUFpEYitBPT08L1NpZ25hdHVyZVZhbHVlPjxLZXlJbmZvPjxvOlNlY3VyaXR5VG9rZW5SZWZlcmVuY2UgeG1sbnM6bz0iaHR0cDovL2RvY3Mub2FzaXMtb3Blbi5vcmcvd3NzLzIwMDQvMDEvb2FzaXMtMjAwNDAxLXdzcy13c3NlY3VyaXR5LXNlY2V4dC0xLjAueHNkIj48bzpLZXlJZGVudGlmaWVyIFZhbHVlVHlwZT0iaHR0cDovL2RvY3Mub2FzaXMtb3Blbi5vcmcvd3NzL29hc2lzLXdzcy1zb2FwLW1lc3NhZ2Utc2VjdXJpdHktMS4xI1RodW1icHJpbnRTSEExIj5ZREJlRFNGM0Z4R2dmd3pSLzBwck11OTZoQ2M9PC9vOktleUlkZW50aWZpZXI+PC9vOlNlY3VyaXR5VG9rZW5SZWZlcmVuY2U+PC9LZXlJbmZvPjwvU2lnbmF0dXJlPjwvc2FtbDpBc3NlcnRpb24+";
+    String appProfileId = "14644";
+    String merchantProfileId = "PrestaShop Global HC";
+    String workFlowId = "2317000001";
 //     String appProfileId = "14560", merchantProfileId = "PrestaShop Global HC", workFlowId = "BBBAAA0001";
-     String appProfileId = "15464", merchantProfileId = "GlobalEastTCEBT", workFlowId = "A39DF00001"; 
-    String identityToken = "PHNhbWw6QXNzZXJ0aW9uIE1ham9yVmVyc2lvbj0iMSIgTWlub3JWZXJzaW9uPSIxIiBBc3NlcnRpb25JRD0iXzQ2ZTdkZDAzLTIwYzctNGJlZS1hNTdhLWRiNmE4MTA5MDlkNiIgSXNzdWVyPSJJcGNBdXRoZW50aWNhdGlvbiIgSXNzdWVJbnN0YW50PSIyMDE0LTExLTA3VDIxOjQ5OjU2Ljg3N1oiIHhtbG5zOnNhbWw9InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjEuMDphc3NlcnRpb24iPjxzYW1sOkNvbmRpdGlvbnMgTm90QmVmb3JlPSIyMDE0LTExLTA3VDIxOjQ5OjU2Ljg3N1oiIE5vdE9uT3JBZnRlcj0iMjA0NC0xMS0wN1QyMTo0OTo1Ni44NzdaIj48L3NhbWw6Q29uZGl0aW9ucz48c2FtbDpBZHZpY2U+PC9zYW1sOkFkdmljZT48c2FtbDpBdHRyaWJ1dGVTdGF0ZW1lbnQ+PHNhbWw6U3ViamVjdD48c2FtbDpOYW1lSWRlbnRpZmllcj4xQzA4MTc1OEVFNzAwMDAxPC9zYW1sOk5hbWVJZGVudGlmaWVyPjwvc2FtbDpTdWJqZWN0PjxzYW1sOkF0dHJpYnV0ZSBBdHRyaWJ1dGVOYW1lPSJTQUsiIEF0dHJpYnV0ZU5hbWVzcGFjZT0iaHR0cDovL3NjaGVtYXMuaXBjb21tZXJjZS5jb20vSWRlbnRpdHkiPjxzYW1sOkF0dHJpYnV0ZVZhbHVlPjFDMDgxNzU4RUU3MDAwMDE8L3NhbWw6QXR0cmlidXRlVmFsdWU+PC9zYW1sOkF0dHJpYnV0ZT48c2FtbDpBdHRyaWJ1dGUgQXR0cmlidXRlTmFtZT0iU2VyaWFsIiBBdHRyaWJ1dGVOYW1lc3BhY2U9Imh0dHA6Ly9zY2hlbWFzLmlwY29tbWVyY2UuY29tL0lkZW50aXR5Ij48c2FtbDpBdHRyaWJ1dGVWYWx1ZT40OTJhNWU0Yi02NWE0LTRkOTktYjQ0MS1iMzJjOTdmODNkNzY8L3NhbWw6QXR0cmlidXRlVmFsdWU+PC9zYW1sOkF0dHJpYnV0ZT48c2FtbDpBdHRyaWJ1dGUgQXR0cmlidXRlTmFtZT0ibmFtZSIgQXR0cmlidXRlTmFtZXNwYWNlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcyI+PHNhbWw6QXR0cmlidXRlVmFsdWU+MUMwODE3NThFRTcwMDAwMTwvc2FtbDpBdHRyaWJ1dGVWYWx1ZT48L3NhbWw6QXR0cmlidXRlPjwvc2FtbDpBdHRyaWJ1dGVTdGF0ZW1lbnQ+PFNpZ25hdHVyZSB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnIyI+PFNpZ25lZEluZm8+PENhbm9uaWNhbGl6YXRpb25NZXRob2QgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzEwL3htbC1leGMtYzE0biMiPjwvQ2Fub25pY2FsaXphdGlvbk1ldGhvZD48U2lnbmF0dXJlTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnI3JzYS1zaGExIj48L1NpZ25hdHVyZU1ldGhvZD48UmVmZXJlbmNlIFVSST0iI180NmU3ZGQwMy0yMGM3LTRiZWUtYTU3YS1kYjZhODEwOTA5ZDYiPjxUcmFuc2Zvcm1zPjxUcmFuc2Zvcm0gQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjZW52ZWxvcGVkLXNpZ25hdHVyZSI+PC9UcmFuc2Zvcm0+PFRyYW5zZm9ybSBBbGdvcml0aG09Imh0dHA6Ly93d3cudzMub3JnLzIwMDEvMTAveG1sLWV4Yy1jMTRuIyI+PC9UcmFuc2Zvcm0+PC9UcmFuc2Zvcm1zPjxEaWdlc3RNZXRob2QgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjc2hhMSI+PC9EaWdlc3RNZXRob2Q+PERpZ2VzdFZhbHVlPlQ2QmZhUDB2bXgwRitsT3JrRDVja0h4U2lYRT08L0RpZ2VzdFZhbHVlPjwvUmVmZXJlbmNlPjwvU2lnbmVkSW5mbz48U2lnbmF0dXJlVmFsdWU+VHBOalhUNnFMejZ5K2RYVU5yQlRQV0hqVitWbmVkTlNNNTNqdzB5N1RxK1NndEI1OEcvWjdKTEFoNUVLRTBqRERpMHRuQ3cvdmF3bGZ6TjU3VVBxeERzZVpmb1FobmJpQzVxVm5CNmZyOVFZRTlYQ0d1OG01bXhLYno2djl3QzVkVlFEMmxXenRFT0trcnZWL1kwRFVOR2drOEZpdFhmbk1rMVpvakdnNzUvaVFHYW4vUFlWaTBNZDYvc3JLZ1IzdkVsTTlUMm5GWVNkSmlrZUFvM3cweUlEZDNPbG5PL2UyNE1GTzQxdlE3d3lIZDBZUkdDZ2I1YVU4K0ZYelJRbXlyK00rU1RpQVlHT3MwcGRPVE9RNlBleGRITndFS1YzVzJkSUExaElIR2EvUmY0WWc0d0p2aTNublJHd2Z2b1h3RlZYckNsd1d4SVV4ODR2eGtDNitnPT08L1NpZ25hdHVyZVZhbHVlPjxLZXlJbmZvPjxvOlNlY3VyaXR5VG9rZW5SZWZlcmVuY2UgeG1sbnM6bz0iaHR0cDovL2RvY3Mub2FzaXMtb3Blbi5vcmcvd3NzLzIwMDQvMDEvb2FzaXMtMjAwNDAxLXdzcy13c3NlY3VyaXR5LXNlY2V4dC0xLjAueHNkIj48bzpLZXlJZGVudGlmaWVyIFZhbHVlVHlwZT0iaHR0cDovL2RvY3Mub2FzaXMtb3Blbi5vcmcvd3NzL29hc2lzLXdzcy1zb2FwLW1lc3NhZ2Utc2VjdXJpdHktMS4xI1RodW1icHJpbnRTSEExIj5ZREJlRFNGM0Z4R2dmd3pSLzBwck11OTZoQ2M9PC9vOktleUlkZW50aWZpZXI+PC9vOlNlY3VyaXR5VG9rZW5SZWZlcmVuY2U+PC9LZXlJbmZvPjwvU2lnbmF0dXJlPjwvc2FtbDpBc3NlcnRpb24+";
+//     String appProfileId = "15464", merchantProfileId = "GlobalEastTCEBT", workFlowId = "A39DF00001"; 
+//    String identityToken = "PHNhbWw6QXNzZXJ0aW9uIE1ham9yVmVyc2lvbj0iMSIgTWlub3JWZXJzaW9uPSIxIiBBc3NlcnRpb25JRD0iXzQ2ZTdkZDAzLTIwYzctNGJlZS1hNTdhLWRiNmE4MTA5MDlkNiIgSXNzdWVyPSJJcGNBdXRoZW50aWNhdGlvbiIgSXNzdWVJbnN0YW50PSIyMDE0LTExLTA3VDIxOjQ5OjU2Ljg3N1oiIHhtbG5zOnNhbWw9InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjEuMDphc3NlcnRpb24iPjxzYW1sOkNvbmRpdGlvbnMgTm90QmVmb3JlPSIyMDE0LTExLTA3VDIxOjQ5OjU2Ljg3N1oiIE5vdE9uT3JBZnRlcj0iMjA0NC0xMS0wN1QyMTo0OTo1Ni44NzdaIj48L3NhbWw6Q29uZGl0aW9ucz48c2FtbDpBZHZpY2U+PC9zYW1sOkFkdmljZT48c2FtbDpBdHRyaWJ1dGVTdGF0ZW1lbnQ+PHNhbWw6U3ViamVjdD48c2FtbDpOYW1lSWRlbnRpZmllcj4xQzA4MTc1OEVFNzAwMDAxPC9zYW1sOk5hbWVJZGVudGlmaWVyPjwvc2FtbDpTdWJqZWN0PjxzYW1sOkF0dHJpYnV0ZSBBdHRyaWJ1dGVOYW1lPSJTQUsiIEF0dHJpYnV0ZU5hbWVzcGFjZT0iaHR0cDovL3NjaGVtYXMuaXBjb21tZXJjZS5jb20vSWRlbnRpdHkiPjxzYW1sOkF0dHJpYnV0ZVZhbHVlPjFDMDgxNzU4RUU3MDAwMDE8L3NhbWw6QXR0cmlidXRlVmFsdWU+PC9zYW1sOkF0dHJpYnV0ZT48c2FtbDpBdHRyaWJ1dGUgQXR0cmlidXRlTmFtZT0iU2VyaWFsIiBBdHRyaWJ1dGVOYW1lc3BhY2U9Imh0dHA6Ly9zY2hlbWFzLmlwY29tbWVyY2UuY29tL0lkZW50aXR5Ij48c2FtbDpBdHRyaWJ1dGVWYWx1ZT40OTJhNWU0Yi02NWE0LTRkOTktYjQ0MS1iMzJjOTdmODNkNzY8L3NhbWw6QXR0cmlidXRlVmFsdWU+PC9zYW1sOkF0dHJpYnV0ZT48c2FtbDpBdHRyaWJ1dGUgQXR0cmlidXRlTmFtZT0ibmFtZSIgQXR0cmlidXRlTmFtZXNwYWNlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcyI+PHNhbWw6QXR0cmlidXRlVmFsdWU+MUMwODE3NThFRTcwMDAwMTwvc2FtbDpBdHRyaWJ1dGVWYWx1ZT48L3NhbWw6QXR0cmlidXRlPjwvc2FtbDpBdHRyaWJ1dGVTdGF0ZW1lbnQ+PFNpZ25hdHVyZSB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnIyI+PFNpZ25lZEluZm8+PENhbm9uaWNhbGl6YXRpb25NZXRob2QgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzEwL3htbC1leGMtYzE0biMiPjwvQ2Fub25pY2FsaXphdGlvbk1ldGhvZD48U2lnbmF0dXJlTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnI3JzYS1zaGExIj48L1NpZ25hdHVyZU1ldGhvZD48UmVmZXJlbmNlIFVSST0iI180NmU3ZGQwMy0yMGM3LTRiZWUtYTU3YS1kYjZhODEwOTA5ZDYiPjxUcmFuc2Zvcm1zPjxUcmFuc2Zvcm0gQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjZW52ZWxvcGVkLXNpZ25hdHVyZSI+PC9UcmFuc2Zvcm0+PFRyYW5zZm9ybSBBbGdvcml0aG09Imh0dHA6Ly93d3cudzMub3JnLzIwMDEvMTAveG1sLWV4Yy1jMTRuIyI+PC9UcmFuc2Zvcm0+PC9UcmFuc2Zvcm1zPjxEaWdlc3RNZXRob2QgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjc2hhMSI+PC9EaWdlc3RNZXRob2Q+PERpZ2VzdFZhbHVlPlQ2QmZhUDB2bXgwRitsT3JrRDVja0h4U2lYRT08L0RpZ2VzdFZhbHVlPjwvUmVmZXJlbmNlPjwvU2lnbmVkSW5mbz48U2lnbmF0dXJlVmFsdWU+VHBOalhUNnFMejZ5K2RYVU5yQlRQV0hqVitWbmVkTlNNNTNqdzB5N1RxK1NndEI1OEcvWjdKTEFoNUVLRTBqRERpMHRuQ3cvdmF3bGZ6TjU3VVBxeERzZVpmb1FobmJpQzVxVm5CNmZyOVFZRTlYQ0d1OG01bXhLYno2djl3QzVkVlFEMmxXenRFT0trcnZWL1kwRFVOR2drOEZpdFhmbk1rMVpvakdnNzUvaVFHYW4vUFlWaTBNZDYvc3JLZ1IzdkVsTTlUMm5GWVNkSmlrZUFvM3cweUlEZDNPbG5PL2UyNE1GTzQxdlE3d3lIZDBZUkdDZ2I1YVU4K0ZYelJRbXlyK00rU1RpQVlHT3MwcGRPVE9RNlBleGRITndFS1YzVzJkSUExaElIR2EvUmY0WWc0d0p2aTNublJHd2Z2b1h3RlZYckNsd1d4SVV4ODR2eGtDNitnPT08L1NpZ25hdHVyZVZhbHVlPjxLZXlJbmZvPjxvOlNlY3VyaXR5VG9rZW5SZWZlcmVuY2UgeG1sbnM6bz0iaHR0cDovL2RvY3Mub2FzaXMtb3Blbi5vcmcvd3NzLzIwMDQvMDEvb2FzaXMtMjAwNDAxLXdzcy13c3NlY3VyaXR5LXNlY2V4dC0xLjAueHNkIj48bzpLZXlJZGVudGlmaWVyIFZhbHVlVHlwZT0iaHR0cDovL2RvY3Mub2FzaXMtb3Blbi5vcmcvd3NzL29hc2lzLXdzcy1zb2FwLW1lc3NhZ2Utc2VjdXJpdHktMS4xI1RodW1icHJpbnRTSEExIj5ZREJlRFNGM0Z4R2dmd3pSLzBwck11OTZoQ2M9PC9vOktleUlkZW50aWZpZXI+PC9vOlNlY3VyaXR5VG9rZW5SZWZlcmVuY2U+PC9LZXlJbmZvPjwvU2lnbmF0dXJlPjwvc2FtbDpBc3NlcnRpb24+";
      
    
     boolean isProduction = true;
@@ -124,19 +124,20 @@ public class TestVelocityProcessor {
         AuthorizeTransaction authorizeTransaction = new AuthorizeTransaction();
         authorizeTransaction.getTransaction().setType(VelocityEnums.BankcardTransaction);
         authorizeTransaction.getTransaction().getTenderData().getCardData().setCardType("Visa");
-        authorizeTransaction.getTransaction().getTenderData().getCardData().setCardholderName("ashish");
-        authorizeTransaction.getTransaction().getTenderData().getCardData().setPanNumber("4012888812348882");
-        authorizeTransaction.getTransaction().getTenderData().getCardData().setExpiryDate("0113");
-        authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().setNillable(true);
+        authorizeTransaction.getTransaction().getTenderData().getCardData().setCardholderName("vimal");
+        authorizeTransaction.getTransaction().getTenderData().getCardData().setPan("4012888812348882");
+        authorizeTransaction.getTransaction().getTenderData().getCardData().setExpire("0320");
+        authorizeTransaction.getTransaction().getTenderData().getCardData().setTrack1Data1("");
+        authorizeTransaction.getTransaction().getTenderData().getCardData().setTrack2Data2("");
         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().getCardholderName().setNillable(true);
         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setStreet("4 corporate sq");
-        authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setCity("Denver");;
+        authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setCity("Denver");
         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setStateProvince("CO");
         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setPostalCode("80202");
         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setPhone("7849477899");
         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().getEmail().setNillable(true);
         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().setCvDataProvided("Provided");
-        authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getCvData().setValue("123");;
+        authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getCvData().setValue("123");
         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getKeySerialNumber().setNillable(true);
         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getPin().setNillable(true);
         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getIdentificationInformation().setNillable(true);
@@ -145,10 +146,10 @@ public class TestVelocityProcessor {
         authorizeTransaction.getTransaction().getTransactionData().setCurrencyCode("USD");
         authorizeTransaction.getTransaction().getTransactionData().setTransactiondateTime("");
         authorizeTransaction.getTransaction().getTransactionData().setAccountType("NotSet");
-        authorizeTransaction.getTransaction().getTransactionData().setCustomerPresent("Ecommerce");
+        authorizeTransaction.getTransaction().getTransactionData().setCustomerPresent("Present");
         authorizeTransaction.getTransaction().getTransactionData().setEmployeeId("11");
         authorizeTransaction.getTransaction().getTransactionData().setEntryMode("Keyed");
-        authorizeTransaction.getTransaction().getTransactionData().setIndustryType("Ecommerce");
+        authorizeTransaction.getTransaction().getTransactionData().setIndustryType("Restaurant");
         authorizeTransaction.getTransaction().getTransactionData().setInvoiceNumber("802");
         authorizeTransaction.getTransaction().getTransactionData().setOrderNumber("629203");
         authorizeTransaction.getTransaction().getTransactionData().setTipAmount("2.00");
@@ -169,8 +170,9 @@ public class TestVelocityProcessor {
         LOG.debug("WorlflowId >>>>>>>>>>>>>" + workFlowId);
         LOG.debug("Identity Token >>>>>>>>>>>>>" + identityToken);
         try{
-//              AuthorizeTransaction objAuthorizeTransaction =getAuthorizeRequestAuthorizeTransactionInstance();
-            AuthorizeTransaction objAuthorizeTransaction = getP2PEAuthorizeRequestAuthorizeTransactionInstance();
+             
+            AuthorizeTransaction objAuthorizeTransaction =getAuthorizeRequestAuthorizeTransactionInstance();
+//          AuthorizeTransaction objAuthorizeTransaction = getP2PEAuthorizeRequestAuthorizeTransactionInstance();
             VelocityResponse objVelocityResponse = velocityProcessor.authorize(objAuthorizeTransaction);
             if(objVelocityResponse.getBankcardTransactionResponse() != null)
             {
@@ -223,10 +225,11 @@ public class TestVelocityProcessor {
         authorizeTransaction.getTransaction().getTenderData().getEncryptionKeyId().setNillable(true);
         authorizeTransaction.getTransaction().getTenderData().getSwipeStatus().setNillable(true);
         authorizeTransaction.getTransaction().getTenderData().getCardData().setCardType("MasterCard");
-        authorizeTransaction.getTransaction().getTenderData().getCardData().setPan("5428376000953619");
-        authorizeTransaction.getTransaction().getTenderData().getCardData().setExpiryDate("0320");
-        authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().setNillable(true);
-        authorizeTransaction.getTransaction().getTenderData().getEcommerceSecurityData().setNillable(true);;
+        authorizeTransaction.getTransaction().getTenderData().getCardData().setPan("");
+        authorizeTransaction.getTransaction().getTenderData().getCardData().setExpire("");
+        authorizeTransaction.getTransaction().getTenderData().getCardData().setTrack1Data1("");
+        authorizeTransaction.getTransaction().getTenderData().getCardData().setTrack2Data2("4012000033330026=09041011000012345678");
+        authorizeTransaction.getTransaction().getTenderData().getEcommerceSecurityData().setNillable(true);
         authorizeTransaction.getTransaction().getTransactionData().setAmount("2000.75");
         authorizeTransaction.getTransaction().getTransactionData().setCurrencyCode("USD");
         authorizeTransaction.getTransaction().getTransactionData().setTransactionDateTime("2013-04-03T13:50:16");
@@ -237,9 +240,9 @@ public class TestVelocityProcessor {
         authorizeTransaction.getTransaction().getTransactionData().setCashBackAmount("0.0");
         authorizeTransaction.getTransaction().getTransactionData().setCustomerPresent("Present");
         authorizeTransaction.getTransaction().getTransactionData().setEmployeeId("11");
-        authorizeTransaction.getTransaction().getTransactionData().setEntryMode("Keyed");;
+        authorizeTransaction.getTransaction().getTransactionData().setEntryMode("TrackDataFromMSR");
         authorizeTransaction.getTransaction().getTransactionData().setGoodsType("NotSet");
-        authorizeTransaction.getTransaction().getTransactionData().setIndustryType("Ecommerce");
+        authorizeTransaction.getTransaction().getTransactionData().setIndustryType("Restaurant");
         authorizeTransaction.getTransaction().getTransactionData().getInternetTransactionData().setNillable(true);
         authorizeTransaction.getTransaction().getTransactionData().setInvoiceNumber("");
         authorizeTransaction.getTransaction().getTransactionData().setOrderNumber("629203");
@@ -266,8 +269,8 @@ public class TestVelocityProcessor {
     public void testInvokeAuthorizeAndCaptureRequest()
     {
         try{
-//            AuthorizeAndCaptureTransaction objAuthorizeAndCaptureTransaction = getAuthorizeAndCaptureTransactionInstance();
-             AuthorizeAndCaptureTransaction objAuthorizeAndCaptureTransaction = getP2PEAuthorizeAndCaptureRequestAuthorizeTransactionInstance();
+            AuthorizeAndCaptureTransaction objAuthorizeAndCaptureTransaction = getAuthorizeAndCaptureTransactionInstance();
+//          AuthorizeAndCaptureTransaction objAuthorizeAndCaptureTransaction = getP2PEAuthorizeAndCaptureRequestAuthorizeTransactionInstance();
             VelocityResponse objVelocityResponse = velocityProcessor.authorizeAndCapture(objAuthorizeAndCaptureTransaction);
             LOG.debug("invokeAuthorizeAndCaptureRequest..Status >>>>>>>>>>>>" + objVelocityResponse.getBankcardTransactionResponse().getStatus());
         }catch (Exception ex)
@@ -302,9 +305,10 @@ public class TestVelocityProcessor {
         authorizeAndCaptureTransaction.getTransaction().getTenderData().getEncryptionKeyId().setNillable(true);
         authorizeAndCaptureTransaction.getTransaction().getTenderData().getSwipeStatus().setNillable(true);
         authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardData().setCardType("MasterCard");
-        authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardData().setPan("5428376000953619");
-        authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardData().setExpiryDate("0320");
-        authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().setNillable(true);
+        authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardData().setPan("");
+        authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardData().setExpire("");
+        authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardData().setTrack2Data2("");
+        authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardData().setTrack1Data1("%B4012000033330026^NAJEER/SHAIK ^0904101100001100000000123456780?");
         authorizeAndCaptureTransaction.getTransaction().getTenderData().getEcommerceSecurityData().setNillable(true);
         authorizeAndCaptureTransaction.getTransaction().getTransactionData().setAmount("2000.75");
         authorizeAndCaptureTransaction.getTransaction().getTransactionData().setCurrencyCode("USD");
@@ -316,9 +320,9 @@ public class TestVelocityProcessor {
         authorizeAndCaptureTransaction.getTransaction().getTransactionData().setCashBackAmount("0.0");
         authorizeAndCaptureTransaction.getTransaction().getTransactionData().setCustomerPresent("Present");
         authorizeAndCaptureTransaction.getTransaction().getTransactionData().setEmployeeId("11");
-        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setEntryMode("Keyed");
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setEntryMode("TrackDataFromMSR");
         authorizeAndCaptureTransaction.getTransaction().getTransactionData().setGoodsType("NotSet");
-        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setIndustryType("Ecommerce");
+        authorizeAndCaptureTransaction.getTransaction().getTransactionData().setIndustryType("Restaurant");
         authorizeAndCaptureTransaction.getTransaction().getTransactionData().getInternetTransactionData().setNillable(true);
         authorizeAndCaptureTransaction.getTransaction().getTransactionData().setInvoiceNumber("");
         authorizeAndCaptureTransaction.getTransaction().getTransactionData().setOrderNumber("629203");
@@ -520,8 +524,8 @@ public class TestVelocityProcessor {
     public void testinvokeReturnUnlinkedRequest()
     {
         try{
-//            ReturnTransaction objReturnTransaction = getReturnTransactionInstance();
-             ReturnTransaction objReturnTransaction = getP2PEReturnTransactionInstance();
+            ReturnTransaction objReturnTransaction = getReturnTransactionInstance();
+//          ReturnTransaction objReturnTransaction = getP2PEReturnTransactionInstance();
             VelocityResponse objVelocityResponse = velocityProcessor.returnUnlinked(objReturnTransaction);
             if(objVelocityResponse.getBankcardTransactionResponse() != null)
             {
@@ -574,10 +578,16 @@ public class TestVelocityProcessor {
         returnUnlinkedTransaction.getTransaction().getTenderData().getSecurePaymentAccountData().setNillable(true);
         returnUnlinkedTransaction.getTransaction().getTenderData().getEncryptionKeyId().setNillable(true);
         returnUnlinkedTransaction.getTransaction().getTenderData().getSwipeStatus().setNillable(true);
-        returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().setCardType("MasterCard");
-        returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().setPan("5428376000953619");
-        returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().setExpiryDate("0320");;
-        returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().setNillable(true);;
+        returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().setCardType("Visa");
+        returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().setPan("4012888812348882");
+        returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().setExpire("0320");
+        returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().setTrack2Data2("");
+        returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().setTrack1Data1("");
+        
+//      returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().setTrack2Data("4012000033330026=09041011000012345678");
+//      returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().setPan("");
+//      returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().setExpiryDate("");
+//        returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().setNillable(true);
         returnUnlinkedTransaction.getTransaction().getTenderData().getEcommerceSecurityData().setNillable(true);
         returnUnlinkedTransaction.getTransaction().getTransactionData().setAmount("18.00");
         returnUnlinkedTransaction.getTransaction().getTransactionData().setCurrencyCode("USD");
@@ -591,7 +601,7 @@ public class TestVelocityProcessor {
         returnUnlinkedTransaction.getTransaction().getTransactionData().setEmployeeId("11");
         returnUnlinkedTransaction.getTransaction().getTransactionData().setEntryMode("Keyed");
         returnUnlinkedTransaction.getTransaction().getTransactionData().setGoodsType("NotSet");
-        returnUnlinkedTransaction.getTransaction().getTransactionData().setIndustryType("NotSet");
+        returnUnlinkedTransaction.getTransaction().getTransactionData().setIndustryType("Restaurant");
         returnUnlinkedTransaction.getTransaction().getTransactionData().getInternetTransactionData().setNillable(true);
         returnUnlinkedTransaction.getTransaction().getTransactionData().setInvoiceNumber("802");
         returnUnlinkedTransaction.getTransaction().getTransactionData().setOrderNumber("629203");
@@ -698,19 +708,20 @@ public class TestVelocityProcessor {
         authorizeTransaction.getTransaction().getTenderData().getSecurePaymentAccountData().setValue("576F2E197D5804F2B6201FB2578DCD1DDDC7BAE692FE48E9C368E678914233561FB953DF47E29F88");
         authorizeTransaction.getTransaction().getTenderData().getEncryptionKeyId().setValue("9010010B257DC7000084");
         authorizeTransaction.getTransaction().getTenderData().getSwipeStatus().setValue("61403000");
-        authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getIdentificationInformation().setValue("10CB07E3D25EF91A5DAD25629D1E4A673F016A7B6E6C760F6AAEC985E77B02E796981928AEEE94618C34E2801F4A76E32BCEF984144D51F2");;
+        authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getIdentificationInformation().setValue("10CB07E3D25EF91A5DAD25629D1E4A673F016A7B6E6C760F6AAEC985E77B02E796981928AEEE94618C34E2801F4A76E32BCEF984144D51F2");
         authorizeTransaction.getTransaction().getTransactionData().setAmount("10.00");
         authorizeTransaction.getTransaction().getTransactionData().setCurrencyCode("USD");
         authorizeTransaction.getTransaction().getTransactionData().setTransactionDateTime("2012-12-11T10:28:11");
         authorizeTransaction.getTransaction().getTransactionData().getCampaignId().setNillable(true);
         authorizeTransaction.getTransaction().getTransactionData().setReference("xyt");
         authorizeTransaction.getTransaction().getTransactionData().setEmployeeId("11");
-        authorizeTransaction.getTransaction().getTransactionData().setEntryMode("TrackDataFromMSR");;
+        authorizeTransaction.getTransaction().getTransactionData().setEntryMode("TrackDataFromMSR");
         authorizeTransaction.getTransaction().getTransactionData().setGoodsType("NotSet");
         authorizeTransaction.getTransaction().getTransactionData().setIndustryType("Retail");
         authorizeTransaction.getTransaction().getTransactionData().setInvoiceNumber("");
         return authorizeTransaction;
     }
+    
     private AuthorizeAndCaptureTransaction getP2PEAuthorizeAndCaptureRequestAuthorizeTransactionInstance()
     {
         AuthorizeAndCaptureTransaction authorizeAndCaptureTransaction = new AuthorizeAndCaptureTransaction();
@@ -734,10 +745,10 @@ public class TestVelocityProcessor {
         authorizeAndCaptureTransaction.getTransaction().getReportingData().setDescription("a test description");
         authorizeAndCaptureTransaction.getTransaction().getReportingData().setReference("001");
         authorizeAndCaptureTransaction.getTransaction().getTenderData().getPaymentAccountDataToken().setNillable(true);
-        authorizeAndCaptureTransaction.getTransaction().getTenderData().getSecurePaymentAccountData().setValue("2540E479632A5FBACD3BDB8A3798104BC5C06105421D5E6369C7F78CBEA85647434D966CF8B4DAD1");;
+        authorizeAndCaptureTransaction.getTransaction().getTenderData().getSecurePaymentAccountData().setValue("2540E479632A5FBACD3BDB8A3798104BC5C06105421D5E6369C7F78CBEA85647434D966CF8B4DAD1");
         authorizeAndCaptureTransaction.getTransaction().getTenderData().getEncryptionKeyId().setValue("9010010B257DC7000083");
         authorizeAndCaptureTransaction.getTransaction().getTenderData().getSwipeStatus().setValue("61403000");
-        authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardSecurityData().getIdentificationInformation().setValue("10CB07E3D25EF91A5DAD25629D1E4A673F016A7B6E6C760F6AAEC985E77B02E796981928AEEE94618C34E2801F4A76E32BCEF984144D51F2");;
+        authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardSecurityData().getIdentificationInformation().setValue("10CB07E3D25EF91A5DAD25629D1E4A673F016A7B6E6C760F6AAEC985E77B02E796981928AEEE94618C34E2801F4A76E32BCEF984144D51F2");
         authorizeAndCaptureTransaction.getTransaction().getTransactionData().setAmount("100.00");
         authorizeAndCaptureTransaction.getTransaction().getTransactionData().setCurrencyCode("USD");
         authorizeAndCaptureTransaction.getTransaction().getTransactionData().setTransactionDateTime("2013-04-03T13:50:16");

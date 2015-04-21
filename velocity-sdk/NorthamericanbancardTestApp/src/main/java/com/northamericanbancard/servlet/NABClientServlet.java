@@ -360,9 +360,11 @@ public class NABClientServlet extends HttpServlet {
         authorizeTransaction.getTransaction().setType(VelocityEnums.BankcardTransaction);
         authorizeTransaction.getTransaction().getTenderData().getCardData().setCardType(req.getParameter("cardtype"));
         authorizeTransaction.getTransaction().getTenderData().getCardData().setCardholderName(req.getParameter("cardHolderName"));
-        authorizeTransaction.getTransaction().getTenderData().getCardData().setPanNumber(req.getParameter("panNumber"));
-        authorizeTransaction.getTransaction().getTenderData().getCardData().setExpiryDate(req.getParameter("month") + req.getParameter("year"));
-        authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().setNillable(true);
+        authorizeTransaction.getTransaction().getTenderData().getCardData().setPan(req.getParameter("panNumber"));
+        authorizeTransaction.getTransaction().getTenderData().getCardData().setExpire(req.getParameter("month") + req.getParameter("year"));
+//      authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().setNillable(true);
+        authorizeTransaction.getTransaction().getTenderData().getCardData().setTrack1Data1(req.getParameter("track1Data"));
+        authorizeTransaction.getTransaction().getTenderData().getCardData().setTrack2Data2(req.getParameter("track2Data"));
         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().getCardholderName().setNillable(true);
         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setStreet(req.getParameter("street"));
         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setCity(req.getParameter("city"));
@@ -371,7 +373,7 @@ public class NABClientServlet extends HttpServlet {
         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setPhone(req.getParameter("phone"));
         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().getEmail().setValue(req.getParameter("email"));
         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().setCvDataProvided("Provided");
-        authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getCvData().setValue(req.getParameter("cvc"));;
+        authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getCvData().setValue(req.getParameter("cvc"));
         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getKeySerialNumber().setNillable(true);
         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getPin().setNillable(true);
         authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getIdentificationInformation().setNillable(true);
@@ -380,13 +382,14 @@ public class NABClientServlet extends HttpServlet {
         authorizeTransaction.getTransaction().getTransactionData().setCurrencyCode(req.getParameter("currencyCode"));
         authorizeTransaction.getTransaction().getTransactionData().setTransactiondateTime(req.getParameter("transactionDateTime"));
         authorizeTransaction.getTransaction().getTransactionData().setAccountType(req.getParameter("accountType"));
-        authorizeTransaction.getTransaction().getTransactionData().setCustomerPresent(req.getParameter("industryType"));
+        authorizeTransaction.getTransaction().getTransactionData().setCustomerPresent(req.getParameter("customerpresent"));
         authorizeTransaction.getTransaction().getTransactionData().setEmployeeId(req.getParameter("empID"));
         authorizeTransaction.getTransaction().getTransactionData().setEntryMode(req.getParameter("entryMode"));
         authorizeTransaction.getTransaction().getTransactionData().setIndustryType(req.getParameter("industryType"));
         authorizeTransaction.getTransaction().getTransactionData().setInvoiceNumber("802");
         authorizeTransaction.getTransaction().getTransactionData().setOrderNumber("629203");
         authorizeTransaction.getTransaction().getTransactionData().setTipAmount(req.getParameter("tipAmount"));
+        
         return authorizeTransaction;
     }
     /**
@@ -434,8 +437,10 @@ public class NABClientServlet extends HttpServlet {
         authorizeTransaction.getTransaction().getTenderData().getSwipeStatus().setNillable(true);
         authorizeTransaction.getTransaction().getTenderData().getCardData().setCardType(req.getParameter("cardtype"));
         authorizeTransaction.getTransaction().getTenderData().getCardData().setPan(req.getParameter("panNumber"));
-        authorizeTransaction.getTransaction().getTenderData().getCardData().setExpiryDate(req.getParameter("month") + req.getParameter("year"));
-        authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().setNillable(true);
+        authorizeTransaction.getTransaction().getTenderData().getCardData().setExpire(req.getParameter("month") + req.getParameter("year"));
+        authorizeTransaction.getTransaction().getTenderData().getCardData().setTrack1Data1(req.getParameter("track1Data"));
+        authorizeTransaction.getTransaction().getTenderData().getCardData().setTrack2Data2(req.getParameter("track2Data"));
+//        authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().setNillable(true);
         authorizeTransaction.getTransaction().getTenderData().getEcommerceSecurityData().setNillable(true);
         authorizeTransaction.getTransaction().getTransactionData().setAmount(req.getParameter("amount"));
         authorizeTransaction.getTransaction().getTransactionData().setCurrencyCode(req.getParameter("currencyCode"));
@@ -506,7 +511,9 @@ public class NABClientServlet extends HttpServlet {
         authorizeAndCaptureTransaction.getTransaction().getTenderData().getSwipeStatus().setNillable(true);
         authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardData().setCardType(req.getParameter("cardtype"));
         authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardData().setPan(req.getParameter("panNumber"));
-        authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardData().setExpiryDate(req.getParameter("month") + req.getParameter("year"));
+        authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardData().setExpire(req.getParameter("month") + req.getParameter("year"));
+        authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardData().setTrack1Data1(req.getParameter("track1Data"));
+        authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardData().setTrack2Data2(req.getParameter("track2Data"));
         authorizeAndCaptureTransaction.getTransaction().getTenderData().getEcommerceSecurityData().setNillable(true);
         authorizeAndCaptureTransaction.getTransaction().getTransactionData().setAmount(req.getParameter("amount"));
         authorizeAndCaptureTransaction.getTransaction().getTransactionData().setCurrencyCode(req.getParameter("currencyCode"));
@@ -642,8 +649,10 @@ public class NABClientServlet extends HttpServlet {
         returnUnlinkedTransaction.getTransaction().getTenderData().getSwipeStatus().setNillable(true);
         returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().setCardType(req.getParameter("cardtype"));
         returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().setPan(req.getParameter("panNumber"));
-        returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().setExpiryDate(req.getParameter("month") + req.getParameter("year"));
-        returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().setNillable(true);
+        returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().setExpire(req.getParameter("month") + req.getParameter("year"));
+//      returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().setNillable(true);
+        returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().setTrack1Data1(req.getParameter("track1Data"));
+        returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().setTrack2Data2(req.getParameter("track2Data"));
         returnUnlinkedTransaction.getTransaction().getTenderData().getEcommerceSecurityData().setNillable(true);
         returnUnlinkedTransaction.getTransaction().getTransactionData().setAmount(req.getParameter("amount"));
         returnUnlinkedTransaction.getTransaction().getTransactionData().setCurrencyCode(req.getParameter("currencyCode"));

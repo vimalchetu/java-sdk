@@ -85,13 +85,50 @@ public class VerifyTransactionXML
     }
     public static void createCardData(Element element, Document doc, AuthorizeTransaction authorizeTransaction) {
         Element cardDataElement = VelocityXMLUtil.generateXMLElement(element, doc, "ns1:CardData");
+        if(authorizeTransaction.getTransaction().getTenderData().getCardData().getPan()!=null && authorizeTransaction.getTransaction().getTenderData().getCardData().getPan().length()!=0){
         VelocityXMLUtil.generateSegmentsWithText(cardDataElement, doc, "ns1:CardType", authorizeTransaction.getTransaction().getTenderData().getCardData().getCardType());
         VelocityXMLUtil.generateSegmentsWithText(cardDataElement, doc, "ns1:CardholderName", authorizeTransaction.getTransaction().getTenderData().getCardData().getCardholderName());
-        VelocityXMLUtil.generateSegmentsWithText(cardDataElement, doc, "ns1:PAN", authorizeTransaction.getTransaction().getTenderData().getCardData().getPanNumber());
-        VelocityXMLUtil.generateSegmentsWithText(cardDataElement, doc, "ns1:Expire", authorizeTransaction.getTransaction().getTenderData().getCardData().getExpiryDate());
+        VelocityXMLUtil.generateSegmentsWithText(cardDataElement, doc, "ns1:PAN", authorizeTransaction.getTransaction().getTenderData().getCardData().getPan());
+        VelocityXMLUtil.generateSegmentsWithText(cardDataElement, doc, "ns1:Expire", authorizeTransaction.getTransaction().getTenderData().getCardData().getExpire());
         VelocityXMLUtil.generateSegmentsWithTextAndAttr(cardDataElement, doc,
                 "ns1:Track1Data", authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().getValue(),
                 "i:nil", String.valueOf(authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().isNillable()));
+        VelocityXMLUtil.generateSegmentsWithTextAndAttr(cardDataElement, doc,
+              "ns1:Track2Data", authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack2Data().getValue(),
+              "i:nil", String.valueOf(authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack2Data().isNillable()));
+        } else if(authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack1Data1()!=null && authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack1Data1().length()!=0){
+            VelocityXMLUtil.generateSegmentsWithText(cardDataElement, doc, "ns1:CardType", authorizeTransaction.getTransaction().getTenderData().getCardData().getCardType());
+            VelocityXMLUtil.generateSegmentsWithText(cardDataElement, doc, "ns1:CardholderName", authorizeTransaction.getTransaction().getTenderData().getCardData().getCardholderName());
+            VelocityXMLUtil.generateSegmentsWithTextAndAttr(cardDataElement, doc,
+                    "ns1:PAN", authorizeTransaction.getTransaction().getTenderData().getCardData().getPan1().getValue(),
+                    "i:nil", String.valueOf(authorizeTransaction.getTransaction().getTenderData().getCardData().getPan1().isNillable()));
+            
+            VelocityXMLUtil.generateSegmentsWithTextAndAttr(cardDataElement, doc,
+                    "ns1:Expire", authorizeTransaction.getTransaction().getTenderData().getCardData().getExpire1().getValue(),
+                    "i:nil", String.valueOf(authorizeTransaction.getTransaction().getTenderData().getCardData().getExpire1().isNillable()));
+            
+            VelocityXMLUtil.generateSegmentsWithText(cardDataElement, doc,
+                    "ns1:Track1Data", authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack1Data1());
+            VelocityXMLUtil.generateSegmentsWithTextAndAttr(cardDataElement, doc,
+                  "ns1:Track2Data", authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack2Data().getValue(),
+                  "i:nil", String.valueOf(authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack2Data().isNillable()));
+        } else if(authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack2Data2()!=null && authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack2Data2().length()!=0){
+            VelocityXMLUtil.generateSegmentsWithText(cardDataElement, doc, "ns1:CardType", authorizeTransaction.getTransaction().getTenderData().getCardData().getCardType());
+            VelocityXMLUtil.generateSegmentsWithText(cardDataElement, doc, "ns1:CardholderName", authorizeTransaction.getTransaction().getTenderData().getCardData().getCardholderName());
+            VelocityXMLUtil.generateSegmentsWithTextAndAttr(cardDataElement, doc,
+                    "ns1:PAN", authorizeTransaction.getTransaction().getTenderData().getCardData().getPan1().getValue(),
+                    "i:nil", String.valueOf(authorizeTransaction.getTransaction().getTenderData().getCardData().getPan1().isNillable()));
+            
+            VelocityXMLUtil.generateSegmentsWithTextAndAttr(cardDataElement, doc,
+                    "ns1:Expire", authorizeTransaction.getTransaction().getTenderData().getCardData().getExpire1().getValue(),
+                    "i:nil", String.valueOf(authorizeTransaction.getTransaction().getTenderData().getCardData().getExpire1().isNillable()));
+            VelocityXMLUtil.generateSegmentsWithText(cardDataElement, doc,
+                    "ns1:Track2Data", authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack2Data2());
+            VelocityXMLUtil.generateSegmentsWithTextAndAttr(cardDataElement, doc,
+                  "ns1:Track1Data", authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().getValue(),
+                  "i:nil", String.valueOf(authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().isNillable()));
+        }
+        
     }
     public static void createCardSecurityData(Element element, Document doc, AuthorizeTransaction authorizeTransaction) {
         Element cardSecurityDataElement = VelocityXMLUtil.generateXMLElement(element, doc, "ns1:CardSecurityData");
