@@ -33,12 +33,6 @@ public class CardData {
         }
         return track1Data;
     }
-    /*
-     * public Pan getPan() { if(pan == null){ pan = new Pan(); } return pan; } public void
-     * setPan(Pan pan) { this.pan = pan; } public Expire getExpire() { if(expire == null){ expire =
-     * new Expire(); } return expire; } public void setExpire(Expire expire) { this.expire = expire;
-     * }
-     */
     public void setTrack1Data(Track1Data track1Data) {
         this.track1Data = track1Data;
     }
@@ -48,10 +42,6 @@ public class CardData {
     public void setCardholderName(String cardholderName) {
         this.cardholderName = cardholderName;
     }
-    /*
-     * public String getPanNumber() { return panNumber; } public void setPanNumber(String panNumber)
-     * { this.panNumber = panNumber; }
-     */
     public Track2Data getTrack2Data() {
         if(track2Data == null){
             track2Data = new Track2Data();
@@ -62,10 +52,6 @@ public class CardData {
         this.track2Data =
                 track2Data;
     }
-    /*
-     * public String getTrack2Data() { return track2Data; } public void setTrack2Data(String
-     * track2Data) { this.track2Data = track2Data; }
-     */
     public String getPan() {
         return pan;
     }
@@ -112,16 +98,6 @@ public class CardData {
     public void setPan1(Pan pan1) {
         this.pan1 = pan1;
     }
-    // public Track2Data getTrack2Data() {
-    // if(track2Data == null){
-    // track2Data = new Track2Data();
-    // }
-    // return track2Data;
-    // }
-    //
-    // public void setTrack2Data(Track2Data track2Data) {
-    // this.track2Data = track2Data;
-    // }
     public Expire getExpire1() {
         if(expire1 == null){
             expire1 = new Expire();
