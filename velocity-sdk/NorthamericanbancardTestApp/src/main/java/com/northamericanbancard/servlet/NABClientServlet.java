@@ -81,7 +81,7 @@ public class NABClientServlet extends HttpServlet {
                 }
                 session.setAttribute("verifyRequestXML", velocityProcessor.getTxnRequestLog());
                 session.setAttribute("verifyResponseXML", velocityProcessor.getTxnResponseLog());
-                session.setAttribute("txnName", null);
+                session.setAttribute("txnName", "Verify");
                 LOG.debug("VelocityResponse >>>>>>>>>> " + velocityResponse);
             }
             /* Invokes the Authorize transaction from the VelocityTestApp */
@@ -196,7 +196,6 @@ public class NABClientServlet extends HttpServlet {
                 ChangeTransaction objChangeTransaction = getCaptureTransactionInstance(req);
                 objChangeTransaction.getDifferenceData().setTransactionId(objVelocityResponse.getBankcardTransactionResponse().getTransactionId());
                 velocityResponse = velocityProcessor.capture(objChangeTransaction);
-              
                 session.setAttribute("txnName", "Capture");
                 LOG.debug("capture VelocityResponse >>>>>>>>>> " + velocityResponse);
             }
@@ -341,6 +340,7 @@ public class NABClientServlet extends HttpServlet {
             req.setAttribute("message", velocityResponse.getMessage());
         }catch (Exception e){
             LOG.error("service", e);
+            req.setAttribute("ErrorMessage",e);
         }
         RequestDispatcher view = req.getRequestDispatcher("result.jsp");
         view.forward(req, resp);

@@ -412,7 +412,7 @@ public class VelocityProcessor implements IVelocityProcessor {
         }
         return null;
     }
-    
+
     /**
      * This method queries the specified transactions and returns both summary details
      * and full transaction details.
@@ -459,7 +459,7 @@ public class VelocityProcessor implements IVelocityProcessor {
     }
 
     /**
-     * This method is used to flag all transactions for settlement 
+     * This method is used to flag all transactions for settlement
      * that have been successfully authorized using the Authorize operation.
      */
     public VelocityResponse captureAll(CaptureAll captureAllTransaction) throws VelocityIllegalArgumentException, VelocityException, VelocityNotFoundException, VelocityRestInvokeException {
@@ -515,12 +515,17 @@ public class VelocityProcessor implements IVelocityProcessor {
                 return velocityResponse;
             }
             this.txnResponseLog = velocityResponse.getResult();
-            if(velocityResponse.getResult() != null && (velocityResponse.getResult().contains(VelocityConstants.ERROR_RESPONSE) ||
-                    velocityResponse.getStatusCode() == VelocityConstants.SERVER_BAD_REQUEST_STATUS_CODE)){
-                // convert velocity server response to ErrorResponse Object
-                ErrorResponse errorResponse = CommonUtils.generateErrorResponse(velocityResponse.getResult());
-                velocityResponse.setErrorResponse(errorResponse);
+            if(velocityResponse.getResult() != null && (velocityResponse.getResult().contains(VelocityConstants.ERROR_RESPONSE))){
+                if(velocityResponse.getStatusCode() != VelocityConstants.SERVER_BAD_REQUEST_STATUS_CODE){
+                    // convert velocity server response to ErrorResponse Object
+                    ErrorResponse errorResponse = CommonUtils.generateErrorResponse(velocityResponse.getResult());
+                    velocityResponse.setErrorResponse(errorResponse);
+                }
                 velocityResponse.setError(Boolean.TRUE);
+            }
+            if(velocityResponse.getStatusCode() == VelocityConstants.SERVER_BAD_REQUEST_STATUS_CODE){
+                velocityResponse.setError(Boolean.TRUE);
+                throw new VelocityRestInvokeException(velocityResponse.getResult());
             }
             return velocityResponse;
         }else{
