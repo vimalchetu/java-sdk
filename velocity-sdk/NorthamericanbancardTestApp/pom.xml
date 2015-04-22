@@ -26,4 +26,8 @@
 		</dependency>
 
 	</dependencies>
+	<build>
+		<finalName>JavaTestApp</finalName>
+	</build>
+
 </project>
