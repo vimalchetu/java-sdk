@@ -340,7 +340,7 @@ public class NABClientServlet extends HttpServlet {
             req.setAttribute("message", velocityResponse.getMessage());
         }catch (Exception e){
             LOG.error("service", e);
-            req.setAttribute("ErrorMessage",e);
+            req.setAttribute("ErrorMessage",(e.getMessage().substring(e.getMessage().indexOf("<"))).trim());
         }
         RequestDispatcher view = req.getRequestDispatcher("result.jsp");
         view.forward(req, resp);

@@ -713,13 +713,8 @@
 	</c:if>
 	<div class="clear"></div>
 	<c:if test="${requestScope.ErrorMessage!=null}">
-		<div>
-			<h4 style="color: red; font-size: 14px;">Error In Response!
-				Please check input Data</h4>
-			<br />
-			<p style="font-size: 11px">
-				<c:out value="${requestScope.ErrorMessage}" />
-			</p>
+		<div style="font-size: 12px;">
+		${requestScope.ErrorMessage}
 			<div class="clear"></div>
 		</div>
 	</c:if>
