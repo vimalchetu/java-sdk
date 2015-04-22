@@ -516,14 +516,12 @@ public class VelocityProcessor implements IVelocityProcessor {
             }
             this.txnResponseLog = velocityResponse.getResult();
             if(velocityResponse.getResult() != null && (velocityResponse.getResult().contains(VelocityConstants.ERROR_RESPONSE))){
-                if(velocityResponse.getStatusCode() != VelocityConstants.SERVER_BAD_REQUEST_STATUS_CODE){
                     // convert velocity server response to ErrorResponse Object
                     ErrorResponse errorResponse = CommonUtils.generateErrorResponse(velocityResponse.getResult());
                     velocityResponse.setErrorResponse(errorResponse);
-                }
                 velocityResponse.setError(Boolean.TRUE);
             }
-            if(velocityResponse.getStatusCode() == VelocityConstants.SERVER_BAD_REQUEST_STATUS_CODE){
+            if(velocityResponse.getStatusCode() == VelocityConstants.SERVER_BAD_REQUEST_STATUS_CODE &&  (!velocityResponse.getResult().contains(VelocityConstants.ERROR_RESPONSE))){
                 velocityResponse.setError(Boolean.TRUE);
                 throw new VelocityRestInvokeException(velocityResponse.getResult());
             }
