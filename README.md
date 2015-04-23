@@ -501,7 +501,123 @@ This class provides the implementation of the following methods: <br/>
         authorizeTransaction.getTransaction().getTransactionData().setInvoiceNumber("");
         
         return authorizeTransaction;
-       }	   
+       }
+       
+ <b>Authorize with Swipe Data :</b>
+
+
+    private AuthorizeTransaction getAuthorizeRequestAuthorizeTransactionInstance()
+    {
+      AuthorizeTransaction authorizeTransaction = new AuthorizeTransaction();
+      
+      // Setting the values for Authorize XML
+    
+    authorizeTransaction.getTransaction().setType(VelocityEnums.BankcardTransaction);
+   
+    authorizeTransaction.getTransaction().getCustomerData().getBillingData().getName().setNillable(true);
+    
+    authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setStreet1("4 corporate sq");
+   
+    authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().getStreet2().setNillable(true);
+  
+    authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setCity("Denver");
+   
+    authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setStateProvince("CO");
+   
+    authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setPostalCode("80202");
+    
+    authorizeTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setCountryCode("USA");
+    
+    authorizeTransaction.getTransaction().getCustomerData().getBillingData().setBusinessName("MomCorp");
+    
+    authorizeTransaction.getTransaction().getCustomerData().getBillingData().getPhone().setNillable(true);
+    
+    authorizeTransaction.getTransaction().getCustomerData().getBillingData().getFax().setNillable(true);
+    
+    authorizeTransaction.getTransaction().getCustomerData().getBillingData().getEmail().setNillable(true);
+    
+    authorizeTransaction.getTransaction().getCustomerData().setCustomerId("cust123x");
+    
+    authorizeTransaction.getTransaction().getCustomerData().getCustomerTaxId().setNillable(true);      
+    
+    authorizeTransaction.getTransaction().getCustomerData().getShippingData().setNillable(true);
+        
+    authorizeTransaction.getTransaction().getReportingData().setComment("a test comment");
+        
+    authorizeTransaction.getTransaction().getReportingData().setDescription("a test description");
+    
+    authorizeTransaction.getTransaction().getReportingData().setReference("001");
+    
+    authorizeTransaction.getTransaction().getTenderData().getPaymentAccountDataToken().setNillable(true); 
+    
+    authorizeTransaction.getTransaction().getTenderData().getSecurePaymentAccountData().setNillable(true);
+    
+    authorizeTransaction.getTransaction().getTenderData().getEncryptionKeyId().setNillable(true);
+    
+    authorizeTransaction.getTransaction().getTenderData().getSwipeStatus().setNillable(true);
+    
+    authorizeTransaction.getTransaction().getTenderData().getCardData().setCardType("MasterCard");
+    
+    authorizeTransaction.getTransaction().getTenderData().getCardData().setTrack1Data1("%B4012000033330026^VIMAL/KUMAR^0904101100001100000000123456780?"); 
+    
+    authorizeTransaction.getTransaction().getTenderData().getCardData().setTrack2Data2("4012000033330026=09041011000012345678"); 
+    
+    authorizeTransaction.getTransaction().getTenderData().getEcommerceSecurityData().setNillable(true);
+    
+    authorizeTransaction.getTransaction().getTransactionData().setAmount("2000.75");
+    
+    authorizeTransaction.getTransaction().getTransactionData().setCurrencyCode("USD");
+    
+    authorizeTransaction.getTransaction().getTransactionData().setTransactionDateTime("2013-04-03T13:50:16");
+    
+    authorizeTransaction.getTransaction().getTransactionData().getCampaignId().setNillable(true);
+    
+    authorizeTransaction.getTransaction().getTransactionData().setReference("xyt");
+    
+    authorizeTransaction.getTransaction().getTransactionData().setAccountType("NotSet");
+    
+    authorizeTransaction.getTransaction().getTransactionData().getApprovalCode().setNillable(true);
+    
+    authorizeTransaction.getTransaction().getTransactionData().setCashBackAmount("0.0");
+    
+    authorizeTransaction.getTransaction().getTransactionData().setCustomerPresent("Present");
+    
+    authorizeTransaction.getTransaction().getTransactionData().setEmployeeId("11");
+    
+    authorizeTransaction.getTransaction().getTransactionData().setEntryMode("TrackDataFromMSR");
+    
+    authorizeTransaction.getTransaction().getTransactionData().setGoodsType("NotSet");
+    
+    authorizeTransaction.getTransaction().getTransactionData().setIndustryType("Restaurant");
+    
+    authorizeTransaction.getTransaction().getTransactionData().getInternetTransactionData().setNillable(true);
+    
+    authorizeTransaction.getTransaction().getTransactionData().setInvoiceNumber("");
+    
+    authorizeTransaction.getTransaction().getTransactionData().setOrderNumber("629203");
+    
+    authorizeTransaction.getTransaction().getTransactionData().setPartialShipment(false);
+    
+    authorizeTransaction.getTransaction().getTransactionData().setSignatureCaptured(false);
+    
+    authorizeTransaction.getTransaction().getTransactionData().setFeeAmount("1000.05");
+    
+    authorizeTransaction.getTransaction().getTransactionData().getTerminalId().setNillable(true);
+    
+    authorizeTransaction.getTransaction().getTransactionData().getLaneId().setNillable(true);
+    
+    authorizeTransaction.getTransaction().getTransactionData().setTipAmount("0.0"); 
+    
+    authorizeTransaction.getTransaction().getTransactionData().getBatchAssignment().setNillable(true);
+    
+    authorizeTransaction.getTransaction().getTransactionData().setPartialApprovalCapable("NotSet"); 
+    
+    authorizeTransaction.getTransaction().getTransactionData().getScoreThreshold().setNillable(true);
+    
+    authorizeTransaction.getTransaction().getTransactionData().setQuasiCash(false);
+        
+     return authorizeTransaction;
+    }
             
 
 <h2>1.4 authorizeAndCapture(...) </h2><br/>
