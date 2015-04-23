@@ -883,6 +883,119 @@ AuthorizeAndCaptureTransaction <br/>
         return authorizeAndCaptureTransaction;
       }
    
+<b>AuthorizeAndCapture with Swipe Data :</b>
+
+    private AuthorizeAndCaptureTransaction getAuthorizeAndCaptureTransactionInstance() {
+    
+    AuthorizeAndCaptureTransaction authorizeAndCaptureTransaction = new     AuthorizeAndCaptureTransaction();
+    // Setting the values for AuthorizeAndCapture XML
+    
+    authorizeAndCaptureTransaction.getTransaction().setType(VelocityEnums.BankcardTransaction);
+    
+    authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().getName().setNillable(true);
+    
+    authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setStreet1("4 corporate sq");
+    
+    authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().getAddress().getStreet2().setNillable(true); 
+    
+    authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setCity("Denver");
+    
+    authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setStateProvince("CO");
+    
+    authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setPostalCode("80202");
+    
+    authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setCountryCode("USA");
+    
+    authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().setBusinessName("MomCorp");
+    
+    authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().getPhone().setNillable(true);
+    
+    authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().getFax().setNillable(true);
+    
+    authorizeAndCaptureTransaction.getTransaction().getCustomerData().getBillingData().getEmail().setNillable(true);
+    
+    authorizeAndCaptureTransaction.getTransaction().getCustomerData().setCustomerId("cust123x");
+    
+    authorizeAndCaptureTransaction.getTransaction().getCustomerData().getCustomerTaxId().setNillable(true);
+    
+    authorizeAndCaptureTransaction.getTransaction().getCustomerData().getShippingData().setNillable(true);
+    
+    authorizeAndCaptureTransaction.getTransaction().getReportingData().setComment("a test comment");
+    
+    authorizeAndCaptureTransaction.getTransaction().getReportingData().setDescription("a test description");
+    
+    authorizeAndCaptureTransaction.getTransaction().getReportingData().setReference("001");
+    
+    authorizeAndCaptureTransaction.getTransaction().getTenderData().getPaymentAccountDataToken().setValue("");
+    
+    authorizeAndCaptureTransaction.getTransaction().getTenderData().getSecurePaymentAccountData().setNillable(true);
+    
+    authorizeAndCaptureTransaction.getTransaction().getTenderData().getEncryptionKeyId().setNillable(true);
+    
+    authorizeAndCaptureTransaction.getTransaction().getTenderData().getSwipeStatus().setNillable(true);
+    
+    authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardData().setCardType("MasterCard"); 
+    
+    authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardData().setTrack2Data2("4012000033330026=09041011000012345678");
+    
+    authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardData().setTrack1Data1("%B4012000033330026^VIMAL/KUMAR ^0904101100001100000000123456780?");
+    
+    authorizeAndCaptureTransaction.getTransaction().getTenderData().getEcommerceSecurityData().setNillable(true);
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().setAmount("2000.75");
+   
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().setCurrencyCode("USD");
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().setTransactionDateTime("2013-04-03T13:50:16");
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().getCampaignId().setNillable(true);
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().setReference("xyt");
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().setAccountType("NotSet");
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().getApprovalCode().setNillable(true);
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().setCashBackAmount("0.0");
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().setCustomerPresent("Present");
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().setEmployeeId("11");   
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().setEntryMode("TrackDataFromMSR");
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().setGoodsType("NotSet");
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().setIndustryType("Restaurant");
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().getInternetTransactionData().setNillable(true);
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().setInvoiceNumber("");
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().setOrderNumber("629203");
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().setPartialShipment(false);
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().setSignatureCaptured(false);
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().setFeeAmount("0.0");
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().getTerminalId().setNillable(true);
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().getLaneId().setNillable(true);
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().setTipAmount("0.0");
+   
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().getBatchAssignment().setNillable(true);
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().setPartialApprovalCapable("NotSet");
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().getScoreThreshold().setNillable(true);
+    
+    authorizeAndCaptureTransaction.getTransaction().getTransactionData().setQuasiCash(false);
+    
+    return authorizeAndCaptureTransaction;
+    }
 	
 <h2>1.5 capture(...) </h2><br/>
 
