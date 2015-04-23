@@ -193,6 +193,71 @@ This class provides the implementation of the following methods: <br/>
     return authorizeTransaction;
     
     }  
+    
+ <b>Verify with Swipe Data :</b>
+
+    private AuthorizeTransaction getVerifyRequestAuthorizeTransactionInstance()
+    {
+     AuthorizeTransaction authorizeTransaction = new AuthorizeTransaction();
+        
+     authorizeTransaction.getTransaction().setType(VelocityEnums.BankcardTransaction);
+        
+     authorizeTransaction.getTransaction().getTenderData().getCardData().setCardType("Visa");
+     
+     authorizeTransaction.getTransaction().getTenderData().getCardData().setTrack1Data1("%B4012000033330026^VIMAL/KUMAR^0904101100001100000000123456780?");
+   
+     authorizeTransaction.getTransaction().getTenderData().getCardData().setTrack2Data2("4012000033330026=09041011000012345678");
+    
+     authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().getCardholderName().setNillable(true);
+        
+     authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setStreet("4 corporate sq");
+             
+     authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setCity("Denver");
+        
+     authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setStateProvince("CO");
+        
+     authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setPostalCode("80202");
+        
+     authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().setPhone("7849477899");
+        
+     authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().getEmail().setNillable(true);
+        
+     authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().setCvDataProvided("Provided");
+        
+     authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getCvData().setValue("123");
+        
+     authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getKeySerialNumber().setNillable(true);
+        
+     authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getPin().setNillable(true);
+        
+     authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getIdentificationInformation().setNillable(true);
+       
+     authorizeTransaction.getTransaction().getTenderData().getEcommerceSecurityData().setNillable(true);
+        
+     authorizeTransaction.getTransaction().getTransactionData().setAmount("10000.00");
+        
+     authorizeTransaction.getTransaction().getTransactionData().setCurrencyCode("USD");
+        
+     authorizeTransaction.getTransaction().getTransactionData().setTransactiondateTime("");
+        
+     authorizeTransaction.getTransaction().getTransactionData().setAccountType("NotSet");
+        
+     authorizeTransaction.getTransaction().getTransactionData().setCustomerPresent("Present");
+        
+     authorizeTransaction.getTransaction().getTransactionData().setEmployeeId("11");
+        
+     authorizeTransaction.getTransaction().getTransactionData().setEntryMode("TrackDataFromMSR");
+        
+     authorizeTransaction.getTransaction().getTransactionData().setIndustryType("Restaurant");
+        
+     authorizeTransaction.getTransaction().getTransactionData().setInvoiceNumber("802");
+        
+     authorizeTransaction.getTransaction().getTransactionData().setOrderNumber("629203");
+        
+     authorizeTransaction.getTransaction().getTransactionData().setTipAmount("2.00");
+        
+     return authorizeTransaction;
+    }
 
 <h2>1.3 authorize(...) </h2><br/>
 
