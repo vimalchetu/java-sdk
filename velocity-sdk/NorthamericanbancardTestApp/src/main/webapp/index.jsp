@@ -268,7 +268,9 @@
                     <label>Card Type</label>
                     <select name="cardtype" id="cardtype" />
                     <option value="Visa">Visa</option>
-                    <option value="Master">Master</option>
+                    <option value="MasterCard">MasterCard</option>
+                     <option value="Discover">Discover</option>
+                      <option value="AmericanExpress">AmericanExpress</option>
                     </select>
                 </div>
                 
