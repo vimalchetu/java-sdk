@@ -141,8 +141,8 @@ This class provides the implementation of the following methods: <br/>
 	authorizeTransaction.getTransaction().getTenderData().getCardData().setPanNumber("4012888812348882");
 	
 	authorizeTransaction.getTransaction().getTenderData().getCardData().setExpiryDate("0113");
-		
-	authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().setNillable(true);
+	
+	authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack2Data().setNillable(true);
 
     authorizeTransaction.getTransaction().getTenderData().getCardSecurityData().getAvsData().getCardholderName().setNillable(true);
 
@@ -367,6 +367,8 @@ This class provides the implementation of the following methods: <br/>
         authorizeTransaction.getTransaction().getTenderData().getCardData().setExpiryDate("0320");
 	
         authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().setNillable(true);
+        
+        authorizeTransaction.getTransaction().getTenderData().getCardData().getTrack2Data().setNillable(true);
      
         authorizeTransaction.getTransaction().getTenderData().getEcommerceSecurityData().setNillable(true);;
 		
@@ -715,7 +717,9 @@ AuthorizeAndCaptureTransaction <br/>
 		
     authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardData().setExpiryDate("0320");
 		
-    authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().setNillable(true);;
+    authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().setNillable(true);
+    
+    authorizeAndCaptureTransaction.getTransaction().getTenderData().getCardData().getTrack2Data().setNillable(true);
 		
     authorizeAndCaptureTransaction.getTransaction().getTenderData().getEcommerceSecurityData().setNillable(true);
 		
@@ -1396,7 +1400,9 @@ AuthorizeAndCaptureTransaction <br/>
 		
 	returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().setExpire("0320");;
 	
-	returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().setNillable(true);;
+	returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().getTrack1Data().setNillable(true);
+	
+	returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().getTrack2Data().setNillable(true);
 	
 	returnUnlinkedTransaction.getTransaction().getTenderData().getEcommerceSecurityData().setNillable(true);
 		
