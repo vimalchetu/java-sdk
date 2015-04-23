@@ -1566,6 +1566,124 @@ AuthorizeAndCaptureTransaction <br/>
         return returnUnlinkedTransaction;
      }	
      
+ <b>ReturnUnlinked with Swipe Data :</b>
+
+    private ReturnTransaction getReturnTransactionInstance()
+    {
+        ReturnTransaction returnUnlinkedTransaction = new ReturnTransaction();
+       
+        /* Setting the values for ReturnUnlinked XML */
+        
+        returnUnlinkedTransaction.getTransaction().setType(VelocityEnums.BankcardTransaction);
+        
+        returnUnlinkedTransaction.getBatchIds().setNillable(true);
+        
+        returnUnlinkedTransaction.getTransaction().getCustomerData().getBillingData().getName().setNillable(true);
+        
+        returnUnlinkedTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setStreet1("1400 16th St");
+        
+        returnUnlinkedTransaction.getTransaction().getCustomerData().getBillingData().getAddress().getStreet2().setNillable(true);
+        
+        returnUnlinkedTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setCity("Denver");
+        
+        returnUnlinkedTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setStateProvince("CO");
+        
+        returnUnlinkedTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setPostalCode("80202");
+        
+        returnUnlinkedTransaction.getTransaction().getCustomerData().getBillingData().getAddress().setCountryCode("USA");
+        
+        returnUnlinkedTransaction.getTransaction().getCustomerData().getBillingData().setBusinessName("MomCorp");
+        
+        returnUnlinkedTransaction.getTransaction().getCustomerData().getBillingData().getPhone().setNillable(true);
+        
+        returnUnlinkedTransaction.getTransaction().getCustomerData().getBillingData().getFax().setNillable(true);
+        
+        returnUnlinkedTransaction.getTransaction().getCustomerData().getBillingData().getEmail().setNillable(true);
+        
+        returnUnlinkedTransaction.getTransaction().getCustomerData().setCustomerId("cust123x");
+        
+        returnUnlinkedTransaction.getTransaction().getCustomerData().getCustomerTaxId().setNillable(true);
+        
+        returnUnlinkedTransaction.getTransaction().getCustomerData().getShippingData().setNillable(true);
+        
+        returnUnlinkedTransaction.getTransaction().getReportingData().setComment("a test comment");
+        
+        returnUnlinkedTransaction.getTransaction().getReportingData().setDescription("a test description");
+        
+        returnUnlinkedTransaction.getTransaction().getReportingData().setReference("001");
+        
+        returnUnlinkedTransaction.getTransaction().getTenderData().getPaymentAccountDataToken().setNillable(true);
+        
+        returnUnlinkedTransaction.getTransaction().getTenderData().getSecurePaymentAccountData().setNillable(true);
+        
+        returnUnlinkedTransaction.getTransaction().getTenderData().getEncryptionKeyId().setNillable(true);
+        
+        returnUnlinkedTransaction.getTransaction().getTenderData().getSwipeStatus().setNillable(true);
+        
+        returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().setCardType("Visa");
+        
+        returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().setTrack1Data1("%B4012000033330026^VIMAL/KUMAR ^0904101100001100000000123456780?");
+        
+        returnUnlinkedTransaction.getTransaction().getTenderData().getCardData().setTrack2Data("4012000033330026=09041011000012345678");
+        
+        returnUnlinkedTransaction.getTransaction().getTenderData().getEcommerceSecurityData().setNillable(true);
+     
+        returnUnlinkedTransaction.getTransaction().getTransactionData().setAmount("18.00");
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().setCurrencyCode("USD");
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().setTransactionDateTime("2013-04-03T13:50:16");
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().getCampaignId().setNillable(true);
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().setReference("xyt");
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().setAccountType("NotSet");
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().getApprovalCode().setNillable(true);
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().setCashBackAmount("0.0");
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().setCustomerPresent("Present");
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().setEmployeeId("11");
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().setEntryMode("TrackDataFromMSR");
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().setGoodsType("NotSet");
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().setIndustryType("Restaurant");
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().getInternetTransactionData().setNillable(true);
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().setInvoiceNumber("802");
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().setOrderNumber("629203");
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().setPartialShipment(false);
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().setSignatureCaptured(false);
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().setFeeAmount("0.0");
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().getTerminalId().setNillable(true);
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().getLaneId().setNillable(true);
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().setTipAmount("0.0");
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().getBatchAssignment().setNillable(true);
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().setPartialApprovalCapable("NotSet");
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().getScoreThreshold().setNillable(true);
+        
+        returnUnlinkedTransaction.getTransaction().getTransactionData().setQuasiCash(false);
+        
+        return returnUnlinkedTransaction;
+    }
+     
+     
 <h2>1.10 queryTransactionsDetail(...) </h2><br/>
 
 The method queries the specified transactions and returns both summary details
