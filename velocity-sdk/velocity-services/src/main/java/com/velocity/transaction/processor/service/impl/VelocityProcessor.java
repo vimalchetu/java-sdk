@@ -519,7 +519,7 @@ public class VelocityProcessor implements IVelocityProcessor {
                     // convert velocity server response to ErrorResponse Object
                     ErrorResponse errorResponse = CommonUtils.generateErrorResponse(velocityResponse.getResult());
                     velocityResponse.setErrorResponse(errorResponse);
-                velocityResponse.setError(Boolean.TRUE);
+                    velocityResponse.setError(Boolean.TRUE);
             }
             if(velocityResponse.getStatusCode() == VelocityConstants.SERVER_BAD_REQUEST_STATUS_CODE &&  (!velocityResponse.getResult().contains(VelocityConstants.ERROR_RESPONSE))){
                 velocityResponse.setError(Boolean.TRUE);

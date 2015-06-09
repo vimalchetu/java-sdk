@@ -81,8 +81,8 @@ public class VelocityConnection {
                 velocityResponse.setMessage(response.getStatusLine().getReasonPhrase());
                 velocityResponse.setResult(EntityUtils.toString(responseEntity));
                 LOG.debug("VelocityResponse...>>>" + velocityResponse);
-                return velocityResponse;
             }
+            return velocityResponse;
         }catch (final ClientProtocolException e){
             LOG.error("Error occured to invoking Velocity API", e);
         }catch (final IOException e){
